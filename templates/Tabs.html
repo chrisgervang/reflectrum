@@ -1,0 +1,90 @@
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+  <style>
+    @font-face {
+      font-family: sf;
+      src: url({{ url_for('static', filename='SF-UI-Text-Regular.otf') }});
+      font-weight: normal;
+    }
+    body {
+      background-color: black;
+      font-family: sf;
+      font-size: 24;
+      line-height: 200%;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+      -webkit-transition: font-size 0.5s; /* Safari */
+      transition: font-size 0.5s;
+    }
+
+    .selected {
+      font-size: 48;
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs-group">
+    <div id="gm" class="selected">
+      <a href="/goodmorning" >Goodmorning</a>
+    </div>
+    <div id="cal">
+      <a href="/calendar" >Calendar</a>
+    </div>
+    <div id="quo">
+      <a href="/quotes" >Quotes</a>
+    </div>
+    <div id="map">
+      <a href="/map" >Map</a>
+    </div>
+    <div id="clk">
+      <a href="/clock" >Clock</a>
+    </div>
+    <div id="scr">
+      <a href="/screensaver" >Screensaver</a>
+    </div>
+    <div id="help">
+      <a href="/help" >Help</a>
+    </div>
+  </div>
+  <script>
+    var sections = ["gm", "cal", "quo", "map", "clk", "scr", "help"];
+    var selection = 0;
+    var count = 0;
+    var delta = 100;
+    $(function(){
+      $(document).on('mousewheel', function(event){
+        // console.log(event.deltaX, event.deltaY, event.deltaFactor);
+
+        count += event.deltaY;
+
+        if (count >= 0) {
+          count = 0;
+        }
+
+        if (count <= -(sections.length - 1)*100) {
+          count = -(sections.length - 1)*100
+        }
+        var s = Math.abs(parseInt(count / 100))
+
+        if (s !== selection) {
+          // change classes. All for
+          $('#'+sections[s]).addClass("selected")
+          // console.log(s, $('#'+sections[s]))
+          for (var i = 0; i < sections.length; i++) {
+            if(i !== s) {
+              $('#'+sections[i]).removeClass("selected")
+            }
+          }
+          selection = s
+        }
+        // console.log(count);
+      });
+    });
+  </script>
+</body>

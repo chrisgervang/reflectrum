@@ -1,0 +1,199 @@
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <style>
+  body, html {
+  height:100%; width:100%;
+  margin:0; padding:0;
+}
+body {
+  /*background:#dfd8c8;*/
+  background:#000;
+}
+#clock{
+  width:400px; height:400px;
+  background:#f2f2f4;
+  border-radius:26px;
+  position:absolute;
+  left:50%; top:50%;
+  margin:-200px;
+  box-shadow:
+    0 2px 0 #dfd8c8,
+    0 4px 0 #eae4d6,
+    0 5px 7px rgba(0,0,0,0.1),
+    0 5px 1px rgba(0,0,0,0.01),
+    0 10px 2px rgba(0,0,0,0.01),
+    0 15px 3px rgba(0,0,0,0.01),
+    0 20px 4px rgba(0,0,0,0.01),
+    0 25px 5px rgba(0,0,0,0.01),
+    0 30px 6px rgba(0,0,0,0.01),
+    0 35px 7px rgba(0,0,0,0.01),
+    0 40px 8px rgba(0,0,0,0.01),
+    0 45px 9px rgba(0,0,0,0.01),
+    0 50px 10px rgba(0,0,0,0.01);
+  background:linear-gradient(#fbfdfa 0%, #f0efed 100%);
+}
+#clock .decoration {
+  position:absolute;
+  left:50px; right:50px;
+  top:50px; bottom:50px;
+  border-radius:6px;
+  box-shadow:
+    0 4px 0 #f7f6f4,
+    0 -4px 0 #fbfbfb,
+    inset 0 10px 30px rgba(0,0,0,0.08);
+  background:linear-gradient(#e4e3e1 0%, #ebe7e4 100%);
+}
+#clock .decoration span {
+  display:block;
+  position:absolute;
+  background:#a98c6b;
+  box-shadow: 0 0px 4px rgba(0,0,0,0.2);
+  margin:-6px;
+}
+#clock .decoration .top {
+  width:12px; height:32px;
+  left:50%; top:16px;
+}
+#clock .decoration .bottom {
+  width:12px; height:32px;
+  left:50%; bottom:16px;
+}
+#clock .decoration .left {
+  width:32px; height:12px;
+  left:16px; bottom:50%;
+}
+#clock .decoration .right {
+  width:32px; height:12px;
+  right:16px; bottom:50%;
+}
+
+#clock .pointers {
+  z-index:2;
+}
+#clock .pointers span {
+  display:block;
+  position:absolute;
+  z-index:2;
+  width:100%; height:100%;
+}
+#clock .pointers span:after {
+  display:block;
+  position:absolute;
+  content:'';
+  background:#26231e;
+  width:200px; height:4px;
+  left:200px; top:200px;
+  border-radius:10px;
+}
+#clock .pointers .houre:after {
+  width:90px; height:12px;
+  margin:-6px 0 0 -20px;
+}
+#clock .pointers .minute:after {
+  width:136px; height:8px;
+  margin:-4px 0 0 -24px;
+}
+#clock .pointers .second:after {
+  width:146px; height:4px;
+  margin:-2px 0 0 -40px;
+  background:#ea593c;
+}
+#clock .pointers .second:before {
+  position:absolute;
+  content:'';
+  border-radius:10px;
+  width:12px; height:12px;
+  margin:-6px;
+  left:50%; top:50%;
+  background:#ea593c;
+}
+#clock .pointers.shadow {
+  margin-top:8px;
+  z-index:1;
+}
+#clock .pointers.shadow span {
+  z-index:1;
+}
+#clock .pointers.shadow > span:after,
+#clock .pointers.shadow > span:before {
+  background:#000 !important;
+  opacity:0.20;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+}
+
+#clock.aminate .pointers span {
+   transition:transform 1s ease;
+}
+  </style>
+</head>
+
+<body>
+</body>
+
+<script type="text/jsx">
+var Clock = React.createClass({
+  render: function(){
+    return <div id="clock">
+      <div className="pointers">
+        <span className="houre"></span>
+        <span className="minute"></span>
+        <span className="second"></span>
+      </div>
+      <div className="pointers shadow">
+        <span className="houre"></span>
+        <span className="minute"></span>
+        <span className="second"></span>
+      </div>
+      <div className="decoration">
+        <span className="top"></span>
+        <span className="bottom"></span>
+        <span className="right"></span>
+        <span className="left"></span>
+      </div>
+    </div>
+  }
+});
+
+var element = React.createElement(Clock);
+
+React.render(element, document.body);
+
+$(function(){
+  $('.houre, .minute, .second').data('plus-deg', 0)
+  calcTime();
+  $('#clock').addClass('aminate');
+  var int = setInterval(calcTime, 1000);
+  function calcTime () {
+    var d = new Date();
+    var h = d.getHours();
+    rotate($('.houre'),  ((h > 12 ? h - 12 : h)*30)-90);
+    rotate($('.minute'), (d.getMinutes()/*0-59*/*6)-90);
+    rotate($('.second'), (d.getSeconds()/*0-59*/*6)-90);
+  }
+  function rotate ($object, deg) {
+    var original_deg = deg;
+    if(deg != $object.data('deg')){
+      if(deg == -90) {
+        $object.data('plus-deg', $object.data('plus-deg')+360);
+      }
+      deg += $object.data('plus-deg');
+      $object.css({
+        '-webkit-transform' : 'rotate('+deg+'deg)',
+        '-moz-transform' : 'rotate('+deg+'deg)',
+        '-ms-transform' : 'rotate('+deg+'deg)',
+        '-o-transform' : 'rotate('+deg+'deg)',
+        'transform' : 'rotate('+deg+'deg)',
+        'zoom' : 1
+      });
+      $object.data('deg', original_deg);
+    }
+  }
+});
+</script>

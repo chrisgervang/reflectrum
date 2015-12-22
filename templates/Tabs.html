@@ -4,6 +4,7 @@
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <style>
     @font-face {
       font-family: sf;
@@ -29,7 +30,7 @@
   </style>
 </head>
 <body>
-  <div class="tabs-group">
+  <div class="tabs-group animated bounceInDown">
     <div id="gm" class="selected">
       <a href="/goodmorning" >Goodmorning</a>
     </div>
@@ -84,6 +85,17 @@
           selection = s
         }
         // console.log(count);
+      });
+
+      $(document).on('click', function(event){
+        console.log(sections[selection]);
+        $(".tabs-group").removeClass("bounceInDown");
+        $(".tabs-group").addClass("bounceOutUp");
+        setTimeout(function(){
+          $("#"+sections[selection]+" a")[0].click()
+        },400);
+
+
       });
     });
   </script>

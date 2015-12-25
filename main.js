@@ -32,21 +32,21 @@ app.on('ready', function() {
   var mainAddr = 'http://127.0.0.1:5000/home';
 
   // Put the app on a secondary display if availalbe
-  var atomScreen = require('screen');
-  var displays = atomScreen.getAllDisplays();
-  var externalDisplay = null;
-  for (var i in displays) {
-    if (displays[i].bounds.x > 0 || displays[i].bounds.y > 0) {
-      externalDisplay = displays[i];
-      break;
-    }
-  }
+  // var atomScreen = require('screen');
+  // var displays = atomScreen.getAllDisplays();
+  // var externalDisplay = null;
+  // for (var i in displays) {
+  //   if (displays[i].bounds.x > 0 || displays[i].bounds.y > 0) {
+  //     externalDisplay = displays[i];
+  //     break;
+  //   }
+  // }
 
   var browserWindowOptions = {width: 800, height: 600, icon: 'favicon.ico' , kiosk:true, autoHideMenuBar:true, darkTheme:true};
-  if (externalDisplay) {
-    browserWindowOptions.x = externalDisplay.bounds.x + 50;
-    browserWindowOptions.y = externalDisplay.bounds.y + 50
-  }
+  // if (externalDisplay) {
+  //   browserWindowOptions.x = externalDisplay.bounds.x + 50;
+  //   browserWindowOptions.y = externalDisplay.bounds.y + 50
+  // }
 
   var openWindow = function(){
     // Create the browser window.

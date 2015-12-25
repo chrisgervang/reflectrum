@@ -1,0 +1,29 @@
+{
+  "name": "smart-mirror",
+  "version": "0.0.2",
+  "description": "A compact, pressentable wall computer built into a mirror",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisgervang/SmartMirror.git"
+  },
+  "keywords": [
+    "Electron",
+    "raspberry pi",
+    "wireless",
+    "morning",
+    "routine"
+  ],
+  "author": "Chris Gervang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisgervang/SmartMirror/issues"
+  },
+  "homepage": "https://github.com/chrisgervang/SmartMirror#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.35.0"
+  }
+}

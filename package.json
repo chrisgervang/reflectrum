@@ -23,10 +23,8 @@
     "url": "https://github.com/chrisgervang/SmartMirror/issues"
   },
   "homepage": "https://github.com/chrisgervang/SmartMirror#readme",
-  "devDependencies": {
-    "electron-prebuilt": "^0.35.0"
-  },
   "dependencies": {
-    "request-promise": "^1.0.2"
+    "request-promise": "*",
+    "electron-prebuilt": "*"
   }
 }

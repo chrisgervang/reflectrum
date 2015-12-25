@@ -26,9 +26,10 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // call python?
+  console.log("Yo!");
   var subpy = require('child_process').spawn('python', ['./server.py']);
   var rq = require('request-promise');
-  var mainAddr = 'http://127.0.0.1:5000/tabs';
+  var mainAddr = 'http://127.0.0.1:5000/home';
 
   // Put the app on a secondary display if availalbe
   var atomScreen = require('screen');
@@ -55,7 +56,7 @@ app.on('ready', function() {
     mainWindow.loadURL('http://127.0.0.1:5000/home');
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
 
     // Emitted when the window is closed.

@@ -15,6 +15,10 @@ def clock():
     else:
         return render_template('Clock.html')
 
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('Home.html')
+
 @app.route('/tabs', methods=['GET'])
 def tabs():
     return render_template('Tabs.html')

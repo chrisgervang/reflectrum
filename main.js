@@ -1,4 +1,4 @@
-ar app = require('app');  // Module to control application life.
+var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
 // Report crashes to our server.
@@ -27,6 +27,8 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // call python?
   var subpy = require('child_process').spawn('python', ['./server.py']);
+  var rq = require('request-promise');
+  var mainAddr = 'http://127.0.0.1:5000/tabs';
 
   // Put the app on a secondary display if availalbe
   var atomScreen = require('screen');
@@ -45,21 +47,38 @@ app.on('ready', function() {
     browserWindowOptions.y = externalDisplay.bounds.y + 50
   }
 
-  // Create the browser window.
-  mainWindow = new BrowserWindow(browserWindowOptions);
+  var openWindow = function(){
+    // Create the browser window.
+    mainWindow = new BrowserWindow(browserWindowOptions);
 
-  // and load the index.html of the app.
-  mainWindow.loadUrl('http://127.0.0.1:5000/tabs');
+    // and load the index.html of the app.
+    mainWindow.loadURL('http://127.0.0.1:5000/home');
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+    // Open the DevTools.
+    // mainWindow.webContents.openDevTools();
 
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function() {
+      // Dereference the window object, usually you would store windows
+      // in an array if your app supports multi windows, this is the time
+      // when you should delete the corresponding element.
+      mainWindow = null;
+    });
+  };
+
+  var startUp = function(){
+    rq(mainAddr)
+      .then(function(htmlString){
+        console.log('server started!');
+        openWindow();
+      })
+      .catch(function(err){
+        //console.log('waiting for the server start...');
+        startUp();
+      });
+  };
+
+  // fire!
+  startUp();
 });

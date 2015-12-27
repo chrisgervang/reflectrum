@@ -1,127 +1,78 @@
-<head>
+{% extends "layout.html" %}
+{% block body %}
+  <div id="sequence">
+    <ul class="seq-canvas">
+      <li class="step1">
+        <div class="content">
+          <div data-seq>
+            <h1>Merry Christmas</h1>
+          </div>
+          <div data-seq style="height: 500px;">
+            <div class="heart">
+              <div class="part"></div>
+            </div>
+          </div>
+          <div data-seq>
+            <h1>Let's Go!</h1>
+            <h2>(click the mouse)</h2>
+          </div>
+        </div>
+      </li>
+      <li class="step2">
+        <div class="content">
+          <div style="margin-top: 300px;">
+            <!-- <h1>Mirror Controls</h1> -->
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
   <style>
-  @-webkit-keyframes complete {
-0%,24% {
-  box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
-}
-25%,49% {
-  box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
-}
-50%,74% {
-  box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
-}
-75%,99% {
-  box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
-}
-100% {
-  box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
-}
-}
-@-moz-keyframes complete {
-0%,24% {
-  box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
-}
-25%,49% {
-  box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
-}
-50%,74% {
-  box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
-}
-75%,99% {
-  box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
-}
-100% {
-  box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
-}
-}
-@-o-keyframes complete {
-0%,24% {
-  box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
-}
-25%,49% {
-  box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
-}
-50%,74% {
-  box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
-}
-75%,99% {
-  box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
-}
-100% {
-  box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
-}
-}
-@keyframes complete {
-0%,24% {
-  box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
-}
-25%,49% {
-  box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
-}
-50%,74% {
-  box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
-}
-75%,99% {
-  box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
-}
-100% {
-  box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
-}
-}
-@-webkit-keyframes grey {
-0%,90% {
-  box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
-}
-}
-@-moz-keyframes grey {
-0%,90% {
-  box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
-}
-}
-@-o-keyframes grey {
-0%,90% {
-  box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
-}
-}
-@keyframes grey {
-0%,90% {
-  box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
-}
-}
-body {
-background: #FFEBEE;
-overflow: hidden;
-}
-body .heart {
-position: absolute;
-left: 50%;
-top: 50%;
-margin-left: -71px;
-margin-top: -50px;
-box-shadow: 0px 0 0 7px #E53935, 18px 0 0 7px #E53935, 36px 0 0 7px #E53935, 108px 0 0 7px #E53935, -18px 18px 0 7px #E53935, 0px 18px 0 7px #E53935, 18px 18px 0 7px #E53935, 36px 18px 0 7px #E53935, 54px 18px 0 7px #E53935, 90px 18px 0 7px #E53935, 108px 18px 0 7px #E53935, 126px 18px 0 7px #E53935, 162px 18px 0 7px #E53935, -18px 36px 0 7px #E53935, 0px 36px 0 7px #E53935, 18px 36px 0 7px #E53935, 36px 36px 0 7px #E53935, 54px 36px 0 7px #E53935, 72px 36px 0 7px #E53935, 90px 36px 0 7px #E53935, 108px 36px 0 7px #E53935, 126px 36px 0 7px #E53935, 162px 36px 0 7px #E53935, -18px 54px 0 7px #E53935, 0px 54px 0 7px #E53935, 18px 54px 0 7px #E53935, 36px 54px 0 7px #E53935, 54px 54px 0 7px #E53935, 72px 54px 0 7px #E53935, 90px 54px 0 7px #E53935, 108px 54px 0 7px #E53935, 126px 54px 0 7px #E53935, 144px 54px 0 7px #E53935, 162px 54px 0 7px #E53935, 0px 72px 0 7px #E53935, 18px 72px 0 7px #E53935, 36px 72px 0 7px #E53935, 54px 72px 0 7px #E53935, 72px 72px 0 7px #E53935, 90px 72px 0 7px #E53935, 108px 72px 0 7px #E53935, 126px 72px 0 7px #E53935, 144px 72px 0 7px #E53935, 18px 90px 0 7px #E53935, 36px 90px 0 7px #E53935, 54px 90px 0 7px #E53935, 72px 90px 0 7px #E53935, 90px 90px 0 7px #E53935, 108px 90px 0 7px #E53935, 126px 90px 0 7px #E53935, 36px 108px 0 7px #E53935, 54px 108px 0 7px #E53935, 72px 108px 0 7px #E53935, 90px 108px 0 7px #E53935, 108px 108px 0 7px #E53935, 54px 126px 0 7px #E53935, 72px 126px 0 7px #E53935, 90px 126px 0 7px #E53935, 72px 144px 0 7px #E53935;
--webkit-animation: grey 5s linear;
--moz-animation: grey 5s linear;
--o-animation: grey 5s linear;
-animation: grey 5s linear;
-}
-body .heart .part {
-position: absolute;
-left: 50%;
-top: 50%;
-box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
--webkit-animation: complete 4s linear;
--moz-animation: complete 4s linear;
--o-animation: complete 4s linear;
-animation: complete 4s linear;
-}
-
+  .content {
+    transform: translateY(300px);
+  }
+  .content .seq-out {
+    transform: translateY(-100%);
+  }
+  h1 {
+    text-align: center;
+    color: #BDBDBD;
+    font-size: 72;
+    font-family: sf;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #BDBDBD;
+    font-size: 24;
+    font-family: sf;
+    font-weight: normal;
+  }
   </style>
-</head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='heart.css') }}">
+  <script>
+      $(function(){
+        var sElement = document.getElementById("sequence");
 
-<body>
+        var options = {
+          // autoPlay: true,
+          // autoPlayInterval: 500,
+          // fadeStepWhenSkipped: false
+        }
 
-<div class="heart">
-  <div class="part"></div>
-</div>
+        var s1 = sequence(sElement, options);
 
-</body>
+        $(document).on('click', function(event){
+          s1.next()
+          // $(".tabs-group").removeClass("bounceInDown");
+          // $(".tabs-group").addClass("bounceOutUp");
+          // setTimeout(function(){
+          //   window.location.href = "http://127.0.0.1:5000/";
+          // },400);
+        });
+      });
+  </script>
+
+{% endblock %}

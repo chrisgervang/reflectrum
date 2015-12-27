@@ -1,0 +1,114 @@
+@-webkit-keyframes complete {
+  0%,24% {
+    box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
+  }
+  25%,49% {
+    box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
+  }
+  50%,74% {
+    box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
+  }
+  75%,99% {
+    box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
+  }
+  100% {
+    box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
+  }
+}
+@-moz-keyframes complete {
+  0%,24% {
+    box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
+  }
+  25%,49% {
+    box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
+  }
+  50%,74% {
+    box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
+  }
+  75%,99% {
+    box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
+  }
+  100% {
+    box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
+  }
+}
+@-o-keyframes complete {
+  0%,24% {
+    box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
+  }
+  25%,49% {
+    box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
+  }
+  50%,74% {
+    box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
+  }
+  75%,99% {
+    box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
+  }
+  100% {
+    box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
+  }
+}
+@keyframes complete {
+  0%,24% {
+    box-shadow: 126px -72px 0 7px #E53935, 144px -72px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935;
+  }
+  25%,49% {
+    box-shadow: 126px -54px 0 7px #E53935, 144px -54px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935;
+  }
+  50%,74% {
+    box-shadow: 126px -36px 0 7px #E53935, 144px -36px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935;
+  }
+  75%,99% {
+    box-shadow: 126px -18px 0 7px #E53935, 144px -18px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935;
+  }
+  100% {
+    box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
+  }
+}
+@-webkit-keyframes grey {
+  0%,90% {
+    box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
+  }
+}
+@-moz-keyframes grey {
+  0%,90% {
+    box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
+  }
+}
+@-o-keyframes grey {
+  0%,90% {
+    box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
+  }
+}
+@keyframes grey {
+  0%,90% {
+    box-shadow: 0px 0 0 7px #BDBDBD, 18px 0 0 7px #BDBDBD, 36px 0 0 7px #BDBDBD, 108px 0 0 7px #BDBDBD, -18px 18px 0 7px #BDBDBD, 0px 18px 0 7px #BDBDBD, 18px 18px 0 7px #BDBDBD, 36px 18px 0 7px #BDBDBD, 54px 18px 0 7px #BDBDBD, 90px 18px 0 7px #BDBDBD, 108px 18px 0 7px #BDBDBD, 126px 18px 0 7px #BDBDBD, 162px 18px 0 7px #BDBDBD, -18px 36px 0 7px #BDBDBD, 0px 36px 0 7px #BDBDBD, 18px 36px 0 7px #BDBDBD, 36px 36px 0 7px #BDBDBD, 54px 36px 0 7px #BDBDBD, 72px 36px 0 7px #BDBDBD, 90px 36px 0 7px #BDBDBD, 108px 36px 0 7px #BDBDBD, 126px 36px 0 7px #BDBDBD, 162px 36px 0 7px #BDBDBD, -18px 54px 0 7px #BDBDBD, 0px 54px 0 7px #BDBDBD, 18px 54px 0 7px #BDBDBD, 36px 54px 0 7px #BDBDBD, 54px 54px 0 7px #BDBDBD, 72px 54px 0 7px #BDBDBD, 90px 54px 0 7px #BDBDBD, 108px 54px 0 7px #BDBDBD, 126px 54px 0 7px #BDBDBD, 144px 54px 0 7px #BDBDBD, 162px 54px 0 7px #BDBDBD, 0px 72px 0 7px #BDBDBD, 18px 72px 0 7px #BDBDBD, 36px 72px 0 7px #BDBDBD, 54px 72px 0 7px #BDBDBD, 72px 72px 0 7px #BDBDBD, 90px 72px 0 7px #BDBDBD, 108px 72px 0 7px #BDBDBD, 126px 72px 0 7px #BDBDBD, 144px 72px 0 7px #BDBDBD, 18px 90px 0 7px #BDBDBD, 36px 90px 0 7px #BDBDBD, 54px 90px 0 7px #BDBDBD, 72px 90px 0 7px #BDBDBD, 90px 90px 0 7px #BDBDBD, 108px 90px 0 7px #BDBDBD, 126px 90px 0 7px #BDBDBD, 36px 108px 0 7px #BDBDBD, 54px 108px 0 7px #BDBDBD, 72px 108px 0 7px #BDBDBD, 90px 108px 0 7px #BDBDBD, 108px 108px 0 7px #BDBDBD, 54px 126px 0 7px #BDBDBD, 72px 126px 0 7px #BDBDBD, 90px 126px 0 7px #BDBDBD, 72px 144px 0 7px #BDBDBD;
+  }
+}
+body {
+  background: #FFEBEE;
+  overflow: hidden;
+}
+body .heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -71px;
+  margin-top: -50px;
+  box-shadow: 0px 0 0 7px #E53935, 18px 0 0 7px #E53935, 36px 0 0 7px #E53935, 108px 0 0 7px #E53935, -18px 18px 0 7px #E53935, 0px 18px 0 7px #E53935, 18px 18px 0 7px #E53935, 36px 18px 0 7px #E53935, 54px 18px 0 7px #E53935, 90px 18px 0 7px #E53935, 108px 18px 0 7px #E53935, 126px 18px 0 7px #E53935, 162px 18px 0 7px #E53935, -18px 36px 0 7px #E53935, 0px 36px 0 7px #E53935, 18px 36px 0 7px #E53935, 36px 36px 0 7px #E53935, 54px 36px 0 7px #E53935, 72px 36px 0 7px #E53935, 90px 36px 0 7px #E53935, 108px 36px 0 7px #E53935, 126px 36px 0 7px #E53935, 162px 36px 0 7px #E53935, -18px 54px 0 7px #E53935, 0px 54px 0 7px #E53935, 18px 54px 0 7px #E53935, 36px 54px 0 7px #E53935, 54px 54px 0 7px #E53935, 72px 54px 0 7px #E53935, 90px 54px 0 7px #E53935, 108px 54px 0 7px #E53935, 126px 54px 0 7px #E53935, 144px 54px 0 7px #E53935, 162px 54px 0 7px #E53935, 0px 72px 0 7px #E53935, 18px 72px 0 7px #E53935, 36px 72px 0 7px #E53935, 54px 72px 0 7px #E53935, 72px 72px 0 7px #E53935, 90px 72px 0 7px #E53935, 108px 72px 0 7px #E53935, 126px 72px 0 7px #E53935, 144px 72px 0 7px #E53935, 18px 90px 0 7px #E53935, 36px 90px 0 7px #E53935, 54px 90px 0 7px #E53935, 72px 90px 0 7px #E53935, 90px 90px 0 7px #E53935, 108px 90px 0 7px #E53935, 126px 90px 0 7px #E53935, 36px 108px 0 7px #E53935, 54px 108px 0 7px #E53935, 72px 108px 0 7px #E53935, 90px 108px 0 7px #E53935, 108px 108px 0 7px #E53935, 54px 126px 0 7px #E53935, 72px 126px 0 7px #E53935, 90px 126px 0 7px #E53935, 72px 144px 0 7px #E53935;
+  -webkit-animation: grey 5s linear;
+  -moz-animation: grey 5s linear;
+  -o-animation: grey 5s linear;
+  animation: grey 5s linear;
+}
+body .heart .part {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  box-shadow: 126px 0px 0 7px #E53935, 144px 0px 0 7px #E53935, 144px 18px 0 7px #E53935, 144px 36px 0 7px #E53935;
+  -webkit-animation: complete 4s linear;
+  -moz-animation: complete 4s linear;
+  -o-animation: complete 4s linear;
+  animation: complete 4s linear;
+}

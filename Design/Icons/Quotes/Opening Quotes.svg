@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="102px" height="84px" viewBox="0 0 102 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+    <title>Quotes icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Quotes" sketch:type="MSArtboardGroup" transform="translate(-75.000000, -77.000000)" fill-opacity="0.95" fill="#787AFF">
+            <g id="Quotes-icon" sketch:type="MSLayerGroup" transform="translate(75.000000, 77.000000)">
+                <g id="Group" sketch:type="MSShapeGroup">
+                    <path d="M0.507681818,42 L0.507681818,83.2808219 L42.0900682,83.2808219 L42.0900682,42 L18.3287045,42 C18.3287045,28.9730959 28.968,18.4109589 42.0900682,18.4109589 L42.0900682,0.719178082 C19.1226818,0.719178082 0.507681818,19.2003288 0.507681818,42 L0.507681818,42 Z M101.492318,18.4109589 L101.492318,0.719178082 C78.5260909,0.719178082 59.9099318,19.2003288 59.9099318,42 L59.9099318,83.2808219 L101.492318,83.2808219 L101.492318,42 L77.7309545,42 C77.7309545,28.9730959 88.37025,18.4109589 101.492318,18.4109589 L101.492318,18.4109589 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

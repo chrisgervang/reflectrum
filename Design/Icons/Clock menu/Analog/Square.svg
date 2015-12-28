@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="87px" height="89px" viewBox="0 0 87 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 22 + Path</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Analog-nav" sketch:type="MSArtboardGroup" transform="translate(-66.000000, -506.000000)">
+            <g id="Rectangle-22-+-Path" sketch:type="MSLayerGroup" transform="translate(66.000000, 506.000000)">
+                <rect id="Rectangle-22" fill="#2094FA" sketch:type="MSShapeGroup" x="0" y="0" width="87" height="89" rx="8"></rect>
+                <path d="M61.0645833,65.0291667 C60.5083333,65.7708333 59.7666667,65.95625 59.025,65.95625 C58.2833333,65.95625 57.5416667,65.7708333 56.9854167,65.2145833 L39.7416667,47.9708333 C39.1854167,47.4145833 39,46.6729167 39,45.93125 L39,14.78125 C39,13.2979167 40.2979167,12 41.78125,12 C43.2645833,12 44.5625,13.2979167 44.5625,14.78125 L44.5625,43.5208333 C44.5625,44.4479167 44.9333333,45.375 45.675,46.1166667 L60.8791667,61.3208333 C61.80625,62.2479167 61.9916667,63.9166667 61.0645833,65.0291667 L61.0645833,65.0291667 Z" id="Path" fill="#000000" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>

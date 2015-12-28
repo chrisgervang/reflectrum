@@ -81,7 +81,7 @@
 {% block body %}
   {{ super() }}
   <div class="clock">7:20 PM</div>
-  <div class="goodmorning">Goodmorning, Michelle.</div>
+  <div class="goodmorning">Goodevening, Michelle.</div>
   <div class="selector animated slideInDown"></div>
   <div class="menu-group animated fadeInLeft">
     <div class="item-container" id="scr">
@@ -120,7 +120,7 @@
 {% block scripts %}
   {{ super() }}
   <script>
-    var sections = ["scr", "clk", "wea", "cal", "quo"];
+    var sections = ["scr", "wea", "clk", "cal", "quo"];
     var selection = 0;
     var count = 0;
     var delta = 100;

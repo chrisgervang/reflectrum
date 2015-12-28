@@ -42,8 +42,15 @@ app.on('ready', function() {
     }
   }
 
-  var browserWindowOptions = {width: 800, height: 600, kiosk:true, autoHideMenuBar:true, darkTheme:true};
-  if (externalDisplay) {
+  var browserWindowOptions = {
+    width: 800,
+    height: 600,
+    kiosk:true,
+    autoHideMenuBar:true,
+    darkTheme:true,
+    "node-integration": false
+  };
+  if (!!externalDisplay) {
     browserWindowOptions.x = externalDisplay.bounds.x + 50;
     browserWindowOptions.y = externalDisplay.bounds.y + 50
   }

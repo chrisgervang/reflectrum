@@ -2,15 +2,14 @@
 <html>
   <head>
     {% block head %}
+    <title>{% block title %}{% endblock %} - SmartMirror</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"></link>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-    <title>{% block title %}{% endblock %} - SmartMirror</title>
-      <style>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+    <style>
       @font-face {
         font-family: sf;
         src: url({{ url_for('static', filename='SF-UI-Text-Regular.otf') }});
@@ -24,5 +23,9 @@
 
     {% endblock %}
   </body>
-  {% block scripts %}{% endblock %}
+  {% block scripts %}
+    $(function(){
+
+    });
+  {% endblock %}
 </html>

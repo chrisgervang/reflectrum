@@ -29,7 +29,7 @@ app.on('ready', function() {
   console.log("Yo!");
   var subpy = require('child_process').spawn('python', ['./server.py']);
   var rq = require('request-promise');
-  var mainAddr = 'http://127.0.0.1:5000/home';
+  var mainAddr = 'http://127.0.0.1:5000/tabs';
 
   // Put the app on a secondary display if availalbe
   var atomScreen = require('screen');
@@ -42,7 +42,7 @@ app.on('ready', function() {
     }
   }
 
-  var browserWindowOptions = {width: 800, height: 600, icon: 'favicon.ico' , kiosk:true, autoHideMenuBar:true, darkTheme:true};
+  var browserWindowOptions = {width: 800, height: 600, kiosk:true, autoHideMenuBar:true, darkTheme:true};
   if (externalDisplay) {
     browserWindowOptions.x = externalDisplay.bounds.x + 50;
     browserWindowOptions.y = externalDisplay.bounds.y + 50
@@ -53,7 +53,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow(browserWindowOptions);
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://127.0.0.1:5000/home');
+    mainWindow.loadURL('http://127.0.0.1:5000/tabs');
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();

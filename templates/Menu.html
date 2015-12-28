@@ -1,60 +1,78 @@
-<head>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <style>
-    @font-face {
-      font-family: sf;
-      src: url({{ url_for('static', filename='SF-UI-Text-Regular.otf') }});
-      font-weight: normal;
-    }
-    body {
+    html, body {
       background-color: black;
       font-family: sf;
-      font-size: 24;
-      line-height: 200%;
+      font-size: 24px;
+      line-height: 50px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body > div {
+        /*height: 100%;*/
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
     }
     a {
       text-decoration: none;
       color: white;
-      -webkit-transition: font-size 0.5s; /* Safari */
-      transition: font-size 0.5s;
+      -webkit-transition: font 0.5s ease; /* Safari */
+      transition: font 0.5s ease;
     }
 
     .selected {
-      font-size: 48;
+      font-size: 48px;
+      line-height: 50px;
+      -webkit-transition: font 0.5s ease; /* Safari */
+      transition: font 0.5s ease;
+    }
+
+    .item {
+      height: 70px;
+      /*margin: 5px 0;*/
     }
   </style>
-</head>
-<body>
-  <div class="tabs-group animated bounceInDown">
-    <div id="gm" class="selected">
-      <a href="/goodmorning" >Goodmorning</a>
+{% endblock %}
+{% block body %}
+  {{ super() }}
+  <div class="menu-group animated bounceInDown">
+    <div class="item selected" id="scr">
+      <a href="/screensaver" >Tetris Screensaver</a>
     </div>
-    <div id="cal">
-      <a href="/calendar" >Calendar</a>
-    </div>
-    <div id="quo">
+    <div class="item" id="quo">
       <a href="/quotes" >Quotes</a>
     </div>
-    <div id="map">
-      <a href="/map" >Map</a>
+    <div class="item" id="cal">
+      <a href="/calendar" >Calendar</a>
     </div>
-    <div id="clk">
+    <div class="item" id="clk">
       <a href="/clock" >Clock</a>
     </div>
-    <div id="scr">
-      <a href="/screensaver" >Screensaver</a>
+    <div class="item" id="map">
+      <a href="/map" >Map</a>
     </div>
-    <div id="help">
+    <div class="item" id="gm" >
+      <a href="/goodmorning" >Goodmorning</a>
+    </div>
+    <div class="item" id="help">
       <a href="/help" >Help</a>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
   <script>
-    var sections = ["gm", "cal", "quo", "map", "clk", "scr", "help"];
+    var sections = ["scr", "quo", "cal", "clk", "map", "gm", "help"];
     var selection = 0;
     var count = 0;
     var delta = 100;
@@ -89,8 +107,8 @@
 
       $(document).on('click', function(event){
         console.log(sections[selection]);
-        $(".tabs-group").removeClass("bounceInDown");
-        $(".tabs-group").addClass("bounceOutUp");
+        $(".menu-group").removeClass("bounceInDown");
+        $(".menu-group").addClass("bounceOutUp");
         setTimeout(function(){
           $("#"+sections[selection]+" a")[0].click()
         },400);
@@ -99,4 +117,4 @@
       });
     });
   </script>
-</body>
+{% endblock %}

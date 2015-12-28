@@ -56,7 +56,7 @@ app.on('ready', function() {
     mainWindow.loadURL('http://127.0.0.1:5000/menu');
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
 
     // Emitted when the window is closed.

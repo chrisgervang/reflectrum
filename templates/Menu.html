@@ -4,39 +4,54 @@
   {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
   <style>
     html, body {
       background-color: black;
       font-family: sf;
-      font-size: 24px;
-      line-height: 50px;
       width: 100%;
       height: 100%;
       overflow: hidden;
     }
 
     body > div {
-        /*height: 100%;*/
-        overflow: scroll;
         -webkit-overflow-scrolling: touch;
     }
-    .selected {
+
+    .selector {
       background-color: #D8D8D8;
-      opacity: 0.22;
+      opacity: 0.28;
+      position: absolute;
+      height: 160px;
+      width: 100%;
+      top: 280px;
+      transition: top 0.5s ease;
+
     }
-    a {
-      text-decoration: none;
+
+    .item-container {
+      height: 160px;
+
+      /*margin: 5px 0;*/
+
+    }
+
+    .item {
       color: white;
       opacity: 1;
-      -webkit-transition: font 0.5s ease; /* Safari */
-      transition: font 0.5s ease;
+
     }
-    .item {
-      height: 160px;
-      /*margin: 5px 0;*/
+
+    a {
+      font-size: 80px;
+      color: white;
+      text-decoration: none;
+      line-height: 160px;
     }
+
+
     .clock {
       padding-top: 20px;
       color: white;
@@ -58,28 +73,27 @@
   {{ super() }}
   <div class="clock">7:20 PM</div>
   <div class="goodmorning">Goodmorning, Michelle.</div>
-
-  <div class="menu-group animated bounceInDown">
-    <div class="item selected" id="scr">
-      <a href="/screensaver" >Tetris Screensaver</a>
+  <div class="selector animated slideInDown"></div>
+  <div class="menu-group animated fadeInLeft">
+    <div class="item-container" id="scr">
+      <div class="item">
+        <a href="/screensaver" >Screensavers</a>
+      </div>
     </div>
-    <div class="item" id="quo">
-      <a href="/quotes" >Quotes</a>
+    <div class="item-container" id="clk">
+      <div class="item">
+        <a href="/clock" >Clock</a>
+      </div>
     </div>
-    <div class="item" id="cal">
-      <a href="/calendar" >Calendar</a>
+    <div class="item-container" id="cal">
+      <div class="item">
+        <a href="/calendar" >Calendar</a>
+      </div>
     </div>
-    <div class="item" id="clk">
-      <a href="/clock" >Clock</a>
-    </div>
-    <div class="item" id="map">
-      <a href="/map" >Map</a>
-    </div>
-    <div class="item" id="gm" >
-      <a href="/goodmorning" >Goodmorning</a>
-    </div>
-    <div class="item" id="help">
-      <a href="/help" >Help</a>
+    <div class="item-container" id="quo">
+      <div class="item">
+        <a href="/quotes" >Quotes</a>
+      </div>
     </div>
   </div>
 {% endblock %}
@@ -87,7 +101,7 @@
 {% block scripts %}
   {{ super() }}
   <script>
-    var sections = ["scr", "quo", "cal", "clk", "map", "gm", "help"];
+    var sections = ["scr", "clk", "cal", "quo"];
     var selection = 0;
     var count = 0;
     var delta = 100;
@@ -108,13 +122,14 @@
 
         if (s !== selection) {
           // change classes. All for
-          $('#'+sections[s]).addClass("selected")
-          // console.log(s, $('#'+sections[s]))
-          for (var i = 0; i < sections.length; i++) {
-            if(i !== s) {
-              $('#'+sections[i]).removeClass("selected")
-            }
-          }
+          // $('#'+sections[s]).addClass("selected")
+          console.log(s, $('#'+sections[s]))
+          $('.selector').css('top', (s * 160) + 280 + 'px')
+          // for (var i = 0; i < sections.length; i++) {
+          //   if(i !== s) {
+          //     $('#'+sections[i]).removeClass("selected")
+          //   }
+          // }
           selection = s
         }
         // console.log(count);
@@ -122,7 +137,7 @@
 
       $(document).on('click', function(event){
         console.log(sections[selection]);
-        $(".menu-group").removeClass("bounceInDown");
+        $(".menu-group").removeClass("fadeInLeft");
         $(".menu-group").addClass("bounceOutUp");
         setTimeout(function(){
           $("#"+sections[selection]+" a")[0].click()
@@ -130,6 +145,24 @@
 
 
       });
+
+      function getTime() {
+        var d = new Date();
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        $(".clock").text(strTime);
+      }
+      getTime();
+      var int = setInterval(getTime, 5000);
+
+
     });
+
+
   </script>
 {% endblock %}

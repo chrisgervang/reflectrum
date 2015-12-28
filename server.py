@@ -19,9 +19,9 @@ def clock():
 def home():
     return render_template('Home.html')
 
-@app.route('/tabs', methods=['GET'])
-def tabs():
-    return render_template('Tabs.html')
+@app.route('/menu', methods=['GET'])
+def menu():
+    return render_template('Menu.html')
 
 @app.route('/quotes', methods=['GET'])
 def quotes():

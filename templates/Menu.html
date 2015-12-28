@@ -22,28 +22,43 @@
         overflow: scroll;
         -webkit-overflow-scrolling: touch;
     }
+    .selected {
+      background-color: #D8D8D8;
+      opacity: 0.22;
+    }
     a {
       text-decoration: none;
       color: white;
+      opacity: 1;
       -webkit-transition: font 0.5s ease; /* Safari */
       transition: font 0.5s ease;
     }
-
-    .selected {
-      font-size: 48px;
-      line-height: 50px;
-      -webkit-transition: font 0.5s ease; /* Safari */
-      transition: font 0.5s ease;
-    }
-
     .item {
-      height: 70px;
+      height: 160px;
       /*margin: 5px 0;*/
+    }
+    .clock {
+      padding-top: 20px;
+      color: white;
+      text-align: center;
+      font-size: 30px;
+      height: 60px;
+    }
+
+    .goodmorning {
+      padding-top: 70px;
+      height: 130px;
+      color: #F2F4FF;
+      text-align: center;
+      font-size: 45px;
     }
   </style>
 {% endblock %}
 {% block body %}
   {{ super() }}
+  <div class="clock">7:20 PM</div>
+  <div class="goodmorning">Goodmorning, Michelle.</div>
+
   <div class="menu-group animated bounceInDown">
     <div class="item selected" id="scr">
       <a href="/screensaver" >Tetris Screensaver</a>

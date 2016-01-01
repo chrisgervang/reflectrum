@@ -122,48 +122,67 @@
   <script>
     var sections = ["scr", "wea", "clk", "cal", "quo"];
     var selection = 0;
-    var count = 0;
-    var delta = 100;
+
     $(function(){
-      $(document).on('mousewheel', function(event){
-        console.log(event.deltaX, event.deltaY, event.deltaFactor);
-
-        count += event.deltaY;
-
-        if (count >= 0) {
-          count = 0;
+      console.log(ee)
+      var events = {
+        upClick: function() {
+            console.log('upClick');
+            if(selection > 0) {
+              selection -= 1;
+            }
+            console.log(selection);
+            moveBar(selection);
+        },
+        downClick: function() {
+            console.log('downClick');
+            if(selection < sections.length - 1) {
+              selection += 1;
+            }
+            console.log(selection);
+            moveBar(selection);
+        },
+        primaryClick: function() {
+            console.log('primaryClick');
+            console.log(sections[selection]);
+            $(".menu-group").removeClass("fadeInLeft");
+            $(".menu-group").addClass("bounceOutUp");
+            setTimeout(function(){
+              $("#"+sections[selection]+" a")[0].click()
+            },400);
+        },
+        primaryHold: function() {
+            console.log('primaryHold');
+        },
+        secondaryClick: function() {
+            console.log('secondaryClick');
+        },
+        secondaryHold: function() {
+            console.log('secondaryHold');
         }
+      }
 
-        if (count <= -(sections.length - 1)*100) {
-          count = -(sections.length - 1)*100
-        }
-        var s = Math.abs(parseInt(count / 100))
+      var state = {
+        bar: selection
+      }
+      
+      var moveBar = function(position) {
 
-        if (s !== selection) {
+        if (position !== state.bar) {
           // change classes. All for
           // $('#'+sections[s]).addClass("selected")
-          console.log(s, $('#'+sections[s]))
-          $('.selector').css('top', (s * 200) + 280 + 'px')
+          console.log(position, $('#'+sections[position]))
+          $('.selector').css('top', (position * 200) + 280 + 'px')
           // for (var i = 0; i < sections.length; i++) {
           //   if(i !== s) {
           //     $('#'+sections[i]).removeClass("selected")
           //   }
           // }
-          selection = s
+          state.bar = position
         }
-        // console.log(count);
-      });
+      }
 
-      $(document).on('click', function(event){
-        console.log(sections[selection]);
-        $(".menu-group").removeClass("fadeInLeft");
-        $(".menu-group").addClass("bounceOutUp");
-        setTimeout(function(){
-          $("#"+sections[selection]+" a")[0].click()
-        },400);
-
-
-      });
+      ee.addListeners(events);
 
       function getTime() {
         var d = new Date();
@@ -178,8 +197,6 @@
       }
       getTime();
       var int = setInterval(getTime, 5000);
-
-
     });
 
 

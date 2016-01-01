@@ -8,13 +8,14 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/EventEmitter/4.3.0/EventEmitter.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
     <style>
-      @font-face {
+      /*@font-face {
         font-family: sf;
         src: url({{ url_for('static', filename='SF-UI-Text-Regular.otf') }});
         font-weight: normal;
-      }
+      }*/
     </style>
     {% endblock %}
   </head>
@@ -25,12 +26,114 @@
   </body>
   {% block scripts %}
     <script>
+    var ee = new EventEmitter();
+
+
     $(function(){
-      $(document).on('mousedown', function(event){
+      var state = {
+        up:        false, //click, false
+        down:      false, //click, false
+        primary:   false, //click, hold, false
+        secondary: false, //click, hold, false
+      }
 
 
+      $(document).on('keyup', function(event) {
+        if(event.keyCode == 38) {
+          //single press (on key down): scroll up one item
 
+          switch(state.up) {
+            case "click":
+              state.up = false;
+              break;
+          }
+
+        } else if(event.keyCode == 40) {
+          //single press (on key down): scroll down one item
+
+          switch(state.down) {
+            case "click":
+              state.down = false;
+              break;
+          }
+
+        } else if(event.keyCode == 37) {
+          //single press (wait for keyup): select (move forward)
+          //press hold: voice control or command center
+
+          switch(state.primary) {
+            case "click":
+              ee.emitEvent('primaryClick');
+              state.primary = false;
+              break;
+            case "hold":
+              state.primary = false;
+              break;
+          }
+
+        } else if(event.keyCode == 39) {
+          //single press (wait for keyup): go back
+          //press hold: go to menu
+
+          switch(state.secondary) {
+            case "click":
+              ee.emitEvent('secondaryClick');
+              state.secondary = false;
+              break;
+            case "hold":
+              state.secondary = false;
+              break;
+          }
+
+        }
       });
+
+      $(document).on('keydown', function(event){
+        //seperate switch for turning the display on and off,
+        //which I'd like to be a capacitive touch button on the top right of the mirror.
+
+        //The scroll wheel: triggers a keypress every half a turn (or something).
+
+        if(event.keyCode == 39) {
+          //single press (wait for keyup): select (move forward)
+          //press hold: voice control or command center
+
+          if(state.primary === false)
+            state.primary = "click"
+          else if(state.primary === "click") {
+            state.primary = "hold"
+            ee.emitEvent('primaryHold');
+          }
+
+        } else if(event.keyCode == 37) {
+          //single press (wait for keyup): go back
+          //press hold: go to menu
+          if(state.secondary === false)
+            state.secondary = "click"
+          else if(state.secondary === "click") {
+            state.secondary = "hold"
+            ee.emitEvent('secondaryHold');
+          }
+
+        } else if(event.keyCode == 38) {
+          //single press (on key down): scroll up one item
+          if(state.up === false) {
+            state.up = "click";
+            ee.emitEvent('upClick');
+          }
+
+
+        } else if(event.keyCode == 40) {
+          //single press (on key down): scroll down one item
+          if(state.down === false) {
+            state.down = "click";
+            ee.emitEvent('downClick');
+          }
+
+        }
+      });
+
+
     });
     </script>
   {% endblock %}

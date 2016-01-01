@@ -2,6 +2,11 @@ from flask import Flask, request, url_for, render_template, send_from_directory
 import googlecalendar
 
 app = Flask(__name__, static_url_path='')
+app.config.update(
+    DEBUG=True,
+    SEND_FILE_MAX_AGE_DEFAULT=2
+)
+
 
 @app.route('/scripts/<path:path>')
 def sendScript(path):

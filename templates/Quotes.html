@@ -15,7 +15,6 @@
     background-color: #9b59b6;
     height: 100%;
     width: 100%;
-    display: table;
   }
 
   .clock {
@@ -23,6 +22,14 @@
     color: white;
     text-align: center;
     font-size: 25px;
+
+  }
+
+  .container {
+    display: table;
+    height: 100%;
+    width: 80%;
+    margin-left: 80px;
   }
 
   .quote {
@@ -30,6 +37,7 @@
     margin: 0 auto;
     color: white;
     vertical-align: middle;
+    text-align: center;
     width: 600px;
     display: table-cell;
     -webkit-animation-delay: 1s;
@@ -57,9 +65,11 @@
 {% block body %}
   {{ super() }}
 
-  <p class="clock"></p>
+  <div class="clock"></div>
   <img class="opening animated fadeInLeft" src="/img/Opening%20Quotes.svg">
-  <p class="quote animated fadeInDown"></p>
+  <div class="container">
+    <p class="quote animated fadeInDown"></p>
+  </div>
   <img class="closing animated fadeInRight" src="/img/Closing%20Quotes.svg">
 
   {% endblock %}

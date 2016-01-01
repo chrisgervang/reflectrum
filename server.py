@@ -1,5 +1,5 @@
 from flask import Flask, request, url_for, render_template, send_from_directory
-import googlecalendar
+# import googlecalendar
 
 app = Flask(__name__, static_url_path='')
 app.config.update(
@@ -13,12 +13,27 @@ def sendScript(path):
     print path
     return send_from_directory('scripts', path);
 
+@app.route('/style/<path:path>')
+def sendStyle(path):
+    print path
+    return send_from_directory('style', path);
+
+@app.route('/img/<path:path>')
+def sendImg(path):
+    print path
+    return send_from_directory('img', path);
+
+
 @app.route('/clock', methods=['GET'])
 def clock():
     if request.method == 'POST':
         print request
     else:
         return render_template('Clock.html')
+
+@app.route('/gmopening', methods=['GET'])
+def gmOpening():
+    return render_template('GMOpening.html')
 
 @app.route('/home', methods=['GET'])
 def home():

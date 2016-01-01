@@ -1,218 +1,111 @@
-<head>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+
   <script src="/scripts/sequence.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/quotes.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
+
   <style>
-  body {
-    margin: 0;
+
+  html, body {
+    font-family: 'Lato', sans-serif;
+    background-color: #9b59b6;
+    height: 100%;
+    width: 100%;
+    display: table;
   }
 
-  /* Style the Sequence container */
-  #sequence {
-  position: relative;
-  width: 100%;
-  height: 585px;
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0 auto;
-  padding: 0;
-  font-family: sans-serif;
+  .clock {
+    padding-top: 20px;
+    color: white;
+    text-align: center;
+    font-size: 25px;
   }
 
-  /* Reset */
-  #sequence .seq-canvas,
-  #sequence .seq-canvas > * {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  .quote {
+    font-size: 80px;
+    margin: 0 auto;
+    color: white;
+    vertical-align: middle;
+    width: 600px;
+    display: table-cell;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
   }
 
-  /* Make the canvas the same dimensions as the container and prevent lines from
-   wrapping so each step can sit side-by-side */
-  #sequence .seq-canvas {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  white-space: nowrap;
-  font-size: 0;
+  img {
+    position: absolute;
   }
 
-  /* Make the steps the same size as the container and sit side-by-side */
-  #sequence .seq-canvas > * {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  height: 100%;
-  white-space: normal;
-  text-align: center;
-  color: black;
+  .opening {
+    top: 40px;
+    left: 40px;
   }
 
-  /* Used to vertically center align the .content element */
-  #sequence .seq-canvas > li:before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
+  .closing {
+    bottom: 40px;
+    right: 40px;
   }
 
-  /* Vertically center align the .content element */
-  #sequence .content {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 4%;
-  font-size: 16px;
-  }
-
-  #sequence .step1 {
-  background-color: #279fe5;
-  }
-
-  #sequence .step2 {
-  background-color: #f96852;
-  }
-
-  #sequence .step3 {
-  background-color: #2bbf8e;
-  }
-
-  #sequence h2,
-  #sequence h3 {
-  margin: 0;
-  display: block;
-  line-height: 120%;
-  }
-
-  #sequence h2 {
-  margin-bottom: .5em;
-  font-family: 'Roboto', sans-serif;
-  font-size: 2.6em;
-  }
-
-  #sequence h3 {
-  font-size: 1.4em;
-  }
-
-  /* Starting positions */
-  #sequence h2,
-  #sequence h3 {
-  opacity: 0;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  }
-
-  #sequence h2 {
-  -webkit-transform: translate(0, -20px);
-  transform: translate(0, -20px);
-  }
-
-  #sequence h3 {
-  -webkit-transform: translate(0, 20px);
-  transform: translate(0, 20px);
-  }
-
-  /* Animate in positions for content */
-  #sequence .seq-in h2,
-  #sequence .seq-in h3 {
-  opacity: 1;
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
-  }
-
-  /* Animate out positions for content */
-  #sequence .seq-out h2,
-  #sequence .seq-out h3 {
-  opacity: 1;
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
-  }
   </style>
-</head>
 
-<body>
-  <div id="sequence">
-    <ul class="seq-canvas">
-      <li class="step1">
-        <div class="content">
-          <h2 data-seq>Do something today that your future self will thank you for.</h2>
-        </div>
-      </li>
+{% endblock %}
 
-      <li class="step2">
-        <div class="content">
-          <h2 data-seq>The best way to fix the world is to fix yourself.</h2>
-        </div>
-      </li>
+{% block body %}
+  {{ super() }}
 
-      <li class="step3">
-        <div class="content">
-          <h2 data-seq>Actions speak louder than reasons.</h2>
-          <h3 data-seq>Don't give reason unless you have to!</h3>
-        </div>
-      </li>
-      <li class="step4">
-        <div class="content">
-          <h2 data-seq>It is okay to fail in the pursuit of a meaningful goal.</h2>
-        </div>
-      </li>
-      <li class="step5">
-        <div class="content">
-          <h2 data-seq>You fail and you learn.</h2>
-        </div>
-      </li>
-      <li class="step6">
-        <div class="content">
-          <h2 data-seq>People can suprise you.</h2>
-        </div>
-      </li>
-      <li class="step7">
-        <div class="content">
-          <h2 data-seq>It's okay to ask for assistance.</h2>
-        </div>
-      </li>
-      <li class="step8">
-        <div class="content">
-          <h2 data-seq>"All design is redesign."</h2>
-        </div>
-      </li>
-      <li class="step9">
-        <div class="content">
-          <h2 data-seq>If you believe you can achieve.</h2>
-        </div>
-      </li>
-      <li class="step10">
-        <div class="content">
-          <h2 data-seq>You gata struggle in order to progress.</h2>
-        </div>
-      </li>
-      <li class="step11">
-        <div class="content">
-          <h2 data-seq>Turn that frown upside down.</h2>
-        </div>
-      </li>
-      <li class="step12">
-        <div class="content">
-          <h2 data-seq>Make a wish, or make it happen.</h2>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <p class="clock"></p>
+  <img class="opening animated fadeInLeft" src="/img/Opening%20Quotes.svg">
+  <p class="quote animated fadeInDown"></p>
+  <img class="closing animated fadeInRight" src="/img/Closing%20Quotes.svg">
 
+  {% endblock %}
+  {% block scripts %}
+
+  {{ super() }}
   <script>
-    var sElement = document.getElementById("sequence");
 
-    var options = {
-      // autoPlay: true,
-      // autoPlayInterval: 500,
-      // fadeStepWhenSkipped: false
-    }
+  function getTime() {
+    var d = new Date();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    $(".clock").text(strTime);
+  }
+  getTime();
+  var int = setInterval(getTime, 5000);
 
-    var s1 = sequence(sElement, options);
-    setInterval(function(){
-      s1.next()
-    }, 2000)
+  var quotes =
+  [
+    "Do something today that your future self will thank you for.",
+    "The best way to fix the world is to fix yourself.",
+    "Actions speak louder than reasons.",
+    "Don't give reason unless you have to!",
+    "It's okay to fail in the pursuit of a meaningful goal.",
+    "You fail and you learn.",
+    "People can suprise you.",
+    "It's okay to ask for assistance.",
+    "All design is redesign.",
+    "If you believe, then you can achieve.",
+    "You have to struggle in order to progress. So if you're strugging, you're only progressing.",
+    "Turn that frown upside down.",
+    "Make a wish, or make it happen."
+  ]
 
+  function getQuote() {
+   return quotes[Math.floor(Math.random() * quotes.length)];
+  };
+
+  $(document).ready(function() {
+    $('.quote').text(getQuote());
+  });
 
   </script>
-
-
-</body>
+  {% endblock %}

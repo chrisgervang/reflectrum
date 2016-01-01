@@ -11,11 +11,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/EventEmitter/4.3.0/EventEmitter.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
     <style>
+      html,body {
+        background-color: #000;
+      }
       /*@font-face {
         font-family: sf;
         src: url({{ url_for('static', filename='SF-UI-Text-Regular.otf') }});
         font-weight: normal;
       }*/
+
     </style>
     {% endblock %}
   </head>
@@ -57,7 +61,7 @@
               break;
           }
 
-        } else if(event.keyCode == 37) {
+        } else if(event.keyCode == 39) {
           //single press (wait for keyup): select (move forward)
           //press hold: voice control or command center
 
@@ -71,7 +75,7 @@
               break;
           }
 
-        } else if(event.keyCode == 39) {
+        } else if(event.keyCode == 37) {
           //single press (wait for keyup): go back
           //press hold: go to menu
 

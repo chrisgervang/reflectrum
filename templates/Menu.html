@@ -156,6 +156,7 @@
         },
         secondaryClick: function() {
             console.log('secondaryClick');
+            window.history.back();
         },
         secondaryHold: function() {
             console.log('secondaryHold');
@@ -165,7 +166,7 @@
       var state = {
         bar: selection
       }
-      
+
       var moveBar = function(position) {
 
         if (position !== state.bar) {

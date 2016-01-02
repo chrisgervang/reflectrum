@@ -83,37 +83,25 @@
 {% block body %}
   {{ super() }}
   <div class="clock">7:20 PM</div>
-  <div class="goodmorning">Hello, Michelle.</div>
-  <div class="selector animated slideInDown"></div>
-  <div class="menu-group animated fadeInLeft">
-    <div class="item-container" id="scr">
+  <div class="goodmorning">Screensavers</div>
+  <div class="selector animated"></div>
+  <div class="menu-group animated fadeInRight">
+    <div class="item-container" id="lock">
       <div class="item">
-        <img class="icon" src="/img/Screensaver.svg"/>
-        <a href="/screensavers" >Screensavers</a>
+        <img class="icon" src="/img/Lockscreen.svg"/>
+        <a href="/screensavers/lockscreen" >Lockscreen</a>
       </div>
     </div>
-    <div class="item-container" id="wea">
+    <div class="item-container" id="tetris">
       <div class="item">
-        <img class="icon" src="/img/Weather.svg"/>
-        <a href="/weather" >Weather</a>
+        <img class="icon" src="/img/Tetris.svg"/>
+        <a href="/screensavers/tetris" >Tetris</a>
       </div>
     </div>
-    <div class="item-container" id="clk">
+    <div class="item-container" id="map">
       <div class="item">
-        <img class="icon" src="/img/Clock.svg"/>
-        <a href="/clock" >Clock</a>
-      </div>
-    </div>
-    <div class="item-container" id="cal">
-      <div class="item">
-        <img class="icon" src="/img/Calendar.svg"/>
-        <a href="/calendar" >Calendar</a>
-      </div>
-    </div>
-    <div class="item-container" id="quo">
-      <div class="item">
-        <img class="icon" src="/img/Quotes.svg"/>
-        <a href="/quotes" >Quotes</a>
+        <img class="icon" src="/img/Map.svg"/>
+        <a href="/screensavers/map" >Map</a>
       </div>
     </div>
   </div>
@@ -122,7 +110,7 @@
 {% block scripts %}
   {{ super() }}
   <script>
-    var sections = ["scr", "wea", "clk", "cal", "quo"];
+    var sections = ["lock", "tetris", "map"];
     var selection = 0;
 
     $(function(){

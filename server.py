@@ -39,6 +39,14 @@ def gmOpening():
 def home():
     return render_template('Home.html')
 
+@app.route('/screensavers', methods=['GET'])
+def screensavers():
+    return render_template('Screensavers.html')
+
+@app.route('/screensavers/map', methods=['GET'])
+def saverMap():
+    return render_template('Map.html')
+
 @app.route('/menu', methods=['GET'])
 def menu():
     return render_template('Menu.html')

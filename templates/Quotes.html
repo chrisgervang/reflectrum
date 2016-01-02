@@ -115,6 +115,14 @@
 
   $(document).ready(function() {
     $('.quote').text(getQuote());
+
+    var events ={
+      secondaryClick: function() {
+          console.log('secondaryClick');
+          window.history.back();
+      },
+    }
+    ee.addListeners(events);
   });
 
   </script>

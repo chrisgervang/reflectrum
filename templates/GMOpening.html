@@ -10,13 +10,14 @@
   body {
     background-color: #3498db;
     font-family: 'Lato', sans-serif;
-
+    color: white;
+    text-align: center;
+    height: 1366px;
   }
 
   .clock {
     padding-top: 20px;
     color: white;
-    text-align: center;
     font-size: 25px;
   }
 
@@ -28,10 +29,8 @@
   }
 
   .goodmorning {
-    text-align: center;
     font-size: 90px;
     margin-top: 60px;
-    color: white;
   }
 
   .line {
@@ -41,6 +40,26 @@
     border-top: 1px solid white;
   }
 
+  .calendar {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    display: block;
+  }
+
+  .currentDate {
+    margin-top: 80px;
+  }
+
+  .today {
+    font-size: 90px;
+  }
+
+  .date {
+    font-size: 110px;
+    line-height: 100px;
+  }
+
   </style>
 
 {% endblock %}
@@ -48,10 +67,16 @@
   {{ super() }}
 
   <p class="clock"></p>
-  <img class="emoji" src="http://emojione.com/wp-content/uploads/assets/emojis/1f643.svg" height="180" width="180">
+  <img class="emoji" src="http://emojione.com/wp-content/uploads/assets/emojis/1f4a9.svg" height="180" width="180">
   <p class="goodmorning">Goodmorning, Michelle.</p>
 
   <hr class="line">
+
+  <img class="calendar" src="http://imgh.us/Calendar_icon.svg" height="180" width="180">
+  <div class="currentDate">
+    <p class="today"></p>
+    <p class="date"></p>
+  </div>
 
 {% endblock %}
 
@@ -79,7 +104,7 @@
 
   // EMOJI
 
-  var emoji =
+  var emojiArray =
   [
     "http://emojione.com/wp-content/uploads/assets/emojis/1f601.svg",
     "http://emojione.com/wp-content/uploads/assets/emojis/1f602.svg",
@@ -94,14 +119,42 @@
     "http://emojione.com/wp-content/uploads/assets/emojis/1f4a9.svg"
   ]
 
-  function getRandomImage(imgAr, path) {
-    path = path || 'images/'; // default path here
+  getRandomImage(emojiArray, "");
+
+  function getRandomImage(imgAr) {
     var num = Math.floor( Math.random() * imgAr.length );
     var img = imgAr[ num ];
-    var imgStr = '<img src="' + path + img + '" alt = "">';
-    document.write(imgStr); document.close();
+    return img
   }
 
+  // Get Current Date
+
+  var objToday = new Date(),
+                weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+                dayOfWeek = weekday[objToday.getDay()],
+                domEnder = new Array( 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th' ),
+                dayOfMonth = today + (objToday.getDate() < 10) ? '0' + objToday.getDate() + domEnder[objToday.getDate()] : objToday.getDate() + domEnder[parseFloat(("" + objToday.getDate()).substr(("" + objToday.getDate()).length - 1))],
+                months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+                curMonth = months[objToday.getMonth()],
+                curYear = objToday.getFullYear(),
+                curHour = objToday.getHours() > 12 ? objToday.getHours() - 12 : (objToday.getHours() < 10 ? "0" + objToday.getHours() : objToday.getHours()),
+                curMinute = objToday.getMinutes() < 10 ? "0" + objToday.getMinutes() : objToday.getMinutes(),
+                curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
+                curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
+  var today = dayOfWeek + ",";
+  var date = curMonth + " " + dayOfMonth;
+  console.log(today)
+  console.log(date)
+
+  // Jquery
+
+  $(document).ready(function() {
+    // date
+    $('.today').text(today)
+    $('.date').text(date)
+
+    $('.emoji').attr("src", getRandomImage(emojiArray))
+  })
 
   </script>
 

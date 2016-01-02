@@ -9,8 +9,49 @@
 {% block body %}
   {{ super() }}
 
+  <p class="clock"></p>
+
+  <div class="weaHead">
+    <div class="container">
+      <p class="location">Berkeley, CA</p>
+      <p class="weaDesc">Partly Cloudy</p>
+    </div>
+    <p class="temperature">45º</p>
+  </div>
+
+  <div class="weaDetail">
+    <ul class="detailUL">
+      <li class="dayOfWeek left">Sunday</li>
+      <li class="today left">Today</li>
+      <li class="highTemp right">48º</li>
+      <li class="lowTemp right">41º</li>
+    </ul>
+  </div>
+
+  <hr class="line">
+
 {% endblock %}
 
 {% block scripts %}
+
+<script>
+
+// CLOCK
+
+  function getTime() {
+    var d = new Date();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    $(".clock").text(strTime);
+  }
+  getTime();
+  var int = setInterval(getTime, 5000);
+
+</script>
 
 {% endblock %}

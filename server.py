@@ -1,5 +1,5 @@
-from flask import Flask, request, url_for, render_template, send_from_directory
-import calendar
+from flask import Flask, request, url_for, render_template, send_from_directory, json
+import g_cal
 
 app = Flask(__name__, static_url_path='')
 
@@ -22,6 +22,27 @@ def tabs():
 @app.route('/quotes', methods=['GET'])
 def quotes():
     return render_template('Quotes.html')
+
+
+
+@app.route('/calendar', methods=['GET'])
+def calendar():
+	return render_template('Calendar.html')
+
+@app.route('/calendar/events', methods=['GET'])
+def calendar_events():
+	events = g_cal.get_events()
+	if events:
+		return json.jsonify(status="events", events=events)
+	if not events:
+		auth_results = g_cal.authenticate()
+		if auth_results:
+			return json.jsonify(status="auth", code=auth_results[0], url=auth_results[1])
+		else:
+			events = g_cal.get_events()
+			return json.jsonify(status="events", events=events)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

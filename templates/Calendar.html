@@ -11,9 +11,57 @@
 
 <script type="text/jsx">
 
+
+var Time = React.createClass({
+    parseTime: function(datetime) {
+      var d = new Date(datetime);
+      var hours = d.getHours().toString();
+      if (hours.length == 1) {
+        hours = "0" + hours;
+      }
+      var minutes = d.getMinutes().toString();
+      if (minutes.length == 1) {
+        minutes = "0" + minutes;
+      }
+      return hours + ":" + minutes;
+    },
+    getStart: function() {
+      var datetime = this.props.start.dateTime;
+      return this.parseTime(datetime);
+    },
+    getEnd: function() {
+      var datetime = this.props.end.dateTime;
+      return this.parseTime(datetime); 
+    },
+    render: function() {
+      if (this.props.start.date) {
+        return <div>all-day</div>;
+      } else if (this.props.endTimeUnspecified) {
+        return <div>{this.getStart()}</div>;
+      } else {
+        return <div>
+                  <div>{this.getStart()}</div>
+                  <div>{this.getEnd()}</div>
+                </div>;
+      }
+    }
+});
+
+
 var Event = React.createClass({
     render: function() {
-      return <div>{this.props.summary}</div>;
+      console.log(this.props);
+      var locationDisplay;
+      if (this.props.location) {
+        locationDisplay = <div>{this.props.location}</div>;
+      } else {
+        locationDisplay = <div></div>;
+      }
+      return <div>
+                <Time {...this.props} />
+                <div>{this.props.summary}</div>
+                {locationDisplay}
+             </div>;
     }
 });
 

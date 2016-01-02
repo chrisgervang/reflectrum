@@ -51,8 +51,17 @@ body {
   float: left;
 }
 
+li.dayOfWeek {
+  font-weight: 700;
+}
+
 .weaDetail li.right {
   float: right;
+}
+
+li.lowTemp {
+  color: #E0E0E0;
+  opacity: 98%;
 }
 
 .line {
@@ -60,4 +69,45 @@ body {
   margin-top: 100px;
   border-width: 1px;
   border-top: 1px solid white;
+}
+
+.weaStamp {
+  text-align: center;
+  width: 200px;
+}
+
+.weatherAt, .tempAt, .weatherAt1, .tempAt1 {
+  font-size: 30px;
+}
+
+.weatherAt {
+  margin-top: 25px;
+}
+
+.tempAt {
+  margin-top: 200px;
+  position: absolute;
+  margin-left: 75px;
+}
+
+.wrapper1 {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  /*top: calc(50% - 75px);
+  left: calc(50% - 75px);*/
+  margin-top: 50px;
+  left: 28%;
+}
+
+.weatherAt1 {
+  margin-top: -30px;
+  margin-left: 260px;
+  position: absolute;
+}
+
+.tempAt1 {
+  margin-top: 200px;
+  margin-left: 265px;
+  position: absolute;
 }

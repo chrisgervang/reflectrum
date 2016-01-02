@@ -59,8 +59,6 @@ def menu():
 def quotes():
     return render_template('Quotes.html')
 
-
-
 @app.route('/calendar', methods=['GET'])
 def calendar():
 	return render_template('Calendar.html')

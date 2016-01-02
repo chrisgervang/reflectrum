@@ -31,7 +31,7 @@ var Time = React.createClass({
     },
     getEnd: function() {
       var datetime = this.props.end.dateTime;
-      return this.parseTime(datetime); 
+      return this.parseTime(datetime);
     },
     render: function() {
       if (this.props.start.date) {
@@ -106,13 +106,10 @@ var Calendar = React.createClass({
     }
 });
 
-
-
 React.render(<Calendar/>, document.body);
 
 $.get("calendar/events", function(data) {
   React.render(<Calendar {...data}/>, document.body);
 });
-
 
 </script>

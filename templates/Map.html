@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    div {
+      height: 1366px;
+      width: 768px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translateY(-50%) translateX(-50%);
+      max-height: 100%;
+      height: auto;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  {{ super() }}
+  <div class="map">
+  </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  $(function(){
+    console.log("Hi")
+
+
+    mapSrc("San Mateo,CA", 13)
+
+    function mapSrc(location, zoom) {
+      console.log("Bye")
+      var link = "\'https://maps.googleapis.com/maps/api/staticmap?center="+location+
+        "&zoom="+zoom+"&format=png&sensor=false&scale=2&size="+window.innerWidth+
+        "x"+window.innerHeight+"&maptype=roadmap&style=visibility:on|weight:1|invert_lightness:true|saturation:-100|lightness:1\'"
+      $(".map").css("background-image","url("+link+")");
+    }
+  });
+
+</script>
+{% endblock %}

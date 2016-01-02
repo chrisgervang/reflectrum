@@ -1,4 +1,8 @@
-<head>
+
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
@@ -12,14 +16,20 @@
   body {
     /*background:#dfd8c8;*/
     background:#000;
+    overflow: hidden;
   }
+
+  body > div {
+      -webkit-overflow-scrolling: touch;
+  }
+
   #clock{
-    width:400px; height:400px;
+    width:700px; height:700px;
     background:#f2f2f4;
     border-radius:26px;
     position:absolute;
     left:50%; top:50%;
-    margin:-200px;
+    margin:-350px;
     box-shadow:
       0 2px 0 #dfd8c8,
       0 4px 0 #eae4d6,
@@ -38,13 +48,13 @@
   }
   #clock .decoration {
     position:absolute;
-    left:50px; right:50px;
-    top:50px; bottom:50px;
-    border-radius:6px;
+    left:90px; right:90px;
+    top:90px; bottom:90px;
+    border-radius:10px;
     box-shadow:
-      0 4px 0 #f7f6f4,
-      0 -4px 0 #fbfbfb,
-      inset 0 10px 30px rgba(0,0,0,0.08);
+      0 7px 0 #f7f6f4,
+      0 -7px 0 #fbfbfb,
+      inset 0 18px 55px rgba(0,0,0,0.08);
     background:linear-gradient(#e4e3e1 0%, #ebe7e4 100%);
   }
   #clock .decoration span {
@@ -52,23 +62,23 @@
     position:absolute;
     background:#a98c6b;
     box-shadow: 0 0px 4px rgba(0,0,0,0.2);
-    margin:-6px;
+    margin:-12px;
   }
   #clock .decoration .top {
-    width:12px; height:32px;
-    left:50%; top:16px;
+    width:24px; height:64px;
+    left:50%; top:32px;
   }
   #clock .decoration .bottom {
-    width:12px; height:32px;
-    left:50%; bottom:16px;
+    width:24px; height:64px;
+    left:50%; bottom:32px;
   }
   #clock .decoration .left {
-    width:32px; height:12px;
-    left:16px; bottom:50%;
+    width:64px; height:24px;
+    left:32px; bottom:50%;
   }
   #clock .decoration .right {
-    width:32px; height:12px;
-    right:16px; bottom:50%;
+    width:64px; height:24px;
+    right:32px; bottom:50%;
   }
 
   #clock .pointers {
@@ -85,34 +95,34 @@
     position:absolute;
     content:'';
     background:#26231e;
-    width:200px; height:4px;
-    left:200px; top:200px;
-    border-radius:10px;
+    width:350px; height:7px;
+    left:350px; top:350px;
+    border-radius:18px;
   }
   #clock .pointers .houre:after {
-    width:90px; height:12px;
-    margin:-6px 0 0 -20px;
+    width:180px; height:22px;
+    margin:-12px 0 0 -40px;
   }
   #clock .pointers .minute:after {
-    width:136px; height:8px;
-    margin:-4px 0 0 -24px;
+    width:272px; height:14px;
+    margin:-8px 0 0 -48px;
   }
   #clock .pointers .second:after {
-    width:146px; height:4px;
-    margin:-2px 0 0 -40px;
+    width:292px; height:7px;
+    margin:-4px 0 0 -80px;
     background:#ea593c;
   }
   #clock .pointers .second:before {
     position:absolute;
     content:'';
-    border-radius:10px;
-    width:12px; height:12px;
-    margin:-6px;
+    border-radius:18px;
+    width:24px; height:24px;
+    margin:-12px;
     left:50%; top:50%;
     background:#ea593c;
   }
   #clock .pointers.shadow {
-    margin-top:8px;
+    margin-top:16px;
     z-index:1;
   }
   #clock .pointers.shadow span {
@@ -122,80 +132,90 @@
   #clock .pointers.shadow > span:before {
     background:#000 !important;
     opacity:0.20;
-    filter: blur(2px);
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    -ms-filter: blur(2px);
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
   }
 
   #clock.aminate .pointers span {
      transition:transform 1s ease;
   }
   </style>
-</head>
+{% endblock %}
+{% block body %}
+  {{ super() }}
 
-<body>
-
-</body>
-
-<script type="text/jsx">
-var Clock = React.createClass({
-  render: function(){
-    return <div id="clock" className="animated fadeInUp">
-      <div className="pointers">
-        <span className="houre"></span>
-        <span className="minute"></span>
-        <span className="second"></span>
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script type="text/jsx">
+  var Clock = React.createClass({
+    render: function(){
+      return <div id="clock" className="animated fadeInUp">
+        <div className="pointers">
+          <span className="houre"></span>
+          <span className="minute"></span>
+          <span className="second"></span>
+        </div>
+        <div className="pointers shadow">
+          <span className="houre"></span>
+          <span className="minute"></span>
+          <span className="second"></span>
+        </div>
+        <div className="decoration">
+          <span className="top"></span>
+          <span className="bottom"></span>
+          <span className="right"></span>
+          <span className="left"></span>
+        </div>
       </div>
-      <div className="pointers shadow">
-        <span className="houre"></span>
-        <span className="minute"></span>
-        <span className="second"></span>
-      </div>
-      <div className="decoration">
-        <span className="top"></span>
-        <span className="bottom"></span>
-        <span className="right"></span>
-        <span className="left"></span>
-      </div>
-    </div>
-  }
-});
-
-var element = React.createElement(Clock);
-
-React.render(element, document.body);
-
-$(function(){
-  $('.houre, .minute, .second').data('plus-deg', 0)
-  calcTime();
-  $('#clock').addClass('aminate');
-  var int = setInterval(calcTime, 1000);
-  function calcTime () {
-    var d = new Date();
-    var h = d.getHours();
-    rotate($('.houre'),  ((h > 12 ? h - 12 : h)*30)-90);
-    rotate($('.minute'), (d.getMinutes()/*0-59*/*6)-90);
-    rotate($('.second'), (d.getSeconds()/*0-59*/*6)-90);
-  }
-  function rotate ($object, deg) {
-    var original_deg = deg;
-    if(deg != $object.data('deg')){
-      if(deg == -90) {
-        $object.data('plus-deg', $object.data('plus-deg')+360);
-      }
-      deg += $object.data('plus-deg');
-      $object.css({
-        '-webkit-transform' : 'rotate('+deg+'deg)',
-        '-moz-transform' : 'rotate('+deg+'deg)',
-        '-ms-transform' : 'rotate('+deg+'deg)',
-        '-o-transform' : 'rotate('+deg+'deg)',
-        'transform' : 'rotate('+deg+'deg)',
-        'zoom' : 1
-      });
-      $object.data('deg', original_deg);
     }
-  }
-});
-</script>
+  });
+
+  var element = React.createElement(Clock);
+
+  React.render(element, document.body);
+
+  $(function(){
+    $('.houre, .minute, .second').data('plus-deg', 0)
+    calcTime();
+    $('#clock').addClass('aminate');
+    var int = setInterval(calcTime, 1000);
+    function calcTime () {
+      var d = new Date();
+      var h = d.getHours();
+      rotate($('.houre'),  ((h > 12 ? h - 12 : h)*30)-90);
+      rotate($('.minute'), (d.getMinutes()/*0-59*/*6)-90);
+      rotate($('.second'), (d.getSeconds()/*0-59*/*6)-90);
+    }
+    function rotate ($object, deg) {
+      var original_deg = deg;
+      if(deg != $object.data('deg')){
+        if(deg == -90) {
+          $object.data('plus-deg', $object.data('plus-deg')+360);
+        }
+        deg += $object.data('plus-deg');
+        $object.css({
+          '-webkit-transform' : 'rotate('+deg+'deg)',
+          '-moz-transform' : 'rotate('+deg+'deg)',
+          '-ms-transform' : 'rotate('+deg+'deg)',
+          '-o-transform' : 'rotate('+deg+'deg)',
+          'transform' : 'rotate('+deg+'deg)',
+          'zoom' : 1
+        });
+        $object.data('deg', original_deg);
+      }
+    }
+    var events ={
+      secondaryClick: function() {
+          console.log('secondaryClick');
+          window.history.back();
+      },
+    }
+    ee.addListeners(events);
+
+  });
+  </script>
+{% endblock %}

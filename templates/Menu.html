@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
+  <style>
+    html, body {
+      /*background-color: #34495e;*/
+      background-color: black;
+      font-family: 'Lato';
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      letter-spacing: 0.2em;
+    }
+
+    body > div {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .clock {
+      padding-top: 20px;
+      color: white;
+      text-align: center;
+      font-size: 30px;
+      height: 60px;
+    }
+
+    .goodmorning {
+      padding-top: 70px;
+      height: 130px;
+      color: #F2F4FF;
+      text-align: center;
+      font-size: 45px;
+    }
+
+    .selector {
+      background-color: white;
+      opacity: 0.4;
+      position: absolute;
+      height: 200px;
+      width: 100%;
+      top: 280px;
+      transition: top 0.5s ease;
+
+    }
+
+    .item-container {
+      height: 200px;
+
+      /*margin: 5px 0;*/
+
+    }
+
+    .item {
+      color: white;
+      opacity: 1;
+
+    }
+
+    a {
+      font-size: 80px;
+      color: white;
+      text-decoration: none;
+      line-height: 200px;
+    }
+
+    .icon {
+      margin: -10px 60px;
+      height: 80px;
+      width: 80px;
+    }
+
+    .icon > img {
+      /*vertical-align: middle;*/
+    }
+
+
+  </style>
+{% endblock %}
+{% block body %}
+  {{ super() }}
+  <div class="clock">7:20 PM</div>
+  <div class="goodmorning">Hello, Michelle.</div>
+  <div class="selector animated slideInDown"></div>
+  <div class="menu-group animated fadeInLeft">
+    <div class="item-container" id="scr">
+      <div class="item">
+        <img class="icon" src="/img/Screensaver.svg"/>
+        <a href="/screensavers" >Screensavers</a>
+      </div>
+    </div>
+    <div class="item-container" id="wea">
+      <div class="item">
+        <img class="icon" src="/img/Weather.svg"/>
+        <a href="/weather" >Weather</a>
+      </div>
+    </div>
+    <div class="item-container" id="clk">
+      <div class="item">
+        <img class="icon" src="/img/Clock.svg"/>
+        <a href="/clock" >Clock</a>
+      </div>
+    </div>
+    <div class="item-container" id="cal">
+      <div class="item">
+        <img class="icon" src="/img/Calendar.svg"/>
+        <a href="/calendar" >Calendar</a>
+      </div>
+    </div>
+    <div class="item-container" id="quo">
+      <div class="item">
+        <img class="icon" src="/img/Quotes.svg"/>
+        <a href="/quotes" >Quotes</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    var sections = ["scr", "wea", "clk", "cal", "quo"];
+    var selection = 0;
+
+    $(function(){
+      console.log(ee)
+      var events = {
+        upClick: function() {
+            console.log('upClick');
+            if(selection > 0) {
+              selection -= 1;
+            }
+            console.log(selection);
+            moveBar(selection);
+        },
+        downClick: function() {
+            console.log('downClick');
+            if(selection < sections.length - 1) {
+              selection += 1;
+            }
+            console.log(selection);
+            moveBar(selection);
+        },
+        primaryClick: function() {
+            console.log('primaryClick');
+            console.log(sections[selection]);
+            $(".menu-group").removeClass("fadeInLeft");
+            $(".menu-group").addClass("fadeOutLeft");
+            setTimeout(function(){
+              $("#"+sections[selection]+" a")[0].click()
+            },400);
+        },
+        primaryHold: function() {
+            console.log('primaryHold');
+        },
+        secondaryClick: function() {
+            console.log('secondaryClick');
+            window.history.back();
+        },
+        secondaryHold: function() {
+            console.log('secondaryHold');
+        }
+      }
+
+      var state = {
+        bar: selection
+      }
+
+      var moveBar = function(position) {
+
+        if (position !== state.bar) {
+          // change classes. All for
+          // $('#'+sections[s]).addClass("selected")
+          console.log(position, $('#'+sections[position]))
+          $('.selector').css('top', (position * 200) + 280 + 'px')
+          // for (var i = 0; i < sections.length; i++) {
+          //   if(i !== s) {
+          //     $('#'+sections[i]).removeClass("selected")
+          //   }
+          // }
+          state.bar = position
+        }
+      }
+
+      ee.addListeners(events);
+
+      function getTime() {
+        var d = new Date();
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        $(".clock").text(strTime);
+      }
+      getTime();
+      var int = setInterval(getTime, 5000);
+    });
+
+
+  </script>
+{% endblock %}

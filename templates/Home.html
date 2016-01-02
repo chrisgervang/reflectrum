@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+  <script src="/scripts/sequence.js"></script>
+  <style>
+  .content {
+    transform: translateY(300px);
+  }
+  .content .seq-out {
+    transform: translateY(-100%);
+  }
+  h1 {
+    text-align: center;
+    color: #BDBDBD;
+    font-size: 72px;
+    font-family: sf;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #BDBDBD;
+    font-size: 24px;
+    font-family: sf;
+    font-weight: normal;
+  }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='heart.css') }}">
+{% endblock %}
+{% block body %}
+  {{ super() }}
+  <div id="sequence">
+    <ul class="seq-canvas">
+      <li class="step1">
+        <div class="content">
+          <div data-seq>
+            <h1>Merry Christmas</h1>
+          </div>
+          <div data-seq style="height: 500px;">
+            <div class="heart">
+              <div class="part"></div>
+            </div>
+          </div>
+          <div data-seq>
+            <h1>Let's Go!</h1>
+            <h2>(click the mouse)</h2>
+          </div>
+        </div>
+      </li>
+      <li class="step2">
+        <div class="content">
+          <div style="margin-top: 300px;">
+            <!-- <h1>Mirror Controls</h1> -->
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(function(){
+      var sElement = document.getElementById("sequence");
+
+      var options = {
+        // autoPlay: true,
+        // autoPlayInterval: 500,
+        // fadeStepWhenSkipped: false
+      }
+
+      var s1 = sequence(sElement, options);
+
+      $(document).on('click', function(event){
+        s1.next()
+        // $(".tabs-group").removeClass("bounceInDown");
+        // $(".tabs-group").addClass("bounceOutUp");
+        // setTimeout(function(){
+        //   window.location.href = "http://127.0.0.1:5000/";
+        // },400);
+      });
+    });
+</script>
+{% endblock %}
+<script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>

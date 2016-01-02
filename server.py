@@ -35,6 +35,10 @@ def clock():
 def gmOpening():
     return render_template('GMOpening.html')
 
+@app.route('/gmweather', methods=['GET'])
+def gmWeather():
+    return render_template('GMWeather.html')
+
 @app.route('/home', methods=['GET'])
 def home():
     return render_template('Home.html')

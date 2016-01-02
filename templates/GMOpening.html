@@ -4,64 +4,7 @@
   {{ super() }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-
-  <style>
-
-  body {
-    background-color: #3498db;
-    font-family: 'Lato', sans-serif;
-    color: white;
-    text-align: center;
-    height: 1366px;
-  }
-
-  .clock {
-    padding-top: 20px;
-    color: white;
-    font-size: 25px;
-  }
-
-  .emoji {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 80px;
-    display: block;
-  }
-
-  .goodmorning {
-    font-size: 90px;
-    margin-top: 60px;
-  }
-
-  .line {
-    width: 600px;
-    margin-top: 80px;
-    border-width: 3px;
-    border-top: 1px solid white;
-  }
-
-  .calendar {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 80px;
-    display: block;
-  }
-
-  .currentDate {
-    margin-top: 80px;
-  }
-
-  .today {
-    font-size: 90px;
-  }
-
-  .date {
-    font-size: 110px;
-    line-height: 100px;
-  }
-
-  </style>
-
+  <link rel="stylesheet" type="text/css" href="/style/gmopening.css">
 {% endblock %}
 {% block body %}
   {{ super() }}
@@ -84,8 +27,7 @@
     {{ super() }}
 
   <script>
-
-
+  
   // CLOCK
 
   function getTime() {

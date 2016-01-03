@@ -73,41 +73,30 @@ li.lowTemp {
 
 .weaStamp {
   text-align: center;
-  width: 200px;
+  width: 147px;
+  display: inline-block;
 }
 
-.weatherAt, .tempAt, .weatherAt1, .tempAt1 {
+.weatherAt, .tempAt, .weatherAt1, .tempAt1, .weatherAt2, .tempAt2, .weatherAt3, .tempAt3 {
   font-size: 30px;
 }
 
 .weatherAt {
   margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tempAt {
-  margin-top: 200px;
-  position: absolute;
-  margin-left: 75px;
+  margin-top: 140px;
+  /*position: absolute;*/
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.wrapper1 {
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  /*top: calc(50% - 75px);
-  left: calc(50% - 75px);*/
-  margin-top: 50px;
-  left: 28%;
-}
-
-.weatherAt1 {
-  margin-top: -30px;
-  margin-left: 260px;
-  position: absolute;
-}
-
-.tempAt1 {
-  margin-top: 200px;
-  margin-left: 265px;
-  position: absolute;
+.line2 {
+  width: 768px;
+  margin-top: 35px;
+  border-width: 1px;
+  border-top: 1px solid white;
 }

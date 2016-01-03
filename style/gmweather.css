@@ -100,3 +100,34 @@ li.lowTemp {
   border-width: 1px;
   border-top: 1px solid white;
 }
+
+.details {
+  display: inline-block;
+}
+
+.detailsWrapper {
+  display: inline-block;
+  width: 370px;
+}
+
+.detailsLeft {
+  width: 314px;
+  padding: 40px;
+}
+
+.right {
+  text-align: right;
+  font-size: 30px;
+  padding: 10px;
+}
+
+.detailsRight {
+  width: 314px;
+  padding: 40px;
+}
+
+.left {
+  text-align: left;
+  font-size: 30px;
+  padding: 10px;
+}

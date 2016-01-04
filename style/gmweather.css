@@ -71,6 +71,12 @@ li.lowTemp {
   border-top: 1px solid white;
 }
 
+.weaStampWrapper {
+  width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .weaStamp {
   text-align: center;
   width: 147px;
@@ -99,6 +105,12 @@ li.lowTemp {
   margin-top: 35px;
   border-width: 1px;
   border-top: 1px solid white;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 768px;
 }
 
 .details {

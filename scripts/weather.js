@@ -78,6 +78,11 @@ function displayLocation(latitude,longitude) {
     lowTemp = Math.round(lowTemp);
     $('.lowTemp').text(lowTemp+"º");
 
+    $('.now').text(currTemp+"º");
+
+
+
+
     var chanceOfRain = data.daily.data[0].precipProbability;
     chanceOfRain = chanceOfRain * 100;
     $('.chanceOfRainData').text(chanceOfRain+"%");
@@ -85,18 +90,12 @@ function displayLocation(latitude,longitude) {
     var sunriseTime = data.daily.data[0].sunriseTime;
     var secToMil = sunriseTime * 1000;  // convert to milliseconds
     var toString = secToMil.toString(); // convert to string
-    console.log(toString);
-
     var milSecToTimeFormat = new Date(secToMil).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-    console.log(milSecToTimeFormat);
 
     var sunsetTime = data.daily.data[0].sunsetTime;
     sunsetTime = sunsetTime * 1000; // convert to milliseconds
     var sunsetTimeToString = sunsetTime.toString(); // convert to string
-    console.log(sunsetTimeToString);
-
     var sunsetToTimeFormat = new Date(sunsetTime).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-    console.log(sunsetToTimeFormat);
 
     function milToStandard(value) {
       if (value !== null && value !== undefined){ //If value is passed in

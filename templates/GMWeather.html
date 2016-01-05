@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/style/animatedWeather.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="/scripts/weather.js"></script>
 {% endblock %}
 {% block body %}
   {{ super() }}
@@ -14,18 +15,18 @@
 
   <div class="weaHead">
     <div class="container">
-      <p class="location"></p>
-      <p class="weaDesc">Partly Cloudy</p>
+      <p class="location">City, State</p>
+      <p class="summary">Summary</p>
     </div>
-    <p class="temperature"></p>
+    <p class="temperature">Current Temp</p>
   </div>
 
   <div class="weaDetail">
     <ul class="detailUL">
-      <li class="dayOfWeek left">Sunday</li>
+      <li class="dayOfWeek left"></li>
       <li class="today left">Today</li>
-      <li class="lowTemp right">41º</li>
-      <li class="highTemp right">48º</li>
+      <li class="lowTemp right">Lowº</li>
+      <li class="highTemp right">Highº</li>
     </ul>
   </div>
 
@@ -477,32 +478,32 @@
     <div class="details">
       <div class="detailsWrapper">
         <div class="detailsLeft">
-          <p class="right">Sunrise:</p>
-          <p class="right">Sunset:</p>
+          <p class="right sunrise">Sunrise:</p>
+          <p class="right sunset">Sunset:</p>
           <br />
-          <p class="right">Chance of rain:</p>
-          <p class="right">Humidity:</p>
+          <p class="right chanceOfRain">Chance of rain:</p>
+          <p class="right humidity">Humidity:</p>
           <br />
-          <p class="right">Wind</p>
-          <p class="right">Feels like:</p>
+          <p class="right wind">Wind</p>
+          <p class="right feelsLike">Feels like:</p>
           <br />
-          <p class="right">Precipitation:</p>
-          <p class="right">Pressure:</p>
+          <p class="right precipitation">Precipitation:</p>
+          <p class="right precipitationType">Precipitation Type:</p>
         </div>
       </div>
       <div class="detailsWrapper">
         <div class="detailsRight">
-          <p class="left">7:24 AM</p>
-          <p class="left">4:58 PM</p>
+          <p class="left sunriseData">00:00 AM</p>
+          <p class="left sunsetData">00:00 PM</p>
           <br />
-          <p class="left">10%</p>
-          <p class="left">64%</p>
+          <p class="left chanceOfRainData"></p>
+          <p class="left humidityData"></p>
           <br />
-          <p class="left">s 2 mph</p>
-          <p class="left">46º</p>
+          <p class="left windData"></p>
+          <p class="left feelsLikeData">46º</p>
           <br />
-          <p class="left">0.0 in</p>
-          <p class="left">30.20 in</p>
+          <p class="left precipitationData">0 in/hr</p>
+          <p class="left precipitationTypeData">n/a</p>
         </div>
       </div>
     </div>
@@ -514,89 +515,114 @@
 
 <script>
 
-  // CLOCK
-
-  function getTime() {
-    var d = new Date();
-    var hours = d.getHours();
-    var minutes = d.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    $(".clock").text(strTime);
-  }
-  getTime();
-  var int = setInterval(getTime, 5000);
-
-  // Get city from longitude and latitude
-
-  function displayLocation(latitude,longitude) {
-    var request = new XMLHttpRequest();
-
-    var method = 'GET';
-    var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
-    var async = true;
-
-    var apiKey = '5485362f69ad87b5aaa04281f19ce344';
-    var urlForecast = 'https://api.forecast.io/forecast/';
-    var data;
-
-    request.open(method, url, async);
-    request.onreadystatechange = function(){
-      if (request.readyState == 4 && request.status == 200) {
-        var data = JSON.parse(request.responseText);
-        var address = data.results[0];
-        var formattedAddress = address.formatted_address;
-        var removeStreetAdr = formattedAddress.substring(formattedAddress.indexOf(",")+1)
-        var removeCountry = removeStreetAdr.substr(0, removeStreetAdr.lastIndexOf(","));
-        var withNoDigits = removeCountry.replace(/[0-9]/g, '');
-        console.log(withNoDigits);
-        $(document).ready(function() {
-          $('.location').text(withNoDigits)
-        })
-      }
-    };
-    request.send();
-
-    $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {
-      var temp = data.currently.temperature;
-      temp = Math.round(temp);
-      console.log(temp);
-      $('.temperature').html(temp+"º");
-    });
-  };
-
-  var successCallback = function(position){
-    var x = position.coords.latitude;
-    var y = position.coords.longitude;
-    displayLocation(x,y);
-  };
-
-  var errorCallback = function(error){
-    var errorMessage = 'Unknown error';
-    switch(error.code) {
-      case 1:
-        errorMessage = 'Permission denied';
-        break;
-      case 2:
-        errorMessage = 'Position unavailable';
-        break;
-      case 3:
-        errorMessage = 'Timeout';
-        break;
-    }
-    console.log(errorMessage);
-  };
-
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 1000,
-    maximumAge: 0
-  };
-
-  navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+  // // CLOCK
+  //
+  // function getTime() {
+  //   var d = new Date();
+  //   var hours = d.getHours();
+  //   var minutes = d.getMinutes();
+  //   var ampm = hours >= 12 ? 'PM' : 'AM';
+  //   hours = hours % 12;
+  //   hours = hours ? hours : 12; // the hour '0' should be '12'
+  //   minutes = minutes < 10 ? '0'+minutes : minutes;
+  //   var strTime = hours + ':' + minutes + ' ' + ampm;
+  //   $(".clock").text(strTime);
+  // }
+  // getTime();
+  // var int = setInterval(getTime, 5000);
+  //
+  // // Get city from longitude and latitude
+  //
+  // function displayLocation(latitude,longitude) {
+  //   var request = new XMLHttpRequest();
+  //
+  //   var method = 'GET';
+  //   var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
+  //   var async = true;
+  //
+  //   var apiKey = '5485362f69ad87b5aaa04281f19ce344';
+  //   var urlForecast = 'https://api.forecast.io/forecast/';
+  //   var data;
+  //
+  //   request.open(method, url, async);
+  //   request.onreadystatechange = function(){
+  //     if (request.readyState == 4 && request.status == 200) {
+  //       var data = JSON.parse(request.responseText);
+  //       var address = data.results[0];
+  //       var formattedAddress = address.formatted_address;
+  //       var removeStreetAdr = formattedAddress.substring(formattedAddress.indexOf(",")+1)
+  //       var removeCountry = removeStreetAdr.substr(0, removeStreetAdr.lastIndexOf(","));
+  //       var withNoDigits = removeCountry.replace(/[0-9]/g, '');
+  //       console.log(withNoDigits);
+  //       $(document).ready(function() {
+  //         $('.location').text(withNoDigits)
+  //       })
+  //     }
+  //   };
+  //   request.send();
+  //
+  //   $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {
+  //
+  //     console.log(data);
+  //
+  //     var currTemp = data.currently.temperature;
+  //     currTemp = Math.round(currTemp);
+  //     $('.temperature').html(currTemp+"º");
+  //
+  //     var summary = data.currently.summary;
+  //     console.log(summary);
+  //     $('.summary').text(summary);
+  //
+  //     var d = new Date();
+  //     var weekday = new Array(7);
+  //     weekday[0]=  "Sunday";
+  //     weekday[1] = "Monday";
+  //     weekday[2] = "Tuesday";
+  //     weekday[3] = "Wednesday";
+  //     weekday[4] = "Thursday";
+  //     weekday[5] = "Friday";
+  //     weekday[6] = "Saturday";
+  //     var n = weekday[d.getDay()];
+  //     $('.dayOfWeek').text(n);
+  //
+  //     var sunriseTime = data.daily.sunriseTime;
+  //     console.log(sunriseTime);
+  //
+  //     var humidity = data.currently.humidity;
+  //     var decToPer = humidity * 100;
+  //     $('.humidityData').html(decToPer+"%");
+  //   });
+  // };
+  //
+  // var successCallback = function(position){
+  //   var x = position.coords.latitude;
+  //   var y = position.coords.longitude;
+  //   displayLocation(x,y);
+  // };
+  //
+  // var errorCallback = function(error){
+  //   var errorMessage = 'Unknown error';
+  //   switch(error.code) {
+  //     case 1:
+  //       errorMessage = 'Permission denied';
+  //       break;
+  //     case 2:
+  //       errorMessage = 'Position unavailable';
+  //       break;
+  //     case 3:
+  //       errorMessage = 'Timeout';
+  //       break;
+  //   }
+  //   console.log(errorMessage);
+  // };
+  //
+  // var options = {
+  //   enableHighAccuracy: true,
+  //   timeout: 1000,
+  //   maximumAge: 0
+  // };
+  //
+  // navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
 
 </script>
 

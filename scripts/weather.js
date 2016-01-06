@@ -51,52 +51,6 @@ function displayLocation(latitude,longitude) {
 
     console.log(data);
 
-    var currTemp = data.currently.temperature;
-    currTemp = Math.round(currTemp);
-    $('.temperature').html(currTemp+"º");
-
-    var summary = data.currently.summary;
-    $('.summary').text(summary);
-
-    var d = new Date();
-    var weekday = new Array(7);
-    weekday[0] =  "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-    var n = weekday[d.getDay()];
-    $('.dayOfWeek').text(n);
-
-    var highTemp = data.daily.data[0].temperatureMax;
-    highTemp = Math.round(highTemp);
-    $('.highTemp').text(highTemp+"º");
-
-    var lowTemp = data.daily.data[0].temperatureMin;
-    lowTemp = Math.round(lowTemp);
-    $('.lowTemp').text(lowTemp+"º");
-
-    $('.now').text(currTemp+"º");
-
-
-
-
-    var chanceOfRain = data.daily.data[0].precipProbability;
-    chanceOfRain = chanceOfRain * 100;
-    $('.chanceOfRainData').text(chanceOfRain+"%");
-
-    var sunriseTime = data.daily.data[0].sunriseTime;
-    var secToMil = sunriseTime * 1000;  // convert to milliseconds
-    var toString = secToMil.toString(); // convert to string
-    var milSecToTimeFormat = new Date(secToMil).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-
-    var sunsetTime = data.daily.data[0].sunsetTime;
-    sunsetTime = sunsetTime * 1000; // convert to milliseconds
-    var sunsetTimeToString = sunsetTime.toString(); // convert to string
-    var sunsetToTimeFormat = new Date(sunsetTime).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-
     function milToStandard(value) {
       if (value !== null && value !== undefined){ //If value is passed in
         if(value.indexOf('AM') > -1 || value.indexOf('PM') > -1){ //If time is already in standard time then don't format.
@@ -126,6 +80,96 @@ function displayLocation(latitude,longitude) {
         }
       }
     };
+
+    var currTemp = data.currently.temperature;
+    currTemp = Math.round(currTemp);
+    $('.temperature').html(currTemp+"º");
+
+    var summary = data.currently.summary;
+    $('.summary').text(summary);
+
+    var d = new Date();
+    var weekday = new Array(7);
+    weekday[0] =  "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+    var n = weekday[d.getDay()];
+    $('.dayOfWeek').text(n);
+
+    var highTemp = data.daily.data[0].temperatureMax;
+    highTemp = Math.round(highTemp);
+    $('.highTemp').text(highTemp+"º");
+
+    var lowTemp = data.daily.data[0].temperatureMin;
+    lowTemp = Math.round(lowTemp);
+    $('.lowTemp').text(lowTemp+"º");
+
+    var timeOneHr = data.hourly.data[1].time;
+    timeOneHr = timeOneHr * 1000;
+    var oneHrToString = timeOneHr.toString();
+    var oneHrTimeFormat = new Date(timeOneHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    var oneHrLater = milToStandard(oneHrTimeFormat);
+    console.log(oneHrLater);
+    oneHrLater.replace(/:/g,'');
+    console.log(oneHrLater);
+    $('.hourOne').text(oneHrLater);
+
+    var timeTwoHr = data.hourly.data[2].time;
+    timeTwoHr = timeTwoHr * 1000;
+    var twHrToString = timeTwoHr.toString();
+    var twoHrTimeFormat = new Date(timeTwoHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    var twoHrLater = milToStandard(twoHrTimeFormat);
+    $('.hourTwo').text(twoHrLater);
+
+    var timeThreeHr = data.hourly.data[3].time;
+    timeThreeHr = timeThreeHr * 1000;
+    var threeHrToString = timeThreeHr.toString();
+    var threeHrTimeFormat = new Date(timeThreeHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    var threeHrLater = milToStandard(threeHrTimeFormat);
+    $('.hourThree').text(threeHrLater);
+
+    var timeFourHr = data.hourly.data[4].time;
+    timeFourHr = timeFourHr * 1000;
+    var fourHrToString = timeFourHr.toString();
+    var fourHrTimeFormat = new Date(timeFourHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+    var fourHrLater = milToStandard(fourHrTimeFormat);
+    $('.hourFour').text(fourHrLater);
+
+    $('.now').text(currTemp+"º");
+
+    var tempOneHr = data.hourly.data[1].temperature;
+    tempOneHr = Math.round(tempOneHr);
+    $('.oneHrLater').text(tempOneHr);
+
+    var tempTwoHr = data.hourly.data[2].temperature;
+    tempTwoHr = Math.round(tempTwoHr);
+    $('.twoHrLater').text(tempTwoHr);
+
+    var tempThreeHr = data.hourly.data[3].temperature;
+    tempThreeHr = Math.round(tempThreeHr);
+    $('.threeHrLater').text(tempThreeHr);
+
+    var tempFourHr = data.hourly.data[4].temperature;
+    tempFourHr = Math.round(tempFourHr);
+    $('.fourHrLater').text(tempFourHr);
+
+    var chanceOfRain = data.daily.data[0].precipProbability;
+    chanceOfRain = chanceOfRain * 100;
+    $('.chanceOfRainData').text(chanceOfRain+"%");
+
+    var sunriseTime = data.daily.data[0].sunriseTime;
+    var secToMil = sunriseTime * 1000;  // convert to milliseconds
+    var toString = secToMil.toString(); // convert to string
+    var milSecToTimeFormat = new Date(secToMil).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+
+    var sunsetTime = data.daily.data[0].sunsetTime;
+    sunsetTime = sunsetTime * 1000; // convert to milliseconds
+    var sunsetTimeToString = sunsetTime.toString(); // convert to string
+    var sunsetToTimeFormat = new Date(sunsetTime).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
 
     var sunriseData = milToStandard(milSecToTimeFormat);
     sunriseData = sunriseData.replace(/^0/, '');

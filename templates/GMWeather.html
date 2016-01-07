@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="/scripts/weather.js"></script>
+  <script type="text/javascript" src="/scripts/weatherIcons.js"></script>
+
+  <style>
+
+  </style>
 {% endblock %}
 {% block body %}
   {{ super() }}
@@ -37,95 +42,7 @@
       <p class="weatherAt">Now</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <div class="sun"></div>
-          <div class="cloud">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_s">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_vs">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-          <div class="haze"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="thunder"></div>
-          <div class="rain">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <div class="sleet">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <!-- <div class="text">
-            <ul>
-              <li>Mostly Sunny</li>
-              <li>Partly Sunny</li>
-              <li>Partly Cloudy</li>
-              <li>Mostly Cloudy</li>
-              <li>Cloudy</li>
-              <li>Hazy</li>
-              <li>Thunderstorm</li>
-              <li>Rain</li>
-              <li>Sleet</li>
-            </ul>
-          </div> -->
+          <canvas id="clear-day" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt now">º</p>
@@ -135,82 +52,7 @@
       <p class="weatherAt hourOne">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <div class="sun"></div>
-          <div class="cloud">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_s">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_vs">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-          <div class="haze"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="thunder"></div>
-          <div class="rain">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <div class="sleet">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
+          <canvas id="clear-night" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt oneHrLater">º</p>
@@ -220,82 +62,7 @@
       <p class="weatherAt hourTwo">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <div class="sun"></div>
-          <div class="cloud">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_s">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_vs">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-          <div class="haze"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="thunder"></div>
-          <div class="rain">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <div class="sleet">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
+          <canvas id="fog" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt twoHrLater">º</p>
@@ -305,82 +72,7 @@
       <p class="weatherAt hourThree">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <div class="sun"></div>
-          <div class="cloud">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_s">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_vs">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-          <div class="haze"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="thunder"></div>
-          <div class="rain">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <div class="sleet">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
+          <canvas id="rain" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt threeHrLater">º</p>
@@ -390,82 +82,7 @@
       <p class="weatherAt hourFour">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <div class="sun"></div>
-          <div class="cloud">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_s">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="cloud_vs">
-            <div class="cloud1">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            <div class="cloud1 c_shadow">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-          <div class="haze"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="haze_stripe"></div>
-          <div class="thunder"></div>
-          <div class="rain">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
-          <div class="sleet">
-             <ul>
-               <li></li>
-               <li></li>
-               <li></li>
-            </ul>
-          </div>
+          <canvas id="wind" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt fourHrLater">º</p>
@@ -496,10 +113,10 @@
           <p class="left sunriseData">00:00 AM</p>
           <p class="left sunsetData">00:00 PM</p>
           <br />
-          <p class="left chanceOfRainData"></p>
-          <p class="left humidityData"></p>
+          <p class="left chanceOfRainData">%</p>
+          <p class="left humidityData">%</p>
           <br />
-          <p class="left windData"></p>
+          <p class="left windData">mph</p>
           <p class="left feelsLikeData">º</p>
           <br />
           <p class="left precipitationData">0 in/hr</p>
@@ -514,116 +131,22 @@
 {% block scripts %}
 
 <script>
-
-  // // CLOCK
-  //
-  // function getTime() {
-  //   var d = new Date();
-  //   var hours = d.getHours();
-  //   var minutes = d.getMinutes();
-  //   var ampm = hours >= 12 ? 'PM' : 'AM';
-  //   hours = hours % 12;
-  //   hours = hours ? hours : 12; // the hour '0' should be '12'
-  //   minutes = minutes < 10 ? '0'+minutes : minutes;
-  //   var strTime = hours + ':' + minutes + ' ' + ampm;
-  //   $(".clock").text(strTime);
-  // }
-  // getTime();
-  // var int = setInterval(getTime, 5000);
-  //
-  // // Get city from longitude and latitude
-  //
-  // function displayLocation(latitude,longitude) {
-  //   var request = new XMLHttpRequest();
-  //
-  //   var method = 'GET';
-  //   var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
-  //   var async = true;
-  //
-  //   var apiKey = '5485362f69ad87b5aaa04281f19ce344';
-  //   var urlForecast = 'https://api.forecast.io/forecast/';
-  //   var data;
-  //
-  //   request.open(method, url, async);
-  //   request.onreadystatechange = function(){
-  //     if (request.readyState == 4 && request.status == 200) {
-  //       var data = JSON.parse(request.responseText);
-  //       var address = data.results[0];
-  //       var formattedAddress = address.formatted_address;
-  //       var removeStreetAdr = formattedAddress.substring(formattedAddress.indexOf(",")+1)
-  //       var removeCountry = removeStreetAdr.substr(0, removeStreetAdr.lastIndexOf(","));
-  //       var withNoDigits = removeCountry.replace(/[0-9]/g, '');
-  //       console.log(withNoDigits);
-  //       $(document).ready(function() {
-  //         $('.location').text(withNoDigits)
-  //       })
-  //     }
-  //   };
-  //   request.send();
-  //
-  //   $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {
-  //
-  //     console.log(data);
-  //
-  //     var currTemp = data.currently.temperature;
-  //     currTemp = Math.round(currTemp);
-  //     $('.temperature').html(currTemp+"º");
-  //
-  //     var summary = data.currently.summary;
-  //     console.log(summary);
-  //     $('.summary').text(summary);
-  //
-  //     var d = new Date();
-  //     var weekday = new Array(7);
-  //     weekday[0]=  "Sunday";
-  //     weekday[1] = "Monday";
-  //     weekday[2] = "Tuesday";
-  //     weekday[3] = "Wednesday";
-  //     weekday[4] = "Thursday";
-  //     weekday[5] = "Friday";
-  //     weekday[6] = "Saturday";
-  //     var n = weekday[d.getDay()];
-  //     $('.dayOfWeek').text(n);
-  //
-  //     var sunriseTime = data.daily.sunriseTime;
-  //     console.log(sunriseTime);
-  //
-  //     var humidity = data.currently.humidity;
-  //     var decToPer = humidity * 100;
-  //     $('.humidityData').html(decToPer+"%");
-  //   });
-  // };
-  //
-  // var successCallback = function(position){
-  //   var x = position.coords.latitude;
-  //   var y = position.coords.longitude;
-  //   displayLocation(x,y);
-  // };
-  //
-  // var errorCallback = function(error){
-  //   var errorMessage = 'Unknown error';
-  //   switch(error.code) {
-  //     case 1:
-  //       errorMessage = 'Permission denied';
-  //       break;
-  //     case 2:
-  //       errorMessage = 'Position unavailable';
-  //       break;
-  //     case 3:
-  //       errorMessage = 'Timeout';
-  //       break;
-  //   }
-  //   console.log(errorMessage);
-  // };
-  //
-  // var options = {
-  //   enableHighAccuracy: true,
-  //   timeout: 1000,
-  //   maximumAge: 0
-  // };
-  //
-  // navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
-
+  var icons = new Skycons(),
+      list  = [
+        "clear-day", "clear-night", "partly-cloudy-day",
+        "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+        "fog"
+      ],
+      i;
+  var skycons = new Skycons({
+   "monochrome": false,
+   "colors" : {
+     "cloud" : "#F00"
+   }
+   });
+  for(i = list.length; i--; )
+    icons.set(list[i], list[i]);
+  icons.play();
 </script>
 
 {% endblock %}

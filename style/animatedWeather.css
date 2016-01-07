@@ -6,20 +6,6 @@ body{
   background: #33495f;
 }
 
-.wrapperCeption {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.wrapper{
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  margin-top: 5px;
-  transform: scale(.6);
-}
-
 .sun{
   position: absolute;
   bottom: 0px;

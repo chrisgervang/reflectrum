@@ -114,7 +114,7 @@ function displayLocation(latitude,longitude) {
     var oneHrTimeFormat = new Date(timeOneHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
     var oneHrLater = milToStandard(oneHrTimeFormat);
     console.log(oneHrLater);
-    oneHrLater.replace(/:/g,'');
+    oneHrLater.replace(':00','');
     console.log(oneHrLater);
     $('.hourOne').text(oneHrLater);
 
@@ -156,6 +156,19 @@ function displayLocation(latitude,longitude) {
     var tempFourHr = data.hourly.data[4].temperature;
     tempFourHr = Math.round(tempFourHr);
     $('.fourHrLater').text(tempFourHr);
+
+
+
+    // WEATHER ICON SHENANIGANS FOR CHRIS TOPHY GERVANG
+
+    var iconNow = data.currently.icon;
+    if iconNow == "partly-cloudy-night" {
+
+    }
+
+
+
+
 
     var chanceOfRain = data.daily.data[0].precipProbability;
     chanceOfRain = chanceOfRain * 100;

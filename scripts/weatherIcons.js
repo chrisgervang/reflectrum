@@ -53,6 +53,7 @@
         dx  = spline[4],
         dy  = spline[5],
         i, j, ax, ay, px, qx, rx, sx, py, qy, ry, sy, t;
+
     for(i = 6; i !== spline.length; i += 2) {
       ax = bx;
       bx = cx;
@@ -62,6 +63,7 @@
       qx =        ax - 2.5 * bx + 2.0 * cx - 0.5 * dx;
       rx = -0.5 * ax            + 0.5 * cx           ;
       sx =                   bx                      ;
+
       ay = by;
       by = cy;
       cy = dy;
@@ -70,49 +72,65 @@
       qy =        ay - 2.5 * by + 2.0 * cy - 0.5 * dy;
       ry = -0.5 * ay            + 0.5 * cy           ;
       sy =                   by                      ;
+
       for(j = 0; j !== n; ++j) {
         t = j / n;
+
         polyline.push(
           ((px * t + qx) * t + rx) * t + sx,
           ((py * t + qy) * t + ry) * t + sy
         );
       }
     }
+
     polyline.push(
       px + qx + rx + sx,
       py + qy + ry + sy
     );
+
     return polyline;
   }
+
   function downsample(n, polyline) {
     var len = 0,
         i, dx, dy;
+
     for(i = 2; i !== polyline.length; i += 2) {
       dx = polyline[i    ] - polyline[i - 2];
       dy = polyline[i + 1] - polyline[i - 1];
       len += Math.sqrt(dx * dx + dy * dy);
     }
+
     len /= n;
+
     var small = [],
         target = len,
         min = 0,
         max, t;
+
     small.push(polyline[0], polyline[1]);
+
     for(i = 2; i !== polyline.length; i += 2) {
       dx = polyline[i    ] - polyline[i - 2];
       dy = polyline[i + 1] - polyline[i - 1];
       max = min + Math.sqrt(dx * dx + dy * dy);
+
       if(max > target) {
         t = (target - min) / (max - min);
+
         small.push(
           polyline[i - 2] + dx * t,
           polyline[i - 1] + dy * t
         );
+
         target += len;
       }
+
       min = max;
     }
+
     small.push(polyline[polyline.length - 2], polyline[polyline.length - 1]);
+
     return small;
   }
   */
@@ -167,7 +185,7 @@
         c = cw * 0.24,
         d = cw * 0.28;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = color.cloud || color;
     puffs(ctx, t, cx, cy, a, b, c, d);
 
     ctx.globalCompositeOperation = 'destination-out';
@@ -183,7 +201,7 @@
         c = cw * 0.50 - s * 0.5,
         i, p, cos, sin;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.sun || color;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -208,7 +226,7 @@
         c = Math.cos(t * TAU),
         p = c * TAU / -16;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.moon || color;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -230,7 +248,7 @@
         c = TAU *  7 / 12,
         i, p, x, y;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = color.rain || color;
 
     for(i = 4; i--; ) {
       p = (t + i / 4) % 1;
@@ -251,7 +269,7 @@
         c = TAU *  7 / 12,
         i, p, x, y;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.rain || color;
     ctx.lineWidth = s * 0.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -280,7 +298,7 @@
         wy = Math.sin(w) * b,
         i, p, x, y;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.snow || color;
     ctx.lineWidth = s * 0.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -304,7 +322,7 @@
         c = cw * 0.21,
         d = cw * 0.28;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = color.fog || color;
     puffs(ctx, t, cx, cy, a, b, c, d);
 
     ctx.globalCompositeOperation = 'destination-out';
@@ -396,8 +414,8 @@
         e = Math.cos(d),
         f = Math.sin(d);
 
-    ctx.fillStyle = color;
-    ctx.strokeStyle = color;
+    ctx.fillStyle = color.leaf || color;
+    ctx.strokeStyle = color.leaf || color;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -421,7 +439,7 @@
         e = (t + index                            ) % total,
         b, d, f, i;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.cloud || color;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -505,9 +523,26 @@
   }
 
   var Skycons = function(opts) {
+        opts = opts || {};
         this.list        = [];
         this.interval    = null;
-        this.color       = opts && opts.color ? opts.color : "black";
+        this.monochrome = typeof(opts.monochrome) === "undefined" ? true :  opts.monochrome;
+        opts.colors = opts.colors || {};
+        this.colors = {
+            main  : opts.colors.main || "#111",
+            moon  : opts.colors.moon || "#353545",
+            fog   : opts.colors.fog  || "#AAA",
+            cloud : opts.colors.cloud|| "#666",
+            snow  : opts.colors.snow || "#C2EEFF",
+            leaf  : opts.colors.leaf || "#2C5228",
+            rain  : opts.colors.rain || "#7FDBFF",
+            sun   : opts.colors.sun  || "#FFDC00"
+        };
+        if(this.monochrome) {
+            this.color = opts.color || this.colors.main;
+        } else {
+            this.color = this.colors ;
+        }
         this.resizeClear = !!(opts && opts.resizeClear);
       };
 
@@ -607,7 +642,7 @@
         e = Math.floor(n - k * 0.5) + 0.5,
         f = Math.floor(n - k * 2.5) + 0.5;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = color.fog || color;
     ctx.lineWidth = k;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";

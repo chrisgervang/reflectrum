@@ -3,11 +3,9 @@
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="/style/gmweather.css">
-  <link rel="stylesheet" type="text/css" href="/style/animatedWeather.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="/scripts/weather.js"></script>
-  <script type="text/javascript" src="/scripts/weatherIcons.js"></script>
+
 
   <style>
 
@@ -42,47 +40,47 @@
       <p class="weatherAt">Now</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <canvas id="clear-day" width="154" height="154"></canvas>
+          <canvas id="iconNow" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt now">º</p>
     </div>
 
-    <div class="weaStamp">
-      <p class="weatherAt hourOne">0AM/PM</p>
+    <div class="weaStamp hourOne">
+      <p class="weatherAt">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <canvas id="clear-night" width="154" height="154"></canvas>
+          <canvas id="iconHourOne" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt oneHrLater">º</p>
     </div>
 
-    <div class="weaStamp">
-      <p class="weatherAt hourTwo">0AM/PM</p>
+    <div class="weaStamp hourTwo">
+      <p class="weatherAt">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <canvas id="fog" width="154" height="154"></canvas>
+          <canvas id="iconHourTwo" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt twoHrLater">º</p>
     </div>
 
-    <div class="weaStamp">
-      <p class="weatherAt hourThree">0AM/PM</p>
+    <div class="weaStamp hourThree">
+      <p class="weatherAt">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <canvas id="rain" width="154" height="154"></canvas>
+          <canvas id="iconHourThree" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt threeHrLater">º</p>
     </div>
 
-    <div class="weaStamp">
-      <p class="weatherAt hourFour">0AM/PM</p>
+    <div class="weaStamp hourFour">
+      <p class="weatherAt">0AM/PM</p>
       <div class="wrapperCeption">
         <div class="wrapper">
-          <canvas id="wind" width="154" height="154"></canvas>
+          <canvas id="iconHourFour" width="154" height="154"></canvas>
         </div>
       </div>
       <p class="tempAt fourHrLater">º</p>
@@ -129,24 +127,7 @@
 {% endblock %}
 
 {% block scripts %}
-
-<script>
-  var icons = new Skycons(),
-      list  = [
-        "clear-day", "clear-night", "partly-cloudy-day",
-        "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-        "fog"
-      ],
-      i;
-  var skycons = new Skycons({
-   "monochrome": false,
-   "colors" : {
-     "cloud" : "#F00"
-   }
-   });
-  for(i = list.length; i--; )
-    icons.set(list[i], list[i]);
-  icons.play();
-</script>
+<script type="text/javascript" src="/scripts/weather.js"></script>
+<script type="text/javascript" src="/scripts/weatherIcons.js"></script>
 
 {% endblock %}

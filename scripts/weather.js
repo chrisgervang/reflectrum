@@ -188,12 +188,10 @@ $(function() {
 
       var sunriseTime = data.daily.data[0].sunriseTime;
       var secToMil = sunriseTime * 1000;  // convert to milliseconds
-      var toString = secToMil.toString(); // convert to string
       var milSecToTimeFormat = new Date(secToMil).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
 
       var sunsetTime = data.daily.data[0].sunsetTime;
       sunsetTime = sunsetTime * 1000; // convert to milliseconds
-      var sunsetTimeToString = sunsetTime.toString(); // convert to string
       var sunsetToTimeFormat = new Date(sunsetTime).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
 
       var sunriseData = milToStandard(milSecToTimeFormat);

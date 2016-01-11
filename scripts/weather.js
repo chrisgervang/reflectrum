@@ -146,62 +146,11 @@ $(function() {
       lowTemp = Math.round(lowTemp);
       $('.lowTemp').text(lowTemp+"º");
 
-      var timeOneHr = data.hourly.data[1].time;
-      timeOneHr = timeOneHr * 1000;
-      var oneHrToString = timeOneHr.toString();
-      var oneHrTimeFormat = new Date(timeOneHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-      var oneHrLaterSplit = milToStandard(oneHrTimeFormat).split(":")
-      var oneHrLater = parseInt(oneHrLaterSplit[0]) + " " + oneHrLaterSplit[1].split(" ")[1];
-      console.log(oneHrLater);
-      oneHrLater.replace(':00','');
-      console.log(oneHrLater);
-      $('.hourOne > p.weatherAt').text(oneHrLater.split(":"));
-
-      var timeTwoHr = data.hourly.data[2].time;
-      timeTwoHr = timeTwoHr * 1000;
-      var twHrToString = timeTwoHr.toString();
-      var twoHrTimeFormat = new Date(timeTwoHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-      var twoHrLaterSplit = milToStandard(twoHrTimeFormat).split(":")
-      var twoHrLater = parseInt(twoHrLaterSplit[0]) + " " + twoHrLaterSplit[1].split(" ")[1];
-      $('.hourTwo > p.weatherAt').text(twoHrLater);
-
-      var timeThreeHr = data.hourly.data[3].time;
-      timeThreeHr = timeThreeHr * 1000;
-      var threeHrToString = timeThreeHr.toString();
-      var threeHrTimeFormat = new Date(timeThreeHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-      var threeHrLaterSplit = milToStandard(threeHrTimeFormat).split(":")
-      var threeHrLater = parseInt(threeHrLaterSplit[0]) + " " + threeHrLaterSplit[1].split(" ")[1];
-      $('.hourThree > p.weatherAt').text(threeHrLater);
-
-      var timeFourHr = data.hourly.data[4].time;
-      timeFourHr = timeFourHr * 1000;
-      var fourHrToString = timeFourHr.toString();
-      var fourHrTimeFormat = new Date(timeFourHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-      var fourHrLaterSplit = milToStandard(fourHrTimeFormat).split(":")
-      var fourHrLater = parseInt(fourHrLaterSplit[0]) + " " + fourHrLaterSplit[1].split(" ")[1];
-      $('.hourFour > p.weatherAt').text(fourHrLater);
-
-      $('.now').text(currTemp+"º");
-
-
-      var tempOneHr = data.hourly.data[1].temperature;
-      tempOneHr = Math.round(tempOneHr);
-      $('.oneHrLater').text(tempOneHr+"º");
-
-      var tempTwoHr = data.hourly.data[2].temperature;
-      tempTwoHr = Math.round(tempTwoHr);
-      $('.twoHrLater').text(tempTwoHr+"º");
-
-      var tempThreeHr = data.hourly.data[3].temperature;
-      tempThreeHr = Math.round(tempThreeHr);
-      $('.threeHrLater').text(tempThreeHr+"º");
-
-      var tempFourHr = data.hourly.data[4].temperature;
-      tempFourHr = Math.round(tempFourHr);
-      $('.fourHrLater').text(tempFourHr+"º");
-
-
-      // WEATHER ICON SHENANIGANS FOR CHRIS TOPHY GERVANG
+      // Indexes for time and temp
+      var dataIndex = [0, 1, 2, 3, 4];
+      var timeClass = [".now", ".hourOne", ".hourTwo", ".hourThree", ".hourFour"];
+      var tempClass = [".nowHr", ".oneHrLater", ".twoHrLater", ".threeHrLater", ".fourHrLater"];
+      var iconClass = ["iconNow", "iconHourOne", "iconHourTwo", "iconHourThree", "iconHourFour"];
 
       var icons = new Skycons({
         "monochrome": true,
@@ -211,21 +160,27 @@ $(function() {
         // }
       });
 
-      icons.set('iconNow', data.hourly.data[0].icon);
-      icons.set('iconHourOne', data.hourly.data[1].icon);
-      icons.set('iconHourTwo', data.hourly.data[2].icon);
-      icons.set('iconHourThree', data.hourly.data[3].icon);
-      icons.set('iconHourFour', data.hourly.data[4].icon);
+      console.log(data.hourly.data);
+
+      for (var i = 0; i < dataIndex.length; i++) {
+        // Time
+        if (timeClass[i] != ".now") {
+          var timeHr = data.hourly.data[dataIndex[i]].time * 1000;
+          var hrTimeFormat = new Date(timeHr).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+          var hourLaterSplit = milToStandard(hrTimeFormat).split(":");
+          var hrLater = parseInt(hourLaterSplit[0]) + " " + hourLaterSplit[1].split(" ")[1];
+          $(timeClass[i] + ' > p.weatherAt').text(hrLater);
+        };
+
+        // Icons
+        icons.set(iconClass[i], data.hourly.data[dataIndex[i]].icon);
+
+        // Temperature
+        var tempHr = Math.round(data.hourly.data[dataIndex[i]].temperature);
+        $(tempClass[i]).text(tempHr+"º");
+      }
 
       icons.play();
-      // var iconNow = data.currently.icon;
-      // if iconNow == "partly-cloudy-night" {
-      //
-      // }
-
-
-
-
 
       var chanceOfRain = data.daily.data[0].precipProbability;
       chanceOfRain = chanceOfRain * 100;

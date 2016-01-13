@@ -153,11 +153,12 @@ $(function() {
       var iconClass = ["iconNow", "iconHourOne", "iconHourTwo", "iconHourThree", "iconHourFour"];
 
       var icons = new Skycons({
-        "monochrome": true,
-        "color": "#ecf0f1",
-        // "colors" : {
-        //   "cloud" : "#F00"
-        // }
+        "monochrome": false,
+        // "color": "#ecf0f1",
+        "colors" : {
+          "cloud" : "#bdc3c7",
+          "sun" : "#FFDC00",
+          "leaf" : "#2ecc71"
       });
 
       console.log(data.hourly.data);

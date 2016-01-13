@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.css">
+  <link rel="stylesheet" type="text/css" href="/style/lockscreen.css">
+
+{% endblock %}
+
+{% block body %}
+  {{ super() }}
+  <div class="currentInfo">
+    <p class="clock"></p>
+    <p class="today"></p>
+  </div>
+
+  <div class="mainWeather">
+    <p class="location">Location</p>
+    <p class="summary">Summary</p>
+    <p class="temperature">º</p>
+  </div>
+
+  <div class="weaStampWrapper">
+    <div class="weaStamp">
+      <p class="weatherAt">Now</p>
+      <div class="wrapperCeption">
+        <div class="wrapper">
+          <canvas id="iconNow" width="154" height="154"></canvas>
+        </div>
+      </div>
+      <p class="tempAt now">º</p>
+    </div>
+
+    <div class="weaStamp hourOne">
+      <p class="weatherAt">0AM/PM</p>
+      <div class="wrapperCeption">
+        <div class="wrapper">
+          <canvas id="iconHourOne" width="154" height="154"></canvas>
+        </div>
+      </div>
+      <p class="tempAt oneHrLater">º</p>
+    </div>
+
+    <div class="weaStamp hourTwo">
+      <p class="weatherAt">0AM/PM</p>
+      <div class="wrapperCeption">
+        <div class="wrapper">
+          <canvas id="iconHourTwo" width="154" height="154"></canvas>
+        </div>
+      </div>
+      <p class="tempAt twoHrLater">º</p>
+    </div>
+
+    <div class="weaStamp hourThree">
+      <p class="weatherAt">0AM/PM</p>
+      <div class="wrapperCeption">
+        <div class="wrapper">
+          <canvas id="iconHourThree" width="154" height="154"></canvas>
+        </div>
+      </div>
+      <p class="tempAt threeHrLater">º</p>
+    </div>
+
+    <div class="weaStamp hourFour">
+      <p class="weatherAt">0AM/PM</p>
+      <div class="wrapperCeption">
+        <div class="wrapper">
+          <canvas id="iconHourFour" width="154" height="154"></canvas>
+        </div>
+      </div>
+      <p class="tempAt fourHrLater">º</p>
+    </div>
+  </div>
+
+  {% endblock %}
+  {% block scripts %}
+
+  {{ super() }}
+
+  <script type="text/javascript" src="/scripts/lockscreen.js"></script>
+  <script type="text/javascript" src="/scripts/weatherIcons.js"></script>
+
+{% endblock %}

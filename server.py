@@ -51,6 +51,10 @@ def screensavers():
 def saverMap():
     return render_template('Map.html')
 
+@app.route('/lockscreen', methods=['GET'])
+def lockscreen():
+    return render_template('lockscreen.html')
+
 @app.route('/menu', methods=['GET'])
 def menu():
     return render_template('Menu.html')

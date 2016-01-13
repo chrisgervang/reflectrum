@@ -1,5 +1,5 @@
 body {
-  background-color: #3498db;
+  background-color: #254D6A;
   font-family: 'Lato', sans-serif;
   color: white;
   text-align: center;
@@ -47,6 +47,6 @@ body {
 }
 
 .date {
-  font-size: 110px;
+  font-size: 90px;
   line-height: 100px;
 }

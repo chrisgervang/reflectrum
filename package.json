@@ -29,6 +29,7 @@
   },
   "jspm": {
     "dependencies": {
+      "css": "github:systemjs/plugin-css@^0.1.20",
       "react": "npm:react@^0.14.6",
       "react-addons": "npm:react-addons@^0.9.1-deprecated",
       "react-addons-create-fragment": "npm:react-addons-create-fragment@^0.14.6",

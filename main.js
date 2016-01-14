@@ -67,6 +67,7 @@ app.on('ready', function() {
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
+    // BrowserWindow.addDevToolsExtension('~/code/react-devtools/shells/plain');
 
 
     // Emitted when the window is closed.

@@ -18,6 +18,7 @@ System.config({
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "core-js": "npm:core-js@1.2.6",
+    "css": "github:systemjs/plugin-css@0.1.20",
     "react": "npm:react@0.14.6",
     "react-addons": "npm:react-addons@0.9.1-deprecated",
     "react-addons-create-fragment": "npm:react-addons-create-fragment@0.14.6",

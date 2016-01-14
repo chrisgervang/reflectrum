@@ -66,6 +66,7 @@ app.on('ready', function() {
     mainWindow.loadURL("http://localhost:3000/app.html");
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
+    // BrowserWindow.addDevToolsExtension('~/code/react-devtools/shells/plain');
 
 
     // Emitted when the window is closed.

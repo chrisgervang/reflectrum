@@ -2,7 +2,7 @@
   "name": "reflectrum",
   "version": "0.0.2",
   "description": "A compact, pressentable wall computer built into a mirror",
-  "main": "app/main.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron main.js"
   },
@@ -28,11 +28,17 @@
     "electron-prebuilt": "*"
   },
   "jspm": {
-    "dependencies": {},
+    "dependencies": {
+      "react": "npm:react@^0.14.6",
+      "whatwg-fetch": "npm:whatwg-fetch@^0.10.1"
+    },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
     }
+  },
+  "devDependencies": {
+    "jspm": "^0.16.23"
   }
 }

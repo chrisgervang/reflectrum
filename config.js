@@ -19,6 +19,8 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "core-js": "npm:core-js@1.2.6",
     "react": "npm:react@0.14.6",
+    "react-addons": "npm:react-addons@0.9.1-deprecated",
+    "react-addons-create-fragment": "npm:react-addons-create-fragment@0.14.6",
     "react-dom": "npm:react-dom@0.14.6",
     "react-router": "npm:react-router@1.0.3",
     "whatwg-fetch": "npm:whatwg-fetch@0.10.1",
@@ -141,6 +143,13 @@ System.config({
     },
     "npm:query-string@3.0.0": {
       "strict-uri-encode": "npm:strict-uri-encode@1.1.0"
+    },
+    "npm:react-addons-create-fragment@0.14.6": {
+      "react": "npm:react@0.14.6"
+    },
+    "npm:react-addons@0.9.1-deprecated": {
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react": "npm:react@0.14.6"
     },
     "npm:react-dom@0.14.6": {
       "react": "npm:react@0.14.6"

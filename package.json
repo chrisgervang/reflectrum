@@ -30,6 +30,8 @@
   "jspm": {
     "dependencies": {
       "react": "npm:react@^0.14.6",
+      "react-dom": "npm:react-dom@^0.14.6",
+      "react-router": "npm:react-router@^1.0.3",
       "whatwg-fetch": "npm:whatwg-fetch@^0.10.1"
     },
     "devDependencies": {

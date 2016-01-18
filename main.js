@@ -45,8 +45,8 @@ app.on('ready', function() {
   var browserWindowOptions = {
     width: 800,
     height: 600,
-     // kiosk:true,
-    // autoHideMenuBar:true,
+     kiosk:true,
+    autoHideMenuBar:true,
     darkTheme:true,
     "node-integration": false
   };
@@ -60,7 +60,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow(browserWindowOptions);
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://127.0.0.1:5000/lockscreen');
+    mainWindow.loadURL('http://127.0.0.1:5000/menu');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //A module can have many named exports but only one default export.
-import RepoList from './repo-list';
 import Clock from './clock/clock';
 
-class HelloWorld extends React.Component {
+class Main extends React.Component {
   render() {
      return (
       <div>
@@ -16,4 +15,4 @@ class HelloWorld extends React.Component {
   }
 }
 
-ReactDOM.render(<HelloWorld />, document.body);
+ReactDOM.render(<Main />, document.body);

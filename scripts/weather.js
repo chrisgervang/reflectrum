@@ -48,12 +48,12 @@ $(function() {
     maximumAge: 0
   };
 
-  navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+  // navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
   successCallback(
     {
       coords: {
-        latitude: 37.8700,
-        longitude: 122.2590
+        latitude: 39.9500,
+        longitude: -75.1667
       }
     }
   );
@@ -86,14 +86,16 @@ $(function() {
     request.send();
   };
 
-  var apiKey = '5485362f69ad87b5aaa04281f19ce344';
-  var urlForecast = 'https://api.forecast.io/forecast/';
   var data;
   var latitude;
   var longitude;
 
   // Get weather data
   function getWeatherData(latitude, longitude) {
+
+    var apiKey = '5485362f69ad87b5aaa04281f19ce344';
+    var urlForecast = 'https://api.forecast.io/forecast/';
+
     $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {
 
       console.log(data);

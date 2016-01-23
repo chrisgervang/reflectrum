@@ -3,6 +3,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 </head>
 
 <body>
@@ -48,6 +49,8 @@ var Time = React.createClass({
 });
 
 
+/* The calendar color can now be accessed with this.props.color,
+ * though that isn't a part of the Google spec for Events. */
 var Event = React.createClass({
     render: function() {
       console.log(this.props);
@@ -57,7 +60,10 @@ var Event = React.createClass({
       } else {
         locationDisplay = <div></div>;
       }
-      return <div>
+      var style = {
+        backgroundColor: this.props.color
+      }
+      return <div style={style}>
                 <Time {...this.props} />
                 <div>{this.props.summary}</div>
                 {locationDisplay}

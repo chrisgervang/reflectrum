@@ -60,6 +60,25 @@ def end_time():
     end = datetime.datetime(d.year, d.month, d.day, 23, 59, 59, 999999)
     return rfc3339(end)
 
+
+def get_calendars():
+    """
+    Gets a list of calendar IDs. Returns None if something went wrong.
+    """
+    access_token = get_access_token()
+    if not access_token:
+        return None
+    url = "https://www.googleapis.com/calendar/v3/users/me/calendarList"
+    headers = {
+        'authorization': 'Bearer ' + access_token
+    }
+    r = requests.get(url, headers=headers)
+    if r.status_code != 200:
+        return None
+    data = r.json()
+    return data['items']
+
+
 def get_events():
     """
     Gets the events (for today) associated with the stored access token.
@@ -68,21 +87,32 @@ def get_events():
     access_token = get_access_token()
     if not access_token:
         return None
-    url = "https://www.googleapis.com/calendar/v3/calendars/primary/events"
-    params = {
-        'singleEvents': True,
-        'orderBy': 'startTime',
-        'timeMin': start_time(),
-        'timeMax': end_time()
-    }
-    headers = {
-        'authorization': 'Bearer ' + access_token 
-    }
-    r = requests.get(url, params=params, headers=headers)
-    if r.status_code == 401:
-        return None
-    data = r.json()
-    return data['items']
+    calendars = get_calendars()
+    if not calendars:
+        calendars = ["primary"]
+    events = []
+    for calendar in calendars:
+        cal_id = calendar["id"]
+        cal_color = calendar["backgroundColor"]
+        url = "https://www.googleapis.com/calendar/v3/calendars/" + cal_id + "/events"
+        params = {
+            'singleEvents': True,
+            'orderBy': 'startTime',
+            'timeMin': start_time(),
+            'timeMax': end_time()
+        }
+        headers = {
+            'authorization': 'Bearer ' + access_token 
+        }
+        r = requests.get(url, params=params, headers=headers)
+        if r.status_code == 200:
+            data = r.json()
+            items = data['items']
+            #adding calendar color to each event
+            for i in items:
+                i["color"] = cal_color
+            events += items
+    return events
 
 
 def poll(code, interval):

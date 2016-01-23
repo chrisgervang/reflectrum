@@ -49,6 +49,14 @@ $(function() {
   };
 
   navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+  successCallback(
+    {
+      coords: {
+        latitude: 37.8700,
+        longitude: 122.2590
+      }
+    }
+  );
 
   // Get city from longitude and latitude
 
@@ -65,6 +73,7 @@ $(function() {
     request.onreadystatechange = function(){
       if (request.readyState == 4 && request.status == 200) {
         var data = JSON.parse(request.responseText);
+        console.log(data)
         var address = data.results[0];
         var formattedAddress = address.formatted_address;
         var removeStreetAdr = formattedAddress.substring(formattedAddress.indexOf(",")+1)
@@ -159,6 +168,7 @@ $(function() {
           "cloud" : "#bdc3c7",
           "sun" : "#FFDC00",
           "leaf" : "#2ecc71"
+        }
       });
 
       console.log(data.hourly.data);

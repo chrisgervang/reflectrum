@@ -52,7 +52,7 @@ def screensavers():
 def saverMap():
     return render_template('Map.html')
 
-@app.route('/lockscreen', methods=['GET'])
+@app.route('/screensavers/lockscreen', methods=['GET'])
 def lockscreen():
     return render_template('lockscreen.html')
 

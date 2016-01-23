@@ -2,12 +2,28 @@ import React from 'react';
 import './clock.css!'
 
 export default class Clock extends React.Component {
+
+  static propTypes: {
+    hour: React.PropTypes.number,
+    minute: React.PropTypes.number,
+    second: React.PropTypes.number,
+  }
+
+  static defaultProps: {
+    hour: 0,
+    minute: 0,
+    second: 0
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      hour: 0,
+      hour: this.props.hour,
       minute: 0,
       second: 0,
+      h: 0,
+      m: 0,
+      s: 0
     };
     this. updateHands = this. updateHands.bind(this);
   }
@@ -17,29 +33,36 @@ export default class Clock extends React.Component {
   }
 
   updateHands() {
+    // time
     var d = new Date();
-    var h = d.getHours();
+    var hr = d.getHours();
 
-    var hour = ((h > 12 ? h - 12 : h)*30)-90;
+    // time in degrees (-90 to 270)
+    var hour = ((hr > 12 ? hr - 12 : hr)*30)-90;
     var minute = (d.getMinutes()/*0-59*/*6)-90;
     var second = (d.getSeconds()/*0-59*/*6)-90;
 
-    // if(deg == -90) {
-    //   $object.data('plus-deg', $object.data('plus-deg')+360);
-    // }
-    // deg += $object.data('plus-deg');
-
-    if (this.state.hour != hour) {
-      this.setState({hour: hour});
-      console.log(hour);
+    // The hour has changed when the 'hour' plus it's offset 'h' is different than 'this.state.hour'
+    if (this.state.hour != hour + this.state.h) {
+      if (hour == -90) {
+        this.setState({h: this.state.h + 360})
+      }
+      this.setState({hour: hour + this.state.h});
     }
 
-    if (this.state.minute != minute) {
-      this.setState({minute: minute});
+    if (this.state.minute != minute + this.state.m) {
+      if (minute == -90) {
+        this.setState({m: this.state.m + 360})
+      }
+      this.setState({minute: minute + this.state.m});
+      console.log(this.state);
     }
 
-    if (this.state.second != second) {
-      this.setState({second: second});
+    if (this.state.second != second + this.state.s) {
+      if (second == -90) {
+        this.setState({s: this.state.s + 360})
+      }
+      this.setState({second: second + this.state.s});
     }
 
   }

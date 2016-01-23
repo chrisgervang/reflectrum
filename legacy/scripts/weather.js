@@ -48,7 +48,16 @@ $(function() {
     maximumAge: 0
   };
 
-  navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+  // navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+
+  successCallback(
+    {
+      coords: {
+        latitude: 39.9500,
+        longitude: -75.1667
+      }
+    }
+  );
 
   // Get city from longitude and latitude
 
@@ -65,6 +74,7 @@ $(function() {
     request.onreadystatechange = function(){
       if (request.readyState == 4 && request.status == 200) {
         var data = JSON.parse(request.responseText);
+        console.log(data)
         var address = data.results[0];
         var formattedAddress = address.formatted_address;
         var removeStreetAdr = formattedAddress.substring(formattedAddress.indexOf(",")+1)
@@ -77,14 +87,16 @@ $(function() {
     request.send();
   };
 
-  var apiKey = '5485362f69ad87b5aaa04281f19ce344';
-  var urlForecast = 'https://api.forecast.io/forecast/';
   var data;
   var latitude;
   var longitude;
 
   // Get weather data
   function getWeatherData(latitude, longitude) {
+
+    var apiKey = '5485362f69ad87b5aaa04281f19ce344';
+    var urlForecast = 'https://api.forecast.io/forecast/';
+
     $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {
 
       console.log(data);
@@ -159,6 +171,7 @@ $(function() {
           "cloud" : "#bdc3c7",
           "sun" : "#FFDC00",
           "leaf" : "#2ecc71"
+        }
       });
 
       console.log(data.hourly.data);

@@ -49,6 +49,7 @@ $(function() {
   };
 
   // navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+
   successCallback(
     {
       coords: {

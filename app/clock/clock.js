@@ -18,9 +18,9 @@ export default class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hour: this.props.hour,
-      minute: 0,
-      second: 0,
+      hour: parseInt(this.props.hour),
+      minute: parseInt(this.props.minute),
+      second: parseInt(this.props.second),
       h: 0,
       m: 0,
       s: 0

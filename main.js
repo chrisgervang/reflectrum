@@ -83,7 +83,7 @@ app.on('ready', function() {
     file    = req.url == '/' ? '/app.html' : req.url,
     root    = __dirname + '/',
     page404 = root + '/404.html';
-
+    console.log((root + file))
     getFile((root + file), res, page404);
   };
 

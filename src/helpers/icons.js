@@ -1,7 +1,7 @@
 'use strict';
 
 const store = {
-  'calendar': `<svg width="88px" height="88px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'calendar': `<svg width="80px" height="80px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                   <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                   <title>Calendar icon</title>
                   <desc>Created with Sketch.</desc>
@@ -16,7 +16,7 @@ const store = {
                       </g>
                   </g>
               </svg>`,
-  'clock': `<svg width="89px" height="89px" viewBox="0 0 89 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'clock': `<svg width="80px" height="80px" viewBox="0 0 89 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                 <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                 <title>Clock icon</title>
                 <desc>Created with Sketch.</desc>
@@ -33,7 +33,7 @@ const store = {
                     </g>
                 </g>
             </svg>`,
-  'lockscreen': `<svg width="64px" height="89px" viewBox="0 0 64 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'lockscreen': `<svg width="80px" height="80px" viewBox="0 0 64 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                   <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                   <title>Screensaver icon</title>
                   <desc>Created with Sketch.</desc>
@@ -50,7 +50,7 @@ const store = {
                       </g>
                   </g>
               </svg>`,
-  'map': `<svg width="88px" height="88px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'map': `<svg width="80px" height="80px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
             <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
             <title>Map icon</title>
             <desc>Created with Sketch.</desc>
@@ -67,7 +67,7 @@ const store = {
                 </g>
             </g>
         </svg>`,
-  'quotes': `<svg width="88px" height="73px" viewBox="0 0 88 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'quotes': `<svg width="80px" height="80px" viewBox="0 0 88 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                 <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                 <title>Quotes icon</title>
                 <desc>Created with Sketch.</desc>
@@ -84,7 +84,7 @@ const store = {
                     </g>
                 </g>
             </svg>`,
-  'screensavers': `<svg width="64px" height="89px" viewBox="0 0 64 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'screensavers': `<svg width="80px" height="80px" viewBox="0 0 64 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                     <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                     <title>Screensaver icon</title>
                     <desc>Created with Sketch.</desc>
@@ -101,7 +101,7 @@ const store = {
                         </g>
                     </g>
                 </svg>`,
-  'tetris': `<svg width="56px" height="89px" viewBox="0 0 56 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'tetris': `<svg width="80px" height="80px" viewBox="0 0 56 89" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                 <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                 <title>Tetris icon</title>
                 <desc>Created with Sketch.</desc>
@@ -121,7 +121,7 @@ const store = {
                     </g>
                 </g>
             </svg>`,
-  'weather': `<svg width="87px" height="58px" viewBox="0 0 87 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  'weather': `<svg width="80px" height="80px" viewBox="0 0 87 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                 <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                 <title>Weather icon</title>
                 <desc>Created with Sketch.</desc>

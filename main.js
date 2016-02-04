@@ -48,8 +48,8 @@ app.on('ready', function() {
   var browserWindowOptions = {
     width: 800,
     height: 600,
-    // kiosk:true,
-    // autoHideMenuBar:true,
+    //kiosk:true,
+    //autoHideMenuBar:true,
     darkTheme:true,
     "node-integration": false
   };

@@ -28,7 +28,7 @@ body > div {
   font-size: 45px;
 }
 
-.selector {
+.menu-list-select-item {
   background-color: white;
   opacity: 0.4;
   position: absolute;
@@ -39,17 +39,11 @@ body > div {
 
 }
 
-.menu-list-item-container {
-  height: 200px;
-
-  /*margin: 5px 0;*/
-
-}
-
 .menu-list-item {
+  height: 200px;
   color: white;
   opacity: 1;
-
+  display: flex;
 }
 
 .menu-list-item-text {
@@ -57,14 +51,12 @@ body > div {
   color: white;
   text-decoration: none;
   line-height: 200px;
+  margin: auto;
+  flex: 75%;
 }
 
-.icon {
-  margin: -10px 60px;
-  height: 80px;
-  width: 80px;
-}
-
-.icon > img {
-  /*vertical-align: middle;*/
+.menu-list-item-icon {
+  margin: auto;
+  flex: 25%;
+  display: flex;
 }

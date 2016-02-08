@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
 import Menu from './menu/Menu';
+import MenuList from './menu/MenuList'
 import { store } from '../main'
-class MainMenu extends Component {
-  render() {
-    return <Menu {...store.getState().mainMenu}/>
-  }
-}
+import { MirrorEvents } from '../helpers/events';
 
-class MainMenuList extends Component {
+
+class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+    MirrorEvents.addListener('UP_CLICK', () => {
+      store.dispatch({
+        type: "SCROLL_UP"
+      });
+    });
+
+
+    MirrorEvents.addListener('DOWN_CLICK', () => {
+      store.dispatch({
+        type: "SCROLL_DOWN"
+      });
+    });
+  }
+
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
       this.forceUpdate();
-    })
+    });
   }
 
   componentWillUnmount() {
     this.unsubscribe();
   }
+  
   render() {
-    const props = this.props;
-    const state = store.getState();
-
-    return
+    const state = store.getState()
+    return (
+      <Menu message={state.mainMenu.message}>
+        <MenuList items={state.mainMenu.items} selectedItem={state.mainMenu.selectedItem}/>
+      </Menu>
+    );
   }
 }
 

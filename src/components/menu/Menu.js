@@ -3,9 +3,6 @@ import './Menu.css!';
 import MenuList from './MenuList'
 import Clock from '../common/Clock'
 class Menu extends Component {
-  componentDidMount() {
-  }
-
   render() {
     // console.log(this.props);
     return (

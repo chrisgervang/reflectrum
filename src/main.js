@@ -91,5 +91,5 @@ const render = () => {
   ReactDOM.render(routes, document.getElementById("target"));
 
 }
-store.subscribe(render);
+// store.subscribe(render);
 render();

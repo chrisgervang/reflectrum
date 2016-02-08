@@ -4,19 +4,22 @@ import MenuListSelectItem from './MenuListSelectItem';
 import { store } from '../../main'
 
 class MenuList extends Component {
+
+
   render() {
+    const props = this.props
     return (
         <div>
           <div>
           {
-            this.props.items.map(function(item){
+            state.mainMenu.items.map(function(item){
               return (
-                <MenuListItem key={item.name} {...item}/>
+                <MenuListItem key={item.name} name={item.name} color={item.color}/>
               )
             })
           }
           </div>
-          <MenuListSelectItem {...this.props} className="menu-list-select-item" />
+          <MenuListSelectItem className="menu-list-select-item" />
         </div>
     )
   }

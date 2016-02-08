@@ -39,32 +39,35 @@ var mainMenuData = {
       },
       {
         name: "quotes",
-        color: "#787AFF"
+        color: "#787AFF",
       }
   ],
-  listLocation: 0
+  selectedItem: 0
 }
 
 const mainMenu = (state = mainMenuData, action) => {
   switch (action.type) {
     case 'SCROLL_DOWN':
-      if (store.getState().mainMenu.listLocation !== store.getState().mainMenu.items.length - 1) {
+      if (store.getState().mainMenu.selectedItem !== store.getState().mainMenu.items.length - 1) {
         return Object.assign({}, state, {
-          listLocation: store.getState().mainMenu.listLocation + 1
+          selectedItem: store.getState().mainMenu.selectedItem + 1
         });
       } else {
         return state;
       }
       break;
     case 'SCROLL_UP':
-      if (store.getState().mainMenu.listLocation !== 0) {
+      if (store.getState().mainMenu.selectedItem !== 0) {
         return Object.assign({}, state, {
-          listLocation: store.getState().mainMenu.listLocation - 1
+          selectedItem: store.getState().mainMenu.selectedItem - 1
         });
       } else {
         return state;
       }
       break;
+    case 'OPEN_ITEM':
+
+
     default:
       return state;
   }

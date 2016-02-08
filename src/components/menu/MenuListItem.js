@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '../common/Icon';
-import './Menu.css!';
 
 class MenuListItem extends React.Component {
   render() {

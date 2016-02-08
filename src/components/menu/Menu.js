@@ -6,7 +6,7 @@ class Menu extends Component {
     // console.log(this.props);
     return (
       <div>
-        <Clock />
+        <Clock/>
         <div className="greeting">{ this.props.message }</div>
         {this.props.children}
       </div>

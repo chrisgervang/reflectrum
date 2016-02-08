@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MenuListItem from './MenuListItem';
 import MenuListSelectItem from './MenuListSelectItem';
+import { store } from '../../main'
 
 class MenuList extends Component {
   render() {
@@ -8,9 +9,9 @@ class MenuList extends Component {
         <div>
           <div>
           {
-            this.props.items.map(function(elem){
+            this.props.items.map(function(item){
               return (
-                <MenuListItem key={elem.name} {...elem}/>
+                <MenuListItem key={item.name} {...item}/>
               )
             })
           }

@@ -30,6 +30,7 @@ System.config({
     "react-dom": "npm:react-dom@0.14.7",
     "react-router": "npm:react-router@1.0.3",
     "reactcss": "github:casesandberg/reactcss@1.0.0",
+    "redux": "npm:redux@3.3.1",
     "whatwg-fetch": "npm:whatwg-fetch@0.10.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -165,6 +166,9 @@ System.config({
     "npm:lodash@3.10.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:lodash@4.2.1": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:loose-envify@1.1.0": {
       "js-tokens": "npm:js-tokens@1.0.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -245,6 +249,12 @@ System.config({
       "process-nextick-args": "npm:process-nextick-args@1.0.6",
       "string_decoder": "npm:string_decoder@0.10.31",
       "util-deprecate": "npm:util-deprecate@1.0.2"
+    },
+    "npm:redux@3.3.1": {
+      "lodash": "npm:lodash@4.2.1",
+      "lodash-es": "npm:lodash-es@4.2.1",
+      "loose-envify": "npm:loose-envify@1.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:stream-browserify@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1",

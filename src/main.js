@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
-// import Redux, { createStore, combineReducers } from 'redux';
+import Redux, { createStore, combineReducers } from 'redux';
 
 //A module can have many named exports but only one default export.
 import Clock from './components/clock/clock.js';
@@ -18,34 +18,78 @@ class Main extends React.Component {
   }
 }
 
-// const mainMenu = (state, action) => {
-//   switch (action.type) {
-//     case 'CHANGE_LIST_POSITION':
-//       //
-//       break;
-//     default:
-//       return state;
-//   }
-// }
-//
-// const reflectrumApp = combineReducers({
-//   mainMenu
-// })
-//
-// const store = createStore(reflectrumApp);
+var mainMenuData = {
+  message: "Goodmorning, Michelle",
+  items: [
+      {
+        name: "screensavers",
+        color: "#00F5EA"
+      },
+      {
+        name: "weather",
+        color: "#F2F4FF"
+      },
+      {
+        name: "clock",
+        color: "#FF9500"
+      },
+      {
+        name: "calendar",
+        color: "#FF3B30"
+      },
+      {
+        name: "quotes",
+        color: "#787AFF"
+      }
+  ],
+  listLocation: 0
+}
+
+const mainMenu = (state = mainMenuData, action) => {
+  switch (action.type) {
+    case 'SCROLL_DOWN':
+      if (store.getState().mainMenu.listLocation !== store.getState().mainMenu.items.length - 1) {
+        return Object.assign({}, state, {
+          listLocation: store.getState().mainMenu.listLocation + 1
+        });
+      } else {
+        return state;
+      }
+      break;
+    case 'SCROLL_UP':
+      if (store.getState().mainMenu.listLocation !== 0) {
+        return Object.assign({}, state, {
+          listLocation: store.getState().mainMenu.listLocation - 1
+        });
+      } else {
+        return state;
+      }
+      break;
+    default:
+      return state;
+  }
+}
+
+const reflectrumApp = combineReducers({
+  mainMenu
+})
+
+export const store = createStore(reflectrumApp);
 
 const render = () => {
-  ReactDOM.render((
-      <Router history={hashHistory}>
-      <Route path="/" component={Main}>
-        <IndexRoute component={MainMenu} />
-        <Route path="menu" component={MainMenu} />
-        <Route path="screensavers" component={ScreensaverMenu} />
-        <Route path="clock" component={Clock} />
-      </Route>
-    </Router>
-  ), document.getElementById("target"));
+
+  const routes =
+  <Router history={hashHistory}>
+    <Route path="/" component={Main}>
+      <IndexRoute component={MainMenu} />
+      <Route path="menu" component={MainMenu} />
+      <Route path="screensavers" component={ScreensaverMenu} />
+      <Route path="clock" component={Clock} />
+    </Route>
+  </Router>
+
+  ReactDOM.render(routes, document.getElementById("target"));
 
 }
-// store.subscribe(reflectrumApp);
+store.subscribe(render);
 render();

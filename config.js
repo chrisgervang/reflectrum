@@ -28,6 +28,7 @@ System.config({
     "react-addons": "npm:react-addons@0.9.1-deprecated",
     "react-addons-create-fragment": "npm:react-addons-create-fragment@0.14.7",
     "react-dom": "npm:react-dom@0.14.7",
+    "react-redux": "npm:react-redux@4.4.0",
     "react-router": "npm:react-router@1.0.3",
     "reactcss": "github:casesandberg/reactcss@1.0.0",
     "redux": "npm:redux@3.3.1",
@@ -166,7 +167,8 @@ System.config({
     "npm:lodash@3.10.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:lodash@4.2.1": {
+    "npm:lodash@4.3.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:loose-envify@1.1.0": {
@@ -217,6 +219,15 @@ System.config({
     "npm:react-dom@0.14.7": {
       "react": "npm:react@0.14.7"
     },
+    "npm:react-redux@4.4.0": {
+      "hoist-non-react-statics": "npm:hoist-non-react-statics@1.0.5",
+      "invariant": "npm:invariant@2.2.0",
+      "lodash": "npm:lodash@4.3.0",
+      "loose-envify": "npm:loose-envify@1.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react": "npm:react@0.14.7",
+      "redux": "npm:redux@3.3.1"
+    },
     "npm:react-router@1.0.3": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -251,8 +262,8 @@ System.config({
       "util-deprecate": "npm:util-deprecate@1.0.2"
     },
     "npm:redux@3.3.1": {
-      "lodash": "npm:lodash@4.2.1",
-      "lodash-es": "npm:lodash-es@4.2.1",
+      "lodash": "npm:lodash@4.3.0",
+      "lodash-es": "npm:lodash-es@4.3.0",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },

@@ -1,66 +1,46 @@
-// import React, { Component } from 'react';
-// import Menu from './menu/Menu';
-//
-// var data = {
-//   message: "Screensavers",
-//   items: [
-//       {
-//         name: "lockscreen",
-//         color: "#00F5EA"
-//       },
-//       {
-//         name: "tetris",
-//         color: "#5AC8FA"
-//       },
-//       {
-//         name: "map",
-//         color: "#FFE620"
-//       }
-//   ]
-// }
-//
-// import React, { Component } from 'react';
-// import Menu from './menu/Menu';
-// import MenuList from './menu/MenuList'
-// import { store } from '../main'
-// import { MirrorEvents } from '../helpers/events';
-//
-//
-// class ScreensaverMenu extends Component {
-//   constructor(props) {
-//     super(props);
-//     MirrorEvents.addListener('UP_CLICK', () => {
-//       store.dispatch({
-//         type: "SCROLL_UP"
-//       });
-//     });
-//
-//
-//     MirrorEvents.addListener('DOWN_CLICK', () => {
-//       store.dispatch({
-//         type: "SCROLL_DOWN"
-//       });
-//     });
-//   }
-//
-//   componentDidMount() {
-//     this.unsubscribe = store.subscribe(() => {
-//       this.forceUpdate();
-//     });
-//   }
-//
-//   componentWillUnmount() {
-//     this.unsubscribe();
-//   }
-//
-//   render() {
-//     const state = store.getState()
-//     return (
-//       <Menu message={state.mainMenu.message}>
-//         <MenuList items={state.mainMenu.items} selectedItem={state.mainMenu.selectedItem}/>
-//       </Menu>
-//     );
-//   }
-// }
-//
-// export default ScreensaverMenu;
+import React, { Component } from 'react';
+import Menu from './menu/Menu';
+import { connect } from 'react-redux';
+import { screensaverMenu } from '../main'
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    upClick: () => {
+      dispatch({
+        type: "SCROLL_UP"
+      })
+    },
+    downClick: () => {
+      dispatch({
+        type: "SCROLL_DOWN",
+        MAX: screensaverMenu.items.length - 1
+      })
+    },
+    primaryClick: () => {
+      dispatch({
+        type: "OPEN_ITEM",
+        menu: "SCREENSAVER"
+      })
+    },
+    secondaryHold: () => {
+      dispatch({
+        type: "OPEN_MAIN_MENU"
+      })
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    menuMessage: state.menuMessage,
+    items: screensaverMenu.items,
+    selectedItem: state.selectedItem
+  }
+}
+
+const MainMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu)
+
+export default MainMenu;

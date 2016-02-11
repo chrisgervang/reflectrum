@@ -6,17 +6,21 @@ class Clock extends Component {
     this.state = {
       time: this.getTime()
     }
+
     this.getTime = this.getTime.bind(this);
   }
 
-
   componentDidMount() {
-    var int = setInterval(() => {
+    this.int = setInterval(() => {
       var time = this.getTime();
       if (time != this.state.time) {
         this.setState({time: time});
       }
     }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.int)
   }
 
   getTime() {

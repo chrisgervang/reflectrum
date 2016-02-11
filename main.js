@@ -31,6 +31,15 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
 
+  function requestHandler(req, res) {
+    var
+    file    = req.url == '/' ? '/app.html' : req.url,
+    root    = __dirname + '/',
+    page404 = root + '/404.html';
+    console.log((root + file))
+    getFile((root + file), res, page404);
+  };
+
   // start a simple server that can serve an html page and resolve local file loading.
   var server = http.createServer(requestHandler).listen(3000);
 
@@ -77,15 +86,6 @@ app.on('ready', function() {
       // when you should delete the corresponding element.
       mainWindow = null;
     });
-  };
-
-  function requestHandler(req, res) {
-    var
-    file    = req.url == '/' ? '/app.html' : req.url,
-    root    = __dirname + '/',
-    page404 = root + '/404.html';
-    console.log((root + file))
-    getFile((root + file), res, page404);
   };
 
   function getFile(filePath, res, page404) {

@@ -1,6 +1,36 @@
 'use strict';
 
 const store = {
+  'close_quotes': `<svg width="140px" height="115px" viewBox="0 0 140 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                      <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+                      <title>Closing quotes</title>
+                      <desc>Created with Sketch.</desc>
+                      <defs></defs>
+                      <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                          <g id="Goodmorning---Quote" sketch:type="MSArtboardGroup" transform="translate(-556.000000, -1169.000000)" fill="#ECF0F1">
+                              <g id="Closing-quotes" sketch:type="MSLayerGroup" transform="translate(560.000000, 1171.000000)">
+                                  <g id="Group" sketch:type="MSShapeGroup">
+                                      <path d="M77.5672174,0.238636364 L77.5672174,53.5 L108.415043,53.5 C108.415043,70.3072338 94.6023913,83.9350649 77.5672174,83.9350649 L77.5672174,106.761364 C107.383435,106.761364 131.550913,82.9172597 131.550913,53.5 L131.550913,0.238636364 L77.5672174,0.238636364 L77.5672174,0.238636364 Z M0.447652174,53.5 L31.2954783,53.5 C31.2954783,70.3072338 17.4828261,83.9350649 0.447652174,83.9350649 L0.447652174,106.761364 C30.2638696,106.761364 54.4313478,82.9172597 54.4313478,53.5 L54.4313478,0.238636364 L0.447652174,0.238636364 L0.447652174,53.5 L0.447652174,53.5 Z" id="Shape"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                  </svg>`,
+  'open_quotes': `<svg width="140px" height="117px" viewBox="0 0 140 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                    <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+                    <title>Shape</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                        <g id="Goodmorning---Quote" sketch:type="MSArtboardGroup" transform="translate(-67.000000, -92.000000)" fill="#ECF0F1">
+                            <g id="Opening-quotes" sketch:type="MSLayerGroup" transform="translate(71.000000, 94.000000)">
+                                <g id="Group" sketch:type="MSShapeGroup">
+                                    <path d="M3.55271368e-15,54.353565 L3.55271368e-15,108.70713 L54.353565,108.70713 L54.353565,54.353565 L23.294385,54.353565 C23.294385,37.2013223 37.2013223,23.294385 54.353565,23.294385 L54.353565,0 C24.3322162,0 3.55271368e-15,24.3337312 3.55271368e-15,54.353565 L3.55271368e-15,54.353565 Z M132,23.294385 L132,0 C101.980166,0 77.646435,24.3337312 77.646435,54.353565 L77.646435,108.70713 L132,108.70713 L132,54.353565 L100.94082,54.353565 C100.94082,37.2013223 114.847757,23.294385 132,23.294385 L132,23.294385 Z" id="Shape"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>`,
   'calendar': `<svg width="80px" height="80px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                   <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                   <title>Calendar icon</title>

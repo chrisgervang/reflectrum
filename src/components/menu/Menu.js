@@ -6,26 +6,30 @@ import Clock from '../common/Clock'
 
 class Menu extends Component {
   componentDidMount() {
-    const props = this.props;
     this.handlers = []
     this.handlers.push(
       MirrorEvents.addListener('UP_CLICK', () => {
-        props.upClick()
+        this.props.upClick()
       })
     );
     this.handlers.push(
       MirrorEvents.addListener('DOWN_CLICK', () => {
-        props.downClick()
+        this.props.downClick()
       })
     );
     this.handlers.push(
       MirrorEvents.addListener('PRIMARY_CLICK', () => {
-        props.primaryClick()
+        this.props.primaryClick(this.props.selectedItem)
       })
     );
     this.handlers.push(
       MirrorEvents.addListener('SECONDARY_HOLD', () => {
-        props.secondaryHold()
+        this.props.secondaryHold()
+      })
+    );
+    this.handlers.push(
+      MirrorEvents.addListener('SECONDARY_CLICK', () => {
+        this.props.secondaryClick()
       })
     );
   }

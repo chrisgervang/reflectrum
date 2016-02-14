@@ -65,20 +65,20 @@ var data = {
   activePageName: "MAIN_MENU",
   menuMessage: mainMenu.message,
   selectedItem: mainMenu.selectedItem,
+  history: ["MAIN_MENU"]
 }
 
 const reflectrumApp = (state = data, action) => {
   //console.log("NAV", state)
   switch(action.type) {
     case 'OPEN_ITEM':
-      if (action.menu === "MAIN") {
-        //console.log(mainMenu.items[state.selectedItem].key)
+      if (!!action.page) {
+        var newHistory = [...state.history, action.page]
+        console.log("OPEN_ITEM: ", newHistory, action.page)
+
         return Object.assign({}, state, {
-          activePageName: mainMenu.items[state.selectedItem].key
-        });
-      } else if (action.menu === "SCREENSAVER") {
-        return Object.assign({}, state, {
-          activePageName: screensaverMenu.items[state.selectedItem].key
+          activePageName: action.page,
+          history: newHistory
         });
       } else {
         return state;
@@ -86,11 +86,27 @@ const reflectrumApp = (state = data, action) => {
       break;
 
     case 'OPEN_MAIN_MENU':
+      var newHistory = [...state.history, "MAIN_MENU"]
+
       return Object.assign({}, state, {
-        activePageName: "MAIN_MENU"
+        activePageName: "MAIN_MENU",
+        history: newHistory
       });
       break;
-
+    case 'BACK':
+      if(state.history.length !== 1) {
+        var newHistory = [...state.history]
+        newHistory.pop()
+        console.log("BACK: ", newHistory)
+        return Object.assign({}, state, {
+          activePageName: newHistory[newHistory.length - 1],
+          history: newHistory
+        });
+      } else {
+        return state
+      }
+      
+      break;
     case 'SCROLL_DOWN':
       if (state.selectedItem !== action.MAX) {
         return Object.assign({}, state, {
@@ -110,6 +126,8 @@ const reflectrumApp = (state = data, action) => {
         return state;
       }
       break;
+
+
 
     default:
       return state;

@@ -56,7 +56,8 @@ class Quotes extends Component {
         fontFamily: "'Lato', sans-serif",
         backgroundColor: "#254D6A",
         height: "100%",
-        width: "100%"
+        width: "100%",
+        position: "absolute"
       },
 
       // .clock {
@@ -69,9 +70,9 @@ class Quotes extends Component {
 
       container: {
         display: "table",
-        height: "100%",
+        height: "calc(100% - 80px)",
         width: "80%",
-        marginLeft: "80px"
+        marginLeft: "80px",
       },
 
       quote: {
@@ -88,29 +89,31 @@ class Quotes extends Component {
         animationDelay: "1s"
       },
 
-      img: {
-        position: "absolute"
-      },
-
       opening: {
         top: "40px",
-        left: "40px"
+        left: "40px",
+        position: "absolute"
       },
 
       closing: {
         bottom: "40px",
-        right: "40px"
+        right: "40px",
+        position: "absolute"
       }
     }
 
     return (
       <div style={styles.quotesPage}>
         <Clock />
-        <Icon style={styles.opening} className="animated fadeInLeft" name='open_quotes' color="#ECF0F1"/>
+        <div style={styles.opening}>
+          <Icon className="animated fadeInLeft" name='open_quotes' color="#ECF0F1"/>
+        </div>
         <div style={styles.container}>
           <p style={styles.quote} className="animated fadeInDown">{this.getQuote()}</p>
         </div>
-        <Icon style={styles.closing} className="animated fadeInRight" name='close_quotes' color="#ECF0F1"/>
+        <div style={styles.closing}>
+          <Icon className="animated fadeInRight" name='close_quotes' color="#ECF0F1"/>
+        </div>
       </div>
     );
   }

@@ -51,6 +51,11 @@ export default class Clock extends React.Component {
         props.secondaryHold()
       })
     );
+    this.handlers.push(
+      MirrorEvents.addListener('SECONDARY_CLICK', () => {
+        this.props.secondaryClick()
+      })
+    );
   }
 
   componentWillUnmount() {
@@ -138,6 +143,11 @@ const mapDispatchToProps = (dispatch) => {
     secondaryHold: () => {
       dispatch({
         type: "OPEN_MAIN_MENU"
+      })
+    },
+    secondaryClick: () => {
+      dispatch({
+        type: "BACK"
       })
     }
   }

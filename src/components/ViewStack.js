@@ -3,15 +3,15 @@ import {pages} from '../helpers/pages.js';
 import { connect } from 'react-redux';
 
 let ViewStack = ({activePageName}) => {
-  console.log(pages, activePageName)
+  console.log("ViewStack", pages, activePageName)
   return (
     pages[activePageName]
   )
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
-  console.log("YO")
+  //console.log(state)
+  //console.log("YO")
   return {
     activePageName: state.activePageName
   }

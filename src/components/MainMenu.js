@@ -16,15 +16,20 @@ const mapDispatchToProps = (dispatch) => {
         MAX: mainMenu.items.length - 1
       })
     },
-    primaryClick: () => {
+    primaryClick: (selectedItem) => {
       dispatch({
         type: "OPEN_ITEM",
-        menu: "MAIN"
+        page: mainMenu.items[selectedItem].key
       })
     },
     secondaryHold: () => {
       dispatch({
         type: "OPEN_MAIN_MENU"
+      })
+    },
+    secondaryClick: () => {
+      dispatch({
+        type: "BACK"
       })
     }
   }

@@ -5,7 +5,7 @@ import MenuListSelectedItem from './MenuListSelectedItem';
 class MenuList extends Component {
   render() {
     const props = this.props;
-    console.log(props);
+    //console.log(props);
     return (
         <div>
           <div>

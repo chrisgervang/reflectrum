@@ -54,7 +54,7 @@ class Quotes extends Component {
     var styles = {
       quotesPage: {
         fontFamily: "'Lato', sans-serif",
-        backgroundColor: "#254D6A",
+        backgroundColor: "#000",
         height: "100%",
         width: "100%",
         position: "absolute"
@@ -105,14 +105,14 @@ class Quotes extends Component {
     return (
       <div style={styles.quotesPage}>
         <Clock />
-        <div style={styles.opening}>
-          <Icon className="animated fadeInLeft" name='open_quotes' color="#ECF0F1"/>
+        <div style={styles.opening} className="animated fadeInLeft" >
+          <Icon name='open_quotes' color="#ECF0F1"/>
         </div>
         <div style={styles.container}>
           <p style={styles.quote} className="animated fadeInDown">{this.getQuote()}</p>
         </div>
-        <div style={styles.closing}>
-          <Icon className="animated fadeInRight" name='close_quotes' color="#ECF0F1"/>
+        <div style={styles.closing} className="animated fadeInRight" >
+          <Icon name='close_quotes' color="#ECF0F1"/>
         </div>
       </div>
     );

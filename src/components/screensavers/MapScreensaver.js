@@ -37,7 +37,6 @@ export class Map extends Component {
     return "\'https://maps.googleapis.com/maps/api/staticmap?center="+location+
       "&zoom="+zoom+"&format=png&sensor=false&scale=2&size="+window.innerWidth+
       "x"+window.innerHeight+"&maptype=roadmap&style=visibility:on|weight:1|invert_lightness:true|saturation:-100|lightness:1\'"
-    //$(".map").css("background-image","url("+link+")");
   }
 
   render() {

@@ -15,7 +15,7 @@ const timeToDeg = (date) => {
   }
 }
 
-export default class Clock extends React.Component {
+class AnalogClock extends React.Component {
 
   static propTypes: {
     hour: React.PropTypes.number,
@@ -44,7 +44,10 @@ export default class Clock extends React.Component {
 
   componentDidMount() {
     const props = this.props;
+
+    //render clock every second
     this.int = setInterval(this._updateHands, 1000);
+
     this.handlers = []
     this.handlers.push(
       MirrorEvents.addListener('SECONDARY_HOLD', () => {
@@ -161,6 +164,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-export const ClockItem = connect(
+export const AnalogClockPage = connect(
   mapStateToProps,mapDispatchToProps
-)(Clock)
+)(AnalogClock)

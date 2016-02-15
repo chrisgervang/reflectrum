@@ -8,7 +8,8 @@ class MenuList extends Component {
     //console.log(props);
     return (
         <div>
-          <div>
+          <MenuListSelectedItem selectedItem={props.selectedItem} className="menu-list-select-item" />
+          <div className="animated fadeInLeft">
           {
             props.items.map(function(item){
               return (
@@ -17,7 +18,6 @@ class MenuList extends Component {
             })
           }
           </div>
-          <MenuListSelectedItem selectedItem={props.selectedItem} className="menu-list-select-item" />
         </div>
     )
   }

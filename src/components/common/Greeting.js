@@ -4,7 +4,6 @@ export class Greeting extends Component {
   static getGreeting() {
     var d = new Date();
     var h = d.getHours();
-    console.log(h)
     if (h >= 0 && h < 5) {
       return "Goodnight, "
     } else if (h >= 5 && h < 12) {

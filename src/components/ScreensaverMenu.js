@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
 import Menu from './menu/Menu';
 import { connect } from 'react-redux';
-import { screensaverMenu } from '../main'
+
+export const screensaverMenu = {
+  message: "Screensavers",
+  selectedItem: 0,
+  items: [
+    {
+      name: "lockscreen",
+      color: "#00F5EA",
+      key: "LOCKSCREEN"
+    },
+    {
+      name: "tetris",
+      color: "#5AC8FA",
+      key: "TETRIS"
+    },
+    {
+      name: "map",
+      color: "#FFE620",
+      key: "MAP"
+    }
+  ]
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

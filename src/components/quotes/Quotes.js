@@ -59,22 +59,12 @@ class Quotes extends Component {
         width: "100%",
         position: "absolute"
       },
-
-      // .clock {
-      //   padding-top: 20px;
-      //   color: white;
-      //   text-align: center;
-      //   font-size: 25px;
-      //
-      // }
-
       container: {
         display: "table",
         height: "calc(100% - 80px)",
         width: "80%",
         marginLeft: "80px",
       },
-
       quote: {
         fontSize: "80px",
         marginLeft: "auto",

@@ -45,7 +45,7 @@ class Menu extends Component {
     const props = this.props;
     return (
       <div>
-        <Clock/>
+        <Clock />
         <div className="greeting">{ props.menuMessage }</div>
         <MenuList items={props.items} selectedItem={props.selectedItem}/>
       </div>

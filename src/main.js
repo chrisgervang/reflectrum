@@ -1,65 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 import Redux, { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import ViewStack from './components/ViewStack.js'
+import ViewStack from './components/ViewStack.js';
+import { mainMenu } from './components/MainMenu.js';
 
 //A module can have many named exports but only one default export.
-
-export const mainMenu = {
-  message: "Goodmorning, Michelle",
-  selectedItem: 0,
-  items: [
-    {
-      name: "screensavers",
-      color: "#00F5EA",
-      key: "SCREENSAVER_MENU"
-    },
-    {
-      name: "weather",
-      color: "#F2F4FF",
-      key: "WEATHER"
-    },
-    {
-      name: "clock",
-      color: "#FF9500",
-      key: "CLOCK"
-    },
-    {
-      name: "calendar",
-      color: "#FF3B30",
-      key: "CALENDAR"
-    },
-    {
-      name: "quotes",
-      color: "#787AFF",
-      key: "QUOTES"
-    }
-  ]
-}
-
-export const screensaverMenu = {
-  message: "Screensavers",
-  selectedItem: 0,
-  items: [
-    {
-      name: "lockscreen",
-      color: "#00F5EA",
-      key: "LOCKSCREEN"
-    },
-    {
-      name: "tetris",
-      color: "#5AC8FA",
-      key: "TETRIS"
-    },
-    {
-      name: "map",
-      color: "#FFE620",
-      key: "MAP"
-    }
-  ]
-}
 
 var data = {
   activePageName: "MAIN_MENU",

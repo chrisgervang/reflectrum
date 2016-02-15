@@ -65,7 +65,8 @@ var data = {
   activePageName: "MAIN_MENU",
   menuMessage: mainMenu.message,
   selectedItem: mainMenu.selectedItem,
-  history: ["MAIN_MENU"]
+  history: ["MAIN_MENU"],
+  username: "Michelle"
 }
 
 const reflectrumApp = (state = data, action) => {
@@ -105,7 +106,7 @@ const reflectrumApp = (state = data, action) => {
       } else {
         return state
       }
-      
+
       break;
     case 'SCROLL_DOWN':
       if (state.selectedItem !== action.MAX) {

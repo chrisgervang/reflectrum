@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from './menu/Menu';
 import { connect } from 'react-redux';
 import { mainMenu } from '../main'
+import { Greeting } from './common/Greeting';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -36,8 +37,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
+
+  var menuMessage = Greeting.getGreeting() + state.username
+
   return {
-    menuMessage: state.menuMessage,
+    menuMessage: menuMessage,
     items: mainMenu.items,
     selectedItem: state.selectedItem
   }

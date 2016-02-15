@@ -1,70 +1,74 @@
 import React, { Component } from 'react';
+import './lockscreen.css!';
+import { Skycons } from 'maxdow/skycons'
 
-export class Lockscren extends Component {
+export class Lockscreen extends Component {
   render() {
     return (
-      <div class="currentInfo">
-        <p class="clock"></p>
-        <p class="today"></p>
+      <div>
+        <div className="currentInfo">
+          <p className="big-clock"></p>
+          <p className="today"></p>
+        </div>
+
+        <div className="mainWeather">
+          <p className="location">Location</p>
+          <p className="summary">Summary</p>
+          <p className="temperature">º</p>
+        </div>
+
+        <div className="weaStampWrapper">
+          <div className="weaStamp">
+            <p className="weatherAt">Now</p>
+            <div className="wrapperCeption">
+              <div className="wrapper">
+                <canvas id="iconNow" width="154" height="154"></canvas>
+              </div>
+            </div>
+            <p className="tempAt now">º</p>
+          </div>
+
+          <div className="weaStamp hourOne">
+            <p className="weatherAt">0AM/PM</p>
+            <div className="wrapperCeption">
+              <div className="wrapper">
+                <canvas id="iconHourOne" width="154" height="154"></canvas>
+              </div>
+            </div>
+            <p className="tempAt oneHrLater">º</p>
+          </div>
+
+          <div className="weaStamp hourTwo">
+            <p className="weatherAt">0AM/PM</p>
+            <div className="wrapperCeption">
+              <div className="wrapper">
+                <canvas id="iconHourTwo" width="154" height="154"></canvas>
+              </div>
+            </div>
+            <p className="tempAt twoHrLater">º</p>
+          </div>
+
+          <div className="weaStamp hourThree">
+            <p className="weatherAt">0AM/PM</p>
+            <div className="wrapperCeption">
+              <div className="wrapper">
+                <canvas id="iconHourThree" width="154" height="154"></canvas>
+              </div>
+            </div>
+            <p className="tempAt threeHrLater">º</p>
+          </div>
+
+          <div className="weaStamp hourFour">
+            <p className="weatherAt">0AM/PM</p>
+            <div className="wrapperCeption">
+              <div className="wrapper">
+                <canvas id="iconHourFour" width="154" height="154"></canvas>
+              </div>
+            </div>
+            <p className="tempAt fourHrLater">º</p>
+          </div>
+        </div>
       </div>
-
-      <div class="mainWeather">
-        <p class="location">Location</p>
-        <p class="summary">Summary</p>
-        <p class="temperature">º</p>
-      </div>
-
-      <div class="weaStampWrapper">
-        <div class="weaStamp">
-          <p class="weatherAt">Now</p>
-          <div class="wrapperCeption">
-            <div class="wrapper">
-              <canvas id="iconNow" width="154" height="154"></canvas>
-            </div>
-          </div>
-          <p class="tempAt now">º</p>
-        </div>
-
-        <div class="weaStamp hourOne">
-          <p class="weatherAt">0AM/PM</p>
-          <div class="wrapperCeption">
-            <div class="wrapper">
-              <canvas id="iconHourOne" width="154" height="154"></canvas>
-            </div>
-          </div>
-          <p class="tempAt oneHrLater">º</p>
-        </div>
-
-        <div class="weaStamp hourTwo">
-          <p class="weatherAt">0AM/PM</p>
-          <div class="wrapperCeption">
-            <div class="wrapper">
-              <canvas id="iconHourTwo" width="154" height="154"></canvas>
-            </div>
-          </div>
-          <p class="tempAt twoHrLater">º</p>
-        </div>
-
-        <div class="weaStamp hourThree">
-          <p class="weatherAt">0AM/PM</p>
-          <div class="wrapperCeption">
-            <div class="wrapper">
-              <canvas id="iconHourThree" width="154" height="154"></canvas>
-            </div>
-          </div>
-          <p class="tempAt threeHrLater">º</p>
-        </div>
-
-        <div class="weaStamp hourFour">
-          <p class="weatherAt">0AM/PM</p>
-          <div class="wrapperCeption">
-            <div class="wrapper">
-              <canvas id="iconHourFour" width="154" height="154"></canvas>
-            </div>
-          </div>
-          <p class="tempAt fourHrLater">º</p>
-        </div>
-      </div> 
     );
   }
 }

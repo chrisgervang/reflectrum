@@ -6,6 +6,7 @@ import Calendar from '../components/calendar/calendar';
 import {TetrisScreensaver} from '../components/TetrisScreensaver.js'
 import {MapScreensaver} from '../components/MapScreensaver.js'
 import { QuotesPage } from '../components/quotes/Quotes.js'
+import { Lockscreen } from '../components/lockscreen/Lockscreen'
 
 
 export const pages = {
@@ -15,5 +16,6 @@ export const pages = {
   "CALENDAR": <Calendar />,
   "TETRIS": <TetrisScreensaver />,
   "MAP": <MapScreensaver />,
-  "QUOTES": <QuotesPage />
+  "QUOTES": <QuotesPage />,
+  "LOCKSCREEN": <Lockscreen />
 }

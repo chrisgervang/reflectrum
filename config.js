@@ -23,6 +23,7 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.20",
     "fbemitter": "npm:fbemitter@2.0.2",
     "lodash": "npm:lodash@3.10.1",
+    "maxdow/skycons": "github:maxdow/skycons@master",
     "merge": "npm:merge@1.2.0",
     "react": "npm:react@0.14.7",
     "react-addons": "npm:react-addons@0.9.1-deprecated",

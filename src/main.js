@@ -8,6 +8,13 @@ import { mainMenu } from './components/MainMenu.js';
 
 //A module can have many named exports but only one default export.
 
+
+//TODO: Settings page (conatins locationCache, add additional pages, username, calendar logout, forecastIOapiKey, idle page)
+//TODO: Store forecastIOapiKey, additonal pages, username on a json in filesystem
+//TODO: Change to idle page after 5 minutes
+
+//VEC: Remote scheduling of "additional page"
+//VEC: Additional Pages API
 var data = {
   activePageName: "MAIN_MENU",
   selectedItem: mainMenu.selectedItem,
@@ -70,6 +77,15 @@ const reflectrumApp = (state = data, action) => {
       break;
 
     case 'SCROLL_UP':
+      if (state.selectedItem !== 0) {
+        return Object.assign({}, state, {
+          selectedItem: state.selectedItem - 1
+        });
+      } else {
+        return state;
+      }
+      break;
+    case 'UPDATE_LOCATION_CACHE':
       if (state.selectedItem !== 0) {
         return Object.assign({}, state, {
           selectedItem: state.selectedItem - 1

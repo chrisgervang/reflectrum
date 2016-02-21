@@ -30,16 +30,3 @@ export function parseWeather(weather) {
 
   return data
 }
-
-// export class WeatherParser {
-//   static hourStamp(hour) {
-//     var time = moment(hour.time * 1000).format("hA")
-//     return {
-//       time: time,
-//       icon: hour.icon,
-//       tempf: Math.round(hour.tempurature)
-//     }
-//   }
-//
-//
-// }

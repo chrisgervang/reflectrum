@@ -10,12 +10,16 @@ import { mainMenu } from './components/MainMenu.js';
 
 var data = {
   activePageName: "MAIN_MENU",
-  menuMessage: mainMenu.message,
   selectedItem: mainMenu.selectedItem,
   history: ["MAIN_MENU"],
-  username: "Michelle"
+  username: "Michelle",
+  locationCache: null,
+  forecastIOapiKey: '5485362f69ad87b5aaa04281f19ce344'
 }
-
+// {
+//   lat: 39,
+//   long: -119
+// },
 const reflectrumApp = (state = data, action) => {
   //console.log("NAV", state)
   switch(action.type) {

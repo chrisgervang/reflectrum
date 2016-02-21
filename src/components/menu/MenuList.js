@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import MenuListItem from './MenuListItem';
 import MenuListSelectedItem from './MenuListSelectedItem';
 
+//TODO: delay fade in for each MenuListItem
+
 class MenuList extends Component {
   render() {
     const props = this.props;
-    //console.log(props);
     return (
         <div>
           <MenuListSelectedItem selectedItem={props.selectedItem} className="menu-list-select-item" />

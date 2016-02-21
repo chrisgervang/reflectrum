@@ -1,15 +1,9 @@
-/*html, body {
-  font-family: 'Lato', sans-serif;
-  background-color: #000000;
-  height: 100%;
-  width: 100%;
-}*/
-
 .big-clock {
   color: white;
-  padding-top: 50px;
   text-align: center;
   font-size: 280px;
+  margin: 50px 0 0 0;
+  line-height: 280px;
 }
 
 .today {
@@ -23,7 +17,8 @@
 .location {
   text-align: center;
   font-size: 60px;
-  margin-top: 150px;
+  margin-top: 130px;
+  margin-bottom: 0px;
   color: white;
 }
 
@@ -38,48 +33,7 @@
   text-align: center;
   font-size: 200px;
   margin-top: 40px;
-  margin-bottom: 60px;
   color: white;
-}
+  margin-bottom: 100px;
 
-.weaStampWrapper {
-  width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.weaStamp {
-  text-align: center;
-  width: 147px;
-  display: inline-block;
-}
-
-.weatherAt, .tempAt, .weatherAt1, .tempAt1, .weatherAt2, .tempAt2, .weatherAt3, .tempAt3 {
-  font-size: 30px;
-  color: white;
-}
-
-.weatherAt {
-  margin-top: 25px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.wrapperCeption {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.wrapper{
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  transform: scale(.6);
-}
-
-.tempAt {
-  margin-top: 150px;
-  margin-left: auto;
-  margin-right: auto;
 }

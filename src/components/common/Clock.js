@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
-class Clock extends Component {
+export default class Clock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: this.getTime()
+      time: Clock.getTime()
     }
 
-    this.getTime = this.getTime.bind(this);
+    // this.getTime = this.getTime.bind(this);
   }
 
   componentDidMount() {
     this.int = setInterval(() => {
-      var time = this.getTime();
+      var time = Clock.getTime();
       if (time != this.state.time) {
         this.setState({time: time});
       }
@@ -23,7 +23,7 @@ class Clock extends Component {
     clearInterval(this.int)
   }
 
-  getTime() {
+  static getTime(options = {"ampm": true}) {
     var d = new Date();
     var hours = d.getHours();
     var minutes = d.getMinutes();
@@ -31,7 +31,11 @@ class Clock extends Component {
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
+    var strTime = hours + ':' + minutes;
+    if (options.ampm) {
+      strTime += ' ' + ampm;
+    }
+
     return strTime;
   }
 
@@ -42,5 +46,3 @@ class Clock extends Component {
     );
   }
 }
-
-export default Clock;

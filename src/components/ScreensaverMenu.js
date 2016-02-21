@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    menuMessage: state.menuMessage,
+    menuMessage: screensaverMenu.message,
     items: screensaverMenu.items,
     selectedItem: state.selectedItem
   }

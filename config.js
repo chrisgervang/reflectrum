@@ -25,6 +25,7 @@ System.config({
     "lodash": "npm:lodash@3.10.1",
     "maxdow/skycons": "github:maxdow/skycons@master",
     "merge": "npm:merge@1.2.0",
+    "moment": "npm:moment@2.11.2",
     "react": "npm:react@0.14.7",
     "react-addons": "npm:react-addons@0.9.1-deprecated",
     "react-addons-create-fragment": "npm:react-addons-create-fragment@0.14.7",
@@ -177,6 +178,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:moment@2.11.2": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:node-fetch@1.3.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

@@ -13,18 +13,34 @@ import moment from 'moment';
 
 
 //TODO: Settings page (conatins locationCache, add additional pages, username, calendar logout, forecastIOapiKey, idle page)
-//TODO: Store forecastIOapiKey, additonal pages, username on a json in filesystem
+//TODO: Store forecastIOapiKey, additonal pages, username on a json in localStorage
 //TODO: Change to idle page after 5 minutes
 
 //VEC: Remote scheduling of "additional page"
 //VEC: Additional Pages API
+
+if(!localStorage.getItem('username')) {
+  console.log("TEST STORAGE")
+  localStorage.setItem('username', "Michelle")
+}
+
+if(!localStorage.getItem('forecastIOapiKey')) {
+  localStorage.setItem('forecastIOapiKey', "5485362f69ad87b5aaa04281f19ce344")
+}
+
+if(!localStorage.getItem('locationCache')) {
+  localStorage.setItem('locationCache', JSON.stringify({lat: 37.76305200000001, long: -122.4163935}))
+}
+
+
+
 var data = {
   activePageName: "MAIN_MENU",
   selectedItem: mainMenu.selectedItem,
   history: ["MAIN_MENU"],
-  username: "Michelle",
-  locationCache: null,
-  forecastIOapiKey: '5485362f69ad87b5aaa04281f19ce344',
+  username: localStorage.getItem('username'),
+  locationCache: JSON.parse(localStorage.getItem('locationCache')),
+  forecastIOapiKey: localStorage.getItem('forecastIOapiKey'),
   standby: false,
   lastActive: moment().valueOf()
 }
@@ -79,6 +95,7 @@ const reflectrumApp = (state = data, action) => {
 
       break;
     case 'SCROLL_DOWN':
+      console.log("SCROLL_DOWN", state, action)
       if (state.selectedItem !== action.MAX && state.standby === false) {
         return Object.assign({}, state, {
           selectedItem: state.selectedItem + 1,

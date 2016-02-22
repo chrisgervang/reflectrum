@@ -44,7 +44,7 @@ export function getCurrentPosition(callback) {
 
 }
 
-export function lat_longToAddress(latitude, longitude) {
+export function lat_longToCity(latitude, longitude) {
   let api = fetch('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true')
 
   let addressParser = new Promise((resolve, reject) => {

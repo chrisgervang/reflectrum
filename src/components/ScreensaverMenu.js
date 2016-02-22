@@ -70,9 +70,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const MainMenu = connect(
+const ScreensaverMenu = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Menu)
 
-export default MainMenu;
+export default ScreensaverMenu;

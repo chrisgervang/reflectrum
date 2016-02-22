@@ -27,6 +27,26 @@ export class Lockscreen extends Component {
   }
 
   componentDidMount() {
+    /*
+    Squential Promises
+
+    A. GPS
+    1. Get current position => lat,long
+    2. Generate cancelable promise => e.g. if the component is unmounted before the location is found, cancel the promise returning lat,long
+    >>> If the promise isn't cancelled, then move on to B. and C. (the function called _gatherState)
+
+    B. Convert Lat/Long to City, State
+    1. Use google to do conversion
+    2. Generate cancelable promise
+    >>> If the promise isn't cancelled, then set the state for "location".
+
+    C. Gather Weather data (jsonp callback)
+    1. Use ForecastIO to get weather data
+    2. Organize necesarry data with parseWeather()
+    >>> Then set state for "weather".
+    */
+
+
     //cancelable promise
     this.gpsRequest = getCurrentPosition();
 
@@ -70,6 +90,7 @@ export class Lockscreen extends Component {
       });
 
       getWeatherData(location.lat, location.long, this.props.forecastIOapiKey, (weather) => {
+        //set weather to 'not null'
         this.setState({weather: parseWeather(weather)});
       });
     }

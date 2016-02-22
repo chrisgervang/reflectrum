@@ -12,6 +12,11 @@ export const screensaverMenu = {
       key: "LOCKSCREEN"
     },
     {
+      name: "clock",
+      color: "#FF9500",
+      key: "CLOCK"
+    },
+    {
       name: "tetris",
       color: "#5AC8FA",
       key: "TETRIS"
@@ -20,7 +25,8 @@ export const screensaverMenu = {
       name: "map",
       color: "#FFE620",
       key: "MAP"
-    }
+    },
+
   ]
 }
 

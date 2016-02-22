@@ -23,9 +23,13 @@ export class Lockscreen extends Component {
       location: "Finding Location...",
       weather: null
     }
+
   }
 
   componentDidMount() {
+    //cancelable promise
+    this.gpsRequest = getCurrentPosition();
+
     //clock loop
     this.int = setInterval(() => {
       var time = Clock.getTime({"ampm": false});
@@ -52,24 +56,35 @@ export class Lockscreen extends Component {
     // const location = {long: -119, lat: 39};
 
     const _gatherState = (location) => {
-      lat_longToAddress(location.lat, location.long, (location) => {
-        this.setState({location: location})
+
+      //cancelable promise
+      this.lat_long = lat_longToAddress(location.lat, location.long);
+
+      this.lat_long.promise
+      .then((location) => {
+        //console.log("LAT LONG", location)
+        this.setState({location: location});
+      })
+      .catch((reason) => {
+        console.log(reason);
       });
 
       getWeatherData(location.lat, location.long, this.props.forecastIOapiKey, (weather) => {
-        this.setState({weather: parseWeather(weather)})
+        this.setState({weather: parseWeather(weather)});
       });
     }
 
+    // either use cached location or HTML5 current location promise.
     if (locationCache) {
       _gatherState(locationCache)
     } else {
-      getCurrentPosition((data) => {
-        if (data.status === "SUCCESS") {
-          _gatherState(data)
-        } else {
-          this.setState({location: "Location Unknown"})
-        }
+      this.gpsRequest.promise
+      .then((data) => {
+        _gatherState(data)
+      })
+      .catch((reason) => {
+        console.log(reason);
+        this.setState({location: "Location Unknown"})
       });
     }
   }
@@ -78,6 +93,16 @@ export class Lockscreen extends Component {
   componentWillUnmount() {
     //remove clock loop
     clearInterval(this.int)
+
+    //cancel gps request to prevent changing state when component is unmounted.
+    if(!!this.gpsRequest) {
+      this.gpsRequest.cancel();
+    }
+
+    if(!!this.lat_long) {
+      this.lat_long.cancel();
+    }
+
 
     //remove handlers
     this.handlers.map((handler) =>{

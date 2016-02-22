@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Skycons from 'maxdow/skycons'
 import moment from 'moment';
-import {getWeatherData, parseWeather} from '../../helpers/weather.js'
-import {getCurrentPosition, lat_longToAddress} from '../../helpers/location.js'
+import { getWeatherData, parseWeather } from '../../helpers/weather.js'
+import { getCurrentPosition, lat_longToCity } from '../../helpers/location.js'
 import { MirrorEvents } from '../../helpers/events';
 
 //components
@@ -32,12 +32,13 @@ export class Lockscreen extends Component {
 
     A. GPS
     1. Get current position => lat,long
-    2. Generate cancelable promise => e.g. if the component is unmounted before the location is found, cancel the promise returning lat,long
+    2. Generate cancelable promise => call reject({isCanceled: true}), resolve is ignored.
+       e.g. if the component is unmounted before the location is found, cancel the promise returning lat,long
     >>> If the promise isn't cancelled, then move on to B. and C. (the function called _gatherState)
 
     B. Convert Lat/Long to City, State
-    1. Use google to do conversion
-    2. Generate cancelable promise
+    1. Use google to do conversion => string
+    2. Generate cancelable promise => call reject({isCanceled: true}), resolve is ignored.
     >>> If the promise isn't cancelled, then set the state for "location".
 
     C. Gather Weather data (jsonp callback)
@@ -76,13 +77,13 @@ export class Lockscreen extends Component {
     // const location = {long: -119, lat: 39};
 
     const _gatherState = (location) => {
+      console.log("LAT LONG", location)
 
       //cancelable promise
-      this.lat_long = lat_longToAddress(location.lat, location.long);
+      this.lat_long = lat_longToCity(location.lat, location.long);
 
       this.lat_long.promise
       .then((location) => {
-        //console.log("LAT LONG", location)
         this.setState({location: location});
       })
       .catch((reason) => {
@@ -104,8 +105,10 @@ export class Lockscreen extends Component {
         _gatherState(data)
       })
       .catch((reason) => {
-        console.log(reason);
-        this.setState({location: "Location Unknown"})
+        if(!reason.isCanceled) {
+          console.log(reason);
+          this.setState({location: "Location Unknown"})
+        }
       });
     }
   }
@@ -117,13 +120,13 @@ export class Lockscreen extends Component {
 
     //cancel gps request to prevent changing state when component is unmounted.
     if(!!this.gpsRequest) {
+      console.log("cancelled")
       this.gpsRequest.cancel();
     }
 
     if(!!this.lat_long) {
       this.lat_long.cancel();
     }
-
 
     //remove handlers
     this.handlers.map((handler) =>{
@@ -134,6 +137,7 @@ export class Lockscreen extends Component {
   render() {
     const state = this.state
     const today = moment().format("ddd, MMMM Do")
+
     let stamps = null
     let summary = null
     let temperature = null
@@ -143,12 +147,9 @@ export class Lockscreen extends Component {
         return (
           <WeatherStamp key={i} {...stamp}></WeatherStamp>
         )
-      })
-
-      summary = <p className="animated fadeIn summary">{state.weather.summary}</p>
-
-      temperature = <p className="animated fadeIn temperature">{state.weather.temperature}</p>
-
+      });
+      summary = <p className="animated fadeIn summary">{state.weather.summary}</p>;
+      temperature = <p className="animated fadeIn temperature">{state.weather.temperature}</p>;
     }
 
     return (

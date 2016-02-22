@@ -13,8 +13,7 @@ import moment from 'moment';
 
 
 //TODO: Settings page (conatins locationCache, add additional pages, username, calendar logout, forecastIOapiKey, idle page)
-//TODO: Store forecastIOapiKey, additonal pages, username on a json in localStorage
-//TODO: Change to idle page after 5 minutes
+//TODO: Store additonal pages in localStorage
 
 //VEC: Remote scheduling of "additional page"
 //VEC: Additional Pages API

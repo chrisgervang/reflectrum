@@ -10,7 +10,12 @@ class ViewStack extends Component {
     this.int = setInterval(() => {
       var time = moment().valueOf();
       // 300000ms is 5m
-      if (time - this.props.lastActive > 300000 && this.props.standby === false) {
+      let activePageName = this.props.activePageName;
+
+      if (time - this.props.lastActive > 300000
+          && this.props.standby === false
+          && (activePageName === "MAIN_MENU" || activePageName === "SCREENSAVER_MENU" || activePageName === "WEATHER" || activePageName === "CALENDAR")
+      ) {
         this.props.standbyAction(true)
       }
     }, 5000);
@@ -62,7 +67,7 @@ class ViewStack extends Component {
     const activePageName = this.props.activePageName
     const standbyFlag = this.props.standby
 
-    console.log("ViewStack", pages, activePageName, standby)
+    console.log("ViewStack", pages, activePageName, standbyFlag)
 
     var styles = {
       position: "absolute",

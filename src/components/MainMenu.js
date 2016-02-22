@@ -17,11 +17,6 @@ export const mainMenu = {
       key: "WEATHER"
     },
     {
-      name: "clock",
-      color: "#FF9500",
-      key: "CLOCK"
-    },
-    {
       name: "calendar",
       color: "#FF3B30",
       key: "CALENDAR"

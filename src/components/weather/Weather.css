@@ -1,0 +1,157 @@
+.gggg {
+  height: 1366px;
+  background-color: #254D6A;
+  font-family: 'Lato', sans-serif;
+  color: white;
+}
+
+.clock {
+  padding-top: 20px;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+}
+
+.weaHead {
+  text-align: center;
+  margin-top: 55px;
+}
+
+.location {
+  font-size: 60px;
+  text-align: center;
+}
+
+.summary {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.temperature {
+  font-size: 120px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.weaDetail {
+  margin-top: 55px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 740px;
+}
+
+.weaDetail li {
+  display: inline-block;
+  padding: 10px;
+  font-size: 30px;
+}
+
+.weaDetail li.left {
+  float: left;
+}
+
+li.dayOfWeek {
+  font-weight: 700;
+}
+
+.weaDetail li.right {
+  float: right;
+}
+
+li.lowTemp {
+  color: #E0E0E0;
+  opacity: 98%;
+}
+
+.line {
+  width: 768px;
+  margin-top: 100px;
+  border-width: 1px;
+  border-top: 1px solid white;
+}
+
+.weaStampWrapper {
+  width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.weaStamp {
+  text-align: center;
+  width: 147px;
+  display: inline-block;
+}
+
+.weatherAt, .tempAt, .weatherAt1, .tempAt1, .weatherAt2, .tempAt2, .weatherAt3, .tempAt3 {
+  font-size: 30px;
+}
+
+.weatherAt {
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapperCeption {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper{
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  transform: scale(.6);
+}
+
+.tempAt {
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.line2 {
+  width: 768px;
+  margin-top: 35px;
+  border-width: 1px;
+  border-top: 1px solid white;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 768px;
+}
+
+.details {
+  display: inline-block;
+}
+
+.detailsWrapper {
+  display: inline-block;
+  width: 370px;
+}
+
+.detailsLeft {
+  width: 314px;
+  padding: 40px;
+}
+
+.right {
+  text-align: right;
+  font-size: 30px;
+  padding: 10px;
+}
+
+.detailsRight {
+  width: 314px;
+  padding: 40px;
+}
+
+.left {
+  text-align: left;
+  font-size: 30px;
+  padding: 10px;
+}

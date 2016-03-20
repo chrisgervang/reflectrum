@@ -7,6 +7,7 @@ import {TetrisScreensaver} from '../components/TetrisScreensaver.js'
 import {MapScreensaver} from '../components/MapScreensaver.js'
 import { QuotesPage } from '../components/quotes/Quotes.js'
 import { LockscreenScreensaver } from '../components/LockscreenScreensaver'
+import { WeatherContainer } from '../components/weather/Weather.js'
 
 
 export const pages = {
@@ -17,5 +18,6 @@ export const pages = {
   "TETRIS": <TetrisScreensaver />,
   "MAP": <MapScreensaver />,
   "QUOTES": <QuotesPage />,
-  "LOCKSCREEN": <LockscreenScreensaver />
+  "LOCKSCREEN": <LockscreenScreensaver />,
+  "WEATHER": <WeatherContainer />
 }

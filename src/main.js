@@ -31,7 +31,11 @@ if(!localStorage.getItem('locationCache')) {
   localStorage.setItem('locationCache', JSON.stringify({lat: 37.76305200000001, long: -122.4163935}))
 }
 
-
+// Bakersfield, CA
+// {
+//   lat: 39,
+//   long: -119
+// },
 
 var data = {
   activePageName: "MAIN_MENU",
@@ -43,12 +47,8 @@ var data = {
   standby: false,
   lastActive: moment().valueOf()
 }
-// {
-//   lat: 39,
-//   long: -119
-// },
+
 const reflectrumApp = (state = data, action) => {
-  //console.log("NAV", state)
   switch(action.type) {
     case 'OPEN_ITEM':
       if (!!action.page && state.standby === false) {
@@ -67,7 +67,7 @@ const reflectrumApp = (state = data, action) => {
 
     case 'OPEN_MAIN_MENU':
       if (state.standby === false) {
-        var newHistory = [...state.history, "MAIN_MENU"]
+        var newHistory = [...state.history, "MAIN_MENU"];
 
         return Object.assign({}, state, {
           activePageName: "MAIN_MENU",
@@ -80,21 +80,22 @@ const reflectrumApp = (state = data, action) => {
       break;
     case 'BACK':
       if(state.history.length !== 1 && state.standby === false) {
-        var newHistory = [...state.history]
-        newHistory.pop()
-        console.log("BACK: ", newHistory)
+        var newHistory = [...state.history];
+        newHistory.pop();
+
+        console.log("BACK: ", newHistory);
         return Object.assign({}, state, {
           activePageName: newHistory[newHistory.length - 1],
           history: newHistory,
           lastActive: moment().valueOf()
         });
       } else {
-        return state
+        return state;
       }
 
       break;
     case 'SCROLL_DOWN':
-      console.log("SCROLL_DOWN", state, action)
+      console.log("SCROLL_DOWN", state, action);
       if (state.selectedItem !== action.MAX && state.standby === false) {
         return Object.assign({}, state, {
           selectedItem: state.selectedItem + 1,
@@ -115,17 +116,26 @@ const reflectrumApp = (state = data, action) => {
         return state;
       }
       break;
-    // case 'UPDATE_LOCATION_CACHE':
-    //   if (state.selectedItem !== 0) {
-    //     return Object.assign({}, state, {
-    //       selectedItem: state.selectedItem - 1
-    //     });
-    //   } else {
-    //     return state;
-    //   }
-    //   break;
+    case 'SET_LOCATION_CACHE':
+      localStorage.setItem('locationCache', JSON.stringify(action.locationCache));
+      return Object.assign({}, state, {
+        locationCache: action.locationCache
+      });
+      break;
+    case 'SET_USERNAME':
+      localStorage.setItem('username', action.username);
+      return Object.assign({}, state, {
+        username: action.username
+      });
+      break;
+    case 'SET_FORECAST_IO_API_KEY':
+      localStorage.setItem('forecastIOapiKey', action.forecastIOapiKey);
+      return Object.assign({}, state, {
+        forecastIOapiKey: action.forecastIOapiKey
+      });
+      break;
     case 'STANDBY':
-      console.log("STATE", state, action)
+      console.log("STATE", state, action);
       if (action.standby === false) {
         return Object.assign({}, state, {
           standby: action.standby,

@@ -7,6 +7,7 @@ import ViewStack from './components/ViewStack.js';
 import { mainMenu } from './components/MainMenu.js';
 import {pages} from './helpers/pages.js';
 import moment from 'moment';
+import {Opening} from './components/goodmorning/Opening.js';
 
 
 //A module can have many named exports but only one default export.
@@ -163,6 +164,10 @@ ReactDOM.render(
     <ViewStack/>
   </Provider>,
 document.getElementById("target"));
+
+// ReactDOM.render(
+//   <Opening/>,
+// document.getElementById("target"));
 
 // const render = () => {
 //

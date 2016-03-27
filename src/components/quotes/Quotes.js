@@ -75,7 +75,6 @@ class Quotes extends Component {
         textAlign: "center",
         width: "600px",
         display: "table-cell",
-        animationDelay: "1s",
         animationDelay: "1s"
       },
 

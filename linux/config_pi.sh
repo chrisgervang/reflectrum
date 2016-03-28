@@ -17,7 +17,7 @@ install_packages_flag=2#1000000  # 1000000   Install javascript packages
 ## default flag - run all steps
 input_flag=${1:-2#1111111}
 echo $input_flag
-exit 1
+#exit 1
 
 if [[ $(( ${input_flag} & ${chromium_flag} )) != 0 ]]; then
   ## Install Chromium

@@ -15,7 +15,7 @@ install_npm_flag=2#100000        #  100000   Install npm and jspm
 install_packages_flag=2#1000000  # 1000000   Install javascript packages
 
 ## default flag - run all steps
-#input_flag=${1:-2#1111111}
+input_flag=${1:-2#1111111}
 echo $input_flag
 exit 1
 
@@ -48,29 +48,36 @@ if [[ $(( ${input_flag} & ${add_ssh_to_github_flag} )) != 0 ]]; then
   xclip -sel clip < ~/.ssh/id_rsa.pub
 fi
 
-if [[ $(( ${input_flag} & ${bluetooth_keyboard_flag} )) ]] ; then
+if [[ $(( ${input_flag} & ${bluetooth_keyboard_flag} )) != 0 ]] ; then
   ## Set up bluetooth keyboard
   echo "Set up bluetooth keyboard"
   # Install bluetooth GUI
   sudo apt-get -y install blueman
-
+  # https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=138145&start=25
+  echo "agent on"
+  echo "default-agent"
+  echo "scan on (hit pair mode on the keyboard)"
+  echo "pair xx:xx:xx:xx:xx (device id)"
+  echo "trust xx:xx:xx:xx:xx (if not asked for a pin code this may work too)"
+  echo "connect xx:xx:xx:xx:xx"
+  sudo bluetoothctl
 fi
 
-if [[ $(( ${input_flag} & ${clone_source_flag} )) ]] ; then
+if [[ $(( ${input_flag} & ${clone_source_flag} )) != 0 ]] ; then
   ## Clone Source
   echo "Clone reflectrum source"
   read -p "set_color yellow; echo press enter once ssh is set in github;"
   git clone git@github.com:chrisgervang/Reflectrum.git ${HOME}/code/Reflectrum
 fi
 
-if [[ $(( ${input_flag} & ${install_npm_flag} )) ]] ; then
+if [[ $(( ${input_flag} & ${install_npm_flag} )) != 0 ]] ; then
   ## Install npm
   echo "Install npm and jspm"
   sudo apt-get -y install npm
   npm install jspm -g
 fi
 
-if [[ $(( ${input_flag} & ${install_packages_flag} )) ]] ; then
+if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
   echo "Install javascript packages"
   npm install ${HOME}/code/Reflectrum

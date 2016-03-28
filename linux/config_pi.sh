@@ -21,7 +21,7 @@ echo $input_flag
 
 if [[ $(( ${input_flag} & ${chromium_flag} )) != 0 ]]; then
   ## Install Chromium
-  echo "Install Chromium"
+  set_color green; echo "Install Chromium"; set_color default
   # https://www.raspberrypi.org/forums/viewtopic.php?t=121195
   wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
   wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
@@ -33,7 +33,7 @@ fi
 
 if [[ $(( ${input_flag} & ${gen_ssh_flag} )) != 0 ]]; then
   ## Generate SSH Key
-  echo "Generate SSH Key"
+  set_color green; echo "Generate SSH Key"; set_color default
   # https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-linux
   ssh-keygen -q -t rsa -b 4096 -C "chris@gervang.com"
   eval "$(ssh-agent -s)"
@@ -42,15 +42,17 @@ fi
 
 if [[ $(( ${input_flag} & ${add_ssh_to_github_flag} )) != 0 ]]; then
   ## Add SSH key to github
-  echo "Add SSH key to github"
+  set_color green; echo "Add SSH key to github"; set_color default
   # https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/#platform-linux
   sudo apt-get -y install xclip
   xclip -sel clip < ~/.ssh/id_rsa.pub
+  cat ~/.ssh/id_rsa.pub
+  read -p "set_color yellow; echo 'press enter once ssh is set in github'; set_color default"
 fi
 
 if [[ $(( ${input_flag} & ${bluetooth_keyboard_flag} )) != 0 ]] ; then
   ## Set up bluetooth keyboard
-  echo "Set up bluetooth keyboard"
+  set_color green; echo "Set up bluetooth keyboard"; set_color default
   # Install bluetooth GUI
   sudo apt-get -y install blueman
   # https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=138145&start=25
@@ -65,21 +67,21 @@ fi
 
 if [[ $(( ${input_flag} & ${clone_source_flag} )) != 0 ]] ; then
   ## Clone Source
-  echo "Clone reflectrum source"
-  read -p "set_color yellow; echo press enter once ssh is set in github;"
+  set_color green; echo "Clone reflectrum source"; set_color default
   git clone git@github.com:chrisgervang/Reflectrum.git ${HOME}/code/Reflectrum
 fi
 
 if [[ $(( ${input_flag} & ${install_npm_flag} )) != 0 ]] ; then
   ## Install npm
-  echo "Install npm and jspm"
+  set_color green; echo "Install npm and jspm"; set_color default
+  sudo apt-get update
   sudo apt-get -y install npm
-  npm install jspm -g
+  sudo npm install jspm -g
 fi
 
 if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
-  echo "Install javascript packages"
-  npm install ${HOME}/code/Reflectrum
+  set_color green; echo "Install javascript packages"; set_color default
+  sudo npm install ${HOME}/code/Reflectrum
   jspm install ${HOME}/code/Reflectrum
 fi

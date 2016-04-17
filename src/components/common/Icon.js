@@ -10,7 +10,7 @@ class Icon extends Component {
       'default': {
         icon: {
           color: this.props.color,
-          display: 'inline-block',
+          margin: 'auto'
         },
       },
     };

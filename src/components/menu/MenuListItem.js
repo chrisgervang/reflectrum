@@ -6,8 +6,10 @@ class MenuListItem extends React.Component {
   render() {
     return (
       <div className="menu-list-item">
-        <Icon className="icon" { ...this.props }/>
-        <div className="menu-list-item-text">{ this.props.name.toUpperCase() }</div>
+        <div className="menu-list-item-icon">
+          <Icon { ...this.props }/>
+        </div>
+        <div className="menu-list-item-text">{ this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1) }</div>
       </div>
     )
   }

@@ -6,6 +6,9 @@ import Clock from './components/clock/clock.js';
 // import Calendar from './calendar/calendar.js'
 import Menu from './components/menu/Menu.js'
 
+import KeyboardEvents from './components/common/KeyboardEvents';
+
+
 var mainMenu = {
   message: "Goodmorning, Michelle",
   items: [
@@ -35,12 +38,14 @@ var mainMenu = {
 
 class Main extends React.Component {
   render() {
+    // console.log(this);
+
      return (
-      <div>
+      <KeyboardEvents>
         <Menu { ...mainMenu }/>
-      </div>
+      </KeyboardEvents>
     )
   }
 }
 
-ReactDOM.render(<Main />, document.body);
+ReactDOM.render(<Main />, document.getElementById("target"));

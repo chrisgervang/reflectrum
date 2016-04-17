@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { MirrorEvents } from '../../helpers/events';
 
+import { MirrorEvents } from '../../helpers/events';
 
 export class Map extends Component {
   constructor(props) {
@@ -55,24 +54,3 @@ export class Map extends Component {
   }
 
 }
-
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    secondaryHold: () => {
-      dispatch({
-        type: "OPEN_MAIN_MENU"
-      })
-    },
-    secondaryClick: () => {
-      dispatch({
-        type: "BACK"
-      })
-    }
-  }
-}
-
-export const MapScreensaver = connect(
-  (state) => {return {}},
-  mapDispatchToProps
-)(Map)

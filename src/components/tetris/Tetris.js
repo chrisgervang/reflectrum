@@ -1,9 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { MirrorEvents } from '../../helpers/events';
 
-class Tetris extends Component {
+export class Tetris extends Component {
   componentDidMount() {
     var width = window.innerWidth;
     var boardDiv = 20*Math.round(window.innerWidth/20);
@@ -41,27 +40,6 @@ class Tetris extends Component {
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    secondaryHold: () => {
-      dispatch({
-        type: "OPEN_MAIN_MENU"
-      })
-    },
-    secondaryClick: () => {
-      dispatch({
-        type: "BACK"
-      })
-    }
-  }
-}
-
-export const TetrisScreensaver = connect(
-  (state) => {return {}},
-  mapDispatchToProps
-)(Tetris)
-
 
 var tetrominos = [{
     // box

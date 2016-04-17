@@ -1,10 +1,7 @@
 node_modules
-jspm_packages
 *.pyc
 ssl/
 apache-maven-3.3.9
 jspm_packages
 google_refresh
 google_access
-build.js
-build.js.map

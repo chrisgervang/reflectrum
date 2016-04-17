@@ -24,6 +24,11 @@ export default class Clock extends React.Component {
     var minute = (d.getMinutes()/*0-59*/*6)-90;
     var second = (d.getSeconds()/*0-59*/*6)-90;
 
+    // if(deg == -90) {
+    //   $object.data('plus-deg', $object.data('plus-deg')+360);
+    // }
+    // deg += $object.data('plus-deg');
+
     if (this.state.hour != hour) {
       this.setState({hour: hour});
       console.log(hour);
@@ -38,8 +43,6 @@ export default class Clock extends React.Component {
     }
 
   }
-
-
 
   render () {
     var styles = {

@@ -1,0 +1,61 @@
+html, body {
+  /*background-color: #34495e;*/
+  background-color: black;
+  font-family: 'Lato';
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  letter-spacing: 0.2em;
+}
+
+body > div {
+    -webkit-overflow-scrolling: touch;
+}
+
+.clock {
+  padding-top: 20px;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  height: 60px;
+}
+
+.greeting {
+  padding-top: 70px;
+  height: 130px;
+  color: #F2F4FF;
+  text-align: center;
+  font-size: 45px;
+}
+
+.menu-list-select-item {
+  background-color: white;
+  opacity: 0.4;
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  top: 280px;
+  transition: top 0.5s ease;
+}
+
+.menu-list-item {
+  height: 200px;
+  color: white;
+  opacity: 1;
+  display: flex;
+}
+
+.menu-list-item-text {
+  font-size: 80px;
+  color: white;
+  text-decoration: none;
+  line-height: 200px;
+  margin: auto;
+  flex: 75%;
+}
+
+.menu-list-item-icon {
+  margin: auto;
+  flex: 25%;
+  display: flex;
+}

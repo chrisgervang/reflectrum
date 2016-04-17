@@ -82,12 +82,19 @@ class AnalogClock extends React.Component {
       this.setState({hour: hour + this.state.h});
     }
 
-    if (this.state.minute != minute) {
-      this.setState({minute: minute});
+    if (this.state.minute != minute + this.state.m) {
+      if (minute == -90) {
+        this.setState({m: this.state.m + 360})
+      }
+      this.setState({minute: minute + this.state.m});
+      console.log(this.state);
     }
 
-    if (this.state.second != second) {
-      this.setState({second: second});
+    if (this.state.second != second + this.state.s) {
+      if (second == -90) {
+        this.setState({s: this.state.s + 360})
+      }
+      this.setState({second: second + this.state.s});
     }
 
   }

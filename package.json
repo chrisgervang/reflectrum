@@ -2,7 +2,7 @@
   "name": "reflectrum",
   "version": "0.0.2",
   "description": "A compact, pressentable wall computer built into a mirror",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
     "start": "electron main.js"
   },

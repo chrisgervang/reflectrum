@@ -1,45 +1,46 @@
 import React, { Component } from 'react';
 import Menu from './menu/Menu';
-import MenuList from './menu/MenuList'
-import { store } from '../main'
-import { MirrorEvents } from '../helpers/events';
+import { connect } from 'react-redux';
+import { mainMenu } from '../main'
 
-
-class MainMenu extends Component {
-  constructor(props) {
-    super(props);
-    MirrorEvents.addListener('UP_CLICK', () => {
-      store.dispatch({
+const mapDispatchToProps = (dispatch) => {
+  return {
+    upClick: () => {
+      dispatch({
         type: "SCROLL_UP"
-      });
-    });
-
-
-    MirrorEvents.addListener('DOWN_CLICK', () => {
-      store.dispatch({
-        type: "SCROLL_DOWN"
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  
-  render() {
-    const state = store.getState()
-    return (
-      <Menu message={state.mainMenu.message}>
-        <MenuList items={state.mainMenu.items} selectedItem={state.mainMenu.selectedItem}/>
-      </Menu>
-    );
+      })
+    },
+    downClick: () => {
+      dispatch({
+        type: "SCROLL_DOWN",
+        MAX: mainMenu.items.length - 1
+      })
+    },
+    primaryClick: () => {
+      dispatch({
+        type: "OPEN_ITEM",
+        menu: "MAIN"
+      })
+    },
+    secondaryHold: () => {
+      dispatch({
+        type: "OPEN_MAIN_MENU"
+      })
+    }
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    menuMessage: state.menuMessage,
+    items: mainMenu.items,
+    selectedItem: state.selectedItem
+  }
+}
+
+const MainMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu)
 
 export default MainMenu;

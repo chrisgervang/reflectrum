@@ -1,5 +1,19 @@
 import React from 'react';
 import './clock.css!'
+import { MirrorEvents } from '../../helpers/events';
+import { connect } from 'react-redux';
+
+const timeToDeg = (date) => {
+  // time
+  var hr = date.getHours();
+
+  // time in degrees (-90 to 270)
+  return {
+    hour: ((hr > 12 ? hr - 12 : hr)*30)-90,
+    minute: (date.getMinutes()/*0-59*/*6)-90,
+    second: (date.getSeconds()/*0-59*/*6)-90
+  }
+}
 
 export default class Clock extends React.Component {
   constructor(props) {
@@ -12,29 +26,39 @@ export default class Clock extends React.Component {
       m: 0,
       s: 0
     };
-    this. updateHands = this. updateHands.bind(this);
+    this._updateHands = this._updateHands.bind(this);
   }
 
   componentDidMount() {
-    var int = setInterval(this.updateHands, 1000);
+    const props = this.props;
+    this.int = setInterval(this._updateHands, 1000);
+    this.handlers = []
+    this.handlers.push(
+      MirrorEvents.addListener('SECONDARY_HOLD', () => {
+        props.secondaryHold()
+      })
+    );
   }
 
-  updateHands() {
+  componentWillUnmount() {
+    clearInterval(this.int);
+    this.handlers.map((handler) =>{
+      handler.remove();
+    })
+  }
+
+  _updateHands() {
     var d = new Date();
-    var h = d.getHours();
-
-    var hour = ((h > 12 ? h - 12 : h)*30)-90;
-    var minute = (d.getMinutes()/*0-59*/*6)-90;
-    var second = (d.getSeconds()/*0-59*/*6)-90;
-
-    // if(deg == -90) {
-    //   $object.data('plus-deg', $object.data('plus-deg')+360);
-    // }
-    // deg += $object.data('plus-deg');
-
-    if (this.state.hour != hour) {
-      this.setState({hour: hour});
-      console.log(hour);
+    var degTime = timeToDeg(d)
+    var hour = degTime.hour;
+    var minute = degTime.minute;
+    var second = degTime.second;
+    // The hour has changed when the 'hour' plus it's offset 'h' is different than 'this.state.hour'
+    if (this.state.hour != hour + this.state.h) {
+      if (hour == -90) {
+        this.setState({h: this.state.h + 360})
+      }
+      this.setState({hour: hour + this.state.h});
     }
 
     if (this.state.minute != minute) {
@@ -87,3 +111,26 @@ export default class Clock extends React.Component {
     )
   }
 }
+
+//Container Component
+const mapDispatchToProps = (dispatch) => {
+  return {
+    secondaryHold: () => {
+      dispatch({
+        type: "OPEN_MAIN_MENU"
+      })
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    hour: timeToDeg(new Date()).hour,
+    minute: timeToDeg(new Date()).minute,
+    second: timeToDeg(new Date()).second
+  }
+}
+
+export const ClockItem = connect(
+  mapStateToProps,mapDispatchToProps
+)(Clock)

@@ -83,5 +83,5 @@ if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
   set_color green; echo "Install javascript packages"; set_color default
   sudo npm install ${HOME}/code/Reflectrum
-  jspm install ${HOME}/code/Reflectrum
+  ${HOME}/code/Reflectrum/jspm install 
 fi

@@ -4,7 +4,6 @@ A new approach to smart mirror design.
 ##Installation
 
 ###Debugging (OSX)
-####Build the front-end
 `./linux/config_pi.sh 2#11000000 {installation/directory}`
 This command will install javascript packages, and bundle jspm front-end
 
@@ -16,5 +15,6 @@ copy `config_pi.sh` into the `boot` device
 `sudo sh /boot/config_pi.sh`
 
 ##Start Reflectrum
-###in project directory
+In project root:
 `npm start`
+By default this will attempt to load Reflectrum into your secondary monitor fullscreen. Modify main.js in the root to change how Reflectrum loads.

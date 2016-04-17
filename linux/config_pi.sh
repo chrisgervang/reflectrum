@@ -18,6 +18,8 @@ bundle_jspm=2#10000000           # 10000000   Bundle jspm front-end
 ## default flag - run all steps
 input_flag=${1:-2#1111111}
 echo $input_flag
+
+install_dir=${HOME}/code/Reflectrum
 #exit 1
 
 if [[ $(( ${input_flag} & ${chromium_flag} )) != 0 ]]; then
@@ -69,7 +71,7 @@ fi
 if [[ $(( ${input_flag} & ${clone_source_flag} )) != 0 ]] ; then
   ## Clone Source
   set_color green; echo "Clone reflectrum source"; set_color default
-  git clone git@github.com:chrisgervang/Reflectrum.git ${HOME}/code/Reflectrum
+  git clone git@github.com:chrisgervang/Reflectrum.git ${install_dir}
 fi
 
 if [[ $(( ${input_flag} & ${install_npm_flag} )) != 0 ]] ; then
@@ -83,11 +85,15 @@ fi
 if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
   set_color green; echo "Install javascript packages"; set_color default
-  sudo npm install ${HOME}/code/Reflectrum
-  ${HOME}/code/Reflectrum/jspm install
+  if [[ $(OSTYPE) == "Linux" ]] ; then
+    sudo npm install ${install_dir}
+  else
+    npm install ${install_dir}
+  fi
+  ${install_dir}/jspm install
 fi
 
 if [[ $(( ${input_flag} & ${bundle_jspm} )) != 0 ]] ; then
   ## Bundle jspm front-end
-  ${HOME}/code/Reflectrum/jspm bundle src/main --inject
+  ${install_dir}/jspm bundle src/main --inject
 fi

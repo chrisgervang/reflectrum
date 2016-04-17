@@ -6,13 +6,14 @@
 # "2#1" (binary 1) means run step, "2#0" means skip step.
 # ex: "sudo bash config_pi.sh 2#0100001" will run the 1st and 6th build step.
 
-chromium_flag=2#1                #       1   Install Chromium
-gen_ssh_flag=2#10                #      10   Generate SSH Key
-add_ssh_to_github_flag=2#100     #     100   Add SSH key to github
-bluetooth_keyboard_flag=2#1000   #    1000   Set up bluetooth keyboard
-clone_source_flag=2#10000        #   10000   Clone reflectrum source
-install_npm_flag=2#100000        #  100000   Install npm and jspm
-install_packages_flag=2#1000000  # 1000000   Install javascript packages
+chromium_flag=2#1                #        1   Install Chromium
+gen_ssh_flag=2#10                #       10   Generate SSH Key
+add_ssh_to_github_flag=2#100     #      100   Add SSH key to github
+bluetooth_keyboard_flag=2#1000   #     1000   Set up bluetooth keyboard
+clone_source_flag=2#10000        #    10000   Clone reflectrum source
+install_npm_flag=2#100000        #   100000   Install npm and jspm
+install_packages_flag=2#1000000  #  1000000   Install javascript packages
+bundle_jspm=2#10000000           # 10000000   Bundle jspm front-end
 
 ## default flag - run all steps
 input_flag=${1:-2#1111111}
@@ -83,5 +84,10 @@ if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
   set_color green; echo "Install javascript packages"; set_color default
   sudo npm install ${HOME}/code/Reflectrum
-  ${HOME}/code/Reflectrum/jspm install 
+  ${HOME}/code/Reflectrum/jspm install
+fi
+
+if [[ $(( ${input_flag} & ${bundle_jspm} )) != 0 ]] ; then
+  ## Bundle jspm front-end
+  ${HOME}/code/Reflectrum/jspm bundle src/main --inject
 fi

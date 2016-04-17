@@ -19,7 +19,7 @@ bundle_jspm=2#10000000           # 10000000   Bundle jspm front-end
 input_flag=${1:-2#1111111}
 echo $input_flag
 
-install_dir=${HOME}/code/Reflectrum
+install_dir=${2:${HOME}/code/Reflectrum}
 #exit 1
 
 if [[ $(( ${input_flag} & ${chromium_flag} )) != 0 ]]; then
@@ -85,7 +85,7 @@ fi
 if [[ $(( ${input_flag} & ${install_packages_flag} )) != 0 ]] ; then
   ## Install javascript packages
   set_color green; echo "Install javascript packages"; set_color default
-  if [[ $(OSTYPE) == "Linux" ]] ; then
+  if [[ ${OSTYPE} == "Linux" ]] ; then
     sudo npm install ${install_dir}
   else
     npm install ${install_dir}

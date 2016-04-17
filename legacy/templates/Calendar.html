@@ -107,7 +107,7 @@ var Calendar = React.createClass({
           <EventList events={this.props.events} />
         );
       } else {
-        return <div></div>;
+        return <div>404</div>;
       }
     }
 });
@@ -115,6 +115,7 @@ var Calendar = React.createClass({
 React.render(<Calendar/>, document.body);
 
 $.get("calendar/events", function(data) {
+  console.log(data);
   React.render(<Calendar {...data}/>, document.body);
 });
 

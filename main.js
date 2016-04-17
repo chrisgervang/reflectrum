@@ -62,7 +62,7 @@ app.on('ready', function() {
     darkTheme:true,
     "node-integration": false
   };
-  
+
   if (!!externalDisplay) {
     browserWindowOptions.x = externalDisplay.bounds.x + 50;
     browserWindowOptions.y = externalDisplay.bounds.y + 50

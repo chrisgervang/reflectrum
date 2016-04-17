@@ -9,7 +9,7 @@ class Main extends React.Component {
      return (
       <div>
         <h1>Reflectrum</h1>
-        <Clock />
+        <Clock hour="90" minute="120" second="165"/>
       </div>
     )
   }

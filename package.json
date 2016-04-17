@@ -1,5 +1,5 @@
 {
-  "name": "reflectrum",
+  "name": "smart-mirror",
   "version": "0.0.2",
   "description": "A compact, pressentable wall computer built into a mirror",
   "main": "main.js",
@@ -26,35 +26,5 @@
   "dependencies": {
     "request-promise": "*",
     "electron-prebuilt": "*"
-  },
-  "jspm": {
-    "dependencies": {
-      "casesandberg/reactcss": "github:casesandberg/reactcss@1.0.0",
-      "classnames": "npm:classnames@^2.2.3",
-      "css": "github:systemjs/plugin-css@^0.1.20",
-      "fbemitter": "npm:fbemitter@^2.0.2",
-      "lodash": "npm:lodash@^3.10.1",
-      "maxdow/skycons": "github:maxdow/skycons@master",
-      "merge": "npm:merge@^1.2.0",
-      "moment": "npm:moment@^2.11.2",
-      "react": "npm:react@^0.14.6",
-      "react-addons": "npm:react-addons@^0.9.1-deprecated",
-      "react-addons-create-fragment": "npm:react-addons-create-fragment@^0.14.6",
-      "react-dom": "npm:react-dom@^0.14.6",
-      "react-redux": "npm:react-redux@^4.4.0",
-      "react-router": "npm:react-router@^1.0.3",
-      "reactcss": "github:casesandberg/reactcss@1.0.0",
-      "redux": "npm:redux@^3.3.1",
-      "whatwg-fetch": "npm:whatwg-fetch@^0.10.1"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "clean-css": "npm:clean-css@^3.4.10",
-      "core-js": "npm:core-js@^1.1.4"
-    }
-  },
-  "devDependencies": {
-    "jspm": "^0.16.23"
   }
 }

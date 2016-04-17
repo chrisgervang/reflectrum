@@ -1,6 +1,11 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
+//http server
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
+
 // Report crashes to our server.
 require('crash-reporter').start();
 
@@ -25,11 +30,9 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  // call python?
-  console.log("Yo!");
-  var subpy = require('child_process').spawn('python', ['./server.py']);
-  var rq = require('request-promise');
-  var mainAddr = 'http://127.0.0.1:5000/menu';
+
+  // start a simple server that can serve an html page and resolve local file loading.
+  var server = http.createServer(requestHandler).listen(3000);
 
   // Put the app on a secondary display if availalbe
   var atomScreen = require('screen');
@@ -60,8 +63,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow(browserWindowOptions);
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://127.0.0.1:5000/menu');
-
+    mainWindow.loadURL("http://localhost:3000/app.html");
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
@@ -75,18 +77,38 @@ app.on('ready', function() {
     });
   };
 
-  var startUp = function(){
-    rq(mainAddr)
-      .then(function(htmlString){
-        console.log('server started!');
-        openWindow();
-      })
-      .catch(function(err){
-        //console.log('waiting for the server start...');
-        startUp();
-      });
+  function requestHandler(req, res) {
+    var
+    file    = req.url == '/' ? '/app.html' : req.url,
+    root    = __dirname + '/',
+    page404 = root + '/404.html';
+
+    getFile((root + file), res, page404);
   };
 
-  // fire!
-  startUp();
+  function getFile(filePath, res, page404) {
+
+    fs.exists(filePath, function(exists) {
+      if(exists) {
+        fs.readFile(filePath, function(err, contents) {
+          if(!err) {
+            res.end(contents);
+          } else {
+            console.dir(err);
+          }
+        });
+      } else {
+        fs.readFile(page404, function(err, contents) {
+          if(!err) {
+            res.writeHead(404, {'Content-Type': 'text/html'});
+            res.end(contents);
+          } else {
+            console.dir(err);
+          }
+        });
+      }
+    });
+  };
+
+  openWindow();
 });

@@ -7,4 +7,4 @@ jspm_packages
 google_refresh
 google_access
 build.js
-build.map.js
+build.js.map

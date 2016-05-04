@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/chrisgervang/reflectrum.png?label=ready&title=Ready)](https://waffle.io/chrisgervang/reflectrum)
 # Reflectrum
 A new approach to smart mirror design.
 

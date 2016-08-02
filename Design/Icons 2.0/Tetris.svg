@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="36px" viewBox="0 0 23 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Screensaver</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Concept-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Screensaver_Cube" transform="translate(-724.000000, -1248.000000)" fill="#D8D8D8">
+            <g id="Screensavers" transform="translate(665.000000, 1248.000000)">
+                <g id="Screensaver" transform="translate(59.000000, 0.000000)">
+                    <g id="Screensaver-icon">
+                        <g id="Group">
+                            <g id="Tetris-icon">
+                                <g id="Group">
+                                    <g transform="translate(0.181641, 0.207581)" id="Rectangle-path">
+                                        <rect x="0.21796875" y="0.111967925" width="10.1900391" height="10.469001"></rect>
+                                        <rect x="0.21796875" y="12.6523755" width="10.1900391" height="10.469001"></rect>
+                                        <rect x="12.4242188" y="25.1927831" width="10.1900391" height="10.469001"></rect>
+                                        <rect x="0.21796875" y="25.1927831" width="10.1900391" height="10.469001"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

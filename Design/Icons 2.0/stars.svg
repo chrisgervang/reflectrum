@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="36px" height="34px" viewBox="0 0 36 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Concept-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Screensaver_Tetris" transform="translate(-712.000000, -998.000000)" fill="#D8D8D8">
+            <g id="Cube-Copy" transform="translate(673.000000, 998.000000)">
+                <path d="M56.7367366,28.6974213 L47.328867,33.7169299 C46.0302239,34.4098126 45.1819173,33.8020641 45.4353877,32.3522422 L47.2813202,21.7937144 L39.6180281,14.3476275 C38.5641629,13.3236327 38.8913533,12.3259037 40.3459552,12.1195451 L50.8929679,10.623282 L55.5752091,0.990880514 C56.2167031,-0.328813862 57.2553321,-0.33177232 57.8982642,0.990880514 L62.5805054,10.623282 L73.1275182,12.1195451 C74.5834063,12.3260862 74.9142315,13.318851 73.8554452,14.3476275 L66.1921531,21.7937144 L68.0380857,32.3522422 C68.290989,33.7988211 67.4421021,34.4092005 66.1446062,33.7169299 L56.7367366,28.6974213 L56.7367366,28.6974213 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

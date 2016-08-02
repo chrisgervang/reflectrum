@@ -16,7 +16,7 @@ install_packages_flag=2#1000000  #  1000000   Install javascript packages
 bundle_jspm=2#10000000           # 10000000   Bundle jspm front-end
 
 ## default flag - run all steps
-input_flag=${1:-2#1111111}
+input_flag=${1:-2#11111111}
 echo $input_flag
 
 install_dir=${2:${HOME}/code/Reflectrum}

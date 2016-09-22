@@ -2,6 +2,8 @@
 # Reflectrum
 A new approach to smart mirror design.
 
+![Project Banner](https://cdn.hackaday.io/images/1212081462347619100.jpg)
+
 ##Installation
 
 ###Debugging (OSX)

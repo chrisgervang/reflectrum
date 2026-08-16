@@ -1,6 +1,8 @@
 # Reflectrum
 
-A portrait smart-mirror interface designed for simple directional input.
+A new approach to smart mirror design.
+
+![Project Banner](https://cdn.hackaday.io/images/1212081462347619100.jpg)
 
 Reflectrum now builds as a static React application with Vite and runs in
 Chromium kiosk mode. Electron and JSPM are no longer required.

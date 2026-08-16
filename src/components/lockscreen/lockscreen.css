@@ -37,3 +37,10 @@
   margin-bottom: 100px;
 
 }
+
+.lockscreen-weather-error {
+  margin: 40px 70px;
+  color: #bdc3c7;
+  font-size: 30px;
+  text-align: center;
+}

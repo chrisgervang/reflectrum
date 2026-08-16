@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+pi_host=${REFLECTRUM_PI_HOST:-adsb}
+
+if ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk.service"; then
+  kiosk_unit=reflectrum-kiosk.service
+elif ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk-sf.service"; then
+  kiosk_unit=reflectrum-kiosk-sf.service
+else
+  printf '%s\n' 'Reflectrum kiosk is not managed by systemd. Run deploy/install.sh on the Pi once.' >&2
+  exit 1
+fi
+
+ssh "$pi_host" "systemctl --user --machine=pi@ restart $kiosk_unit"
+printf 'Restarted %s on %s.\n' "$kiosk_unit" "$pi_host"

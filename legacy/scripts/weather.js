@@ -93,7 +93,8 @@ $(function() {
   // Get weather data
   function getWeatherData(latitude, longitude) {
 
-    var apiKey = '5485362f69ad87b5aaa04281f19ce344';
+    // Retired Forecast.io credential removed. This legacy widget is not deployed.
+    var apiKey = '';
     var urlForecast = 'https://api.forecast.io/forecast/';
 
     $.getJSON(urlForecast + apiKey + "/" + latitude + "," + longitude + "?callback=?", function(data) {

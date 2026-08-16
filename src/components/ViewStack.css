@@ -1,0 +1,103 @@
+.view-stack,
+.view-stack__page {
+  width: 100%;
+  height: 100%;
+}
+
+.view-stack {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.view-stack__page {
+  background: #000;
+  contain: layout paint;
+  view-transition-name: reflectrum-page;
+}
+
+::view-transition-group(reflectrum-page) {
+  z-index: 1;
+  overflow: hidden;
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+::view-transition-image-pair(reflectrum-page) {
+  overflow: visible;
+  isolation: isolate;
+}
+
+::view-transition-old(reflectrum-page),
+::view-transition-new(reflectrum-page) {
+  background: #000;
+  height: 100%;
+  mix-blend-mode: normal;
+  transform-origin: center center;
+  animation-duration: inherit;
+  animation-timing-function: inherit;
+  animation-fill-mode: both;
+}
+
+html[data-page-transition-direction='push']::view-transition-old(reflectrum-page) {
+  animation-name: reflectrum-push-old;
+}
+
+html[data-page-transition-direction='push']::view-transition-new(reflectrum-page) {
+  z-index: 2;
+  animation-name: reflectrum-push-new;
+  box-shadow: -24px 0 56px rgb(0 0 0 / 55%);
+}
+
+html[data-page-transition-direction='pop']::view-transition-old(reflectrum-page) {
+  z-index: 2;
+  animation-name: reflectrum-pop-old;
+  box-shadow: -24px 0 56px rgb(0 0 0 / 55%);
+}
+
+html[data-page-transition-direction='pop']::view-transition-new(reflectrum-page) {
+  animation-name: reflectrum-pop-new;
+}
+
+@keyframes reflectrum-push-old {
+  from {
+    transform: translateX(0) scale(1);
+    filter: brightness(1);
+  }
+  to {
+    transform: translateX(-28%) scale(0.96);
+    filter: brightness(0.72);
+  }
+}
+
+@keyframes reflectrum-push-new {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes reflectrum-pop-old {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes reflectrum-pop-new {
+  from {
+    transform: translateX(-28%) scale(0.96);
+    filter: brightness(0.72);
+  }
+  to {
+    transform: translateX(0) scale(1);
+    filter: brightness(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(reflectrum-page) {
+    animation-duration: 1ms;
+  }
+
+  ::view-transition-old(reflectrum-page),
+  ::view-transition-new(reflectrum-page) {
+    animation-name: none !important;
+  }
+}

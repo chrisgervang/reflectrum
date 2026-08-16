@@ -1,60 +1,37 @@
 {
   "name": "reflectrum",
-  "version": "0.0.2",
-  "description": "A compact, pressentable wall computer built into a mirror",
-  "main": "main.js",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A compact wall computer built into a mirror",
+  "type": "module",
   "scripts": {
-    "start": "electron main.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "pi:deploy": "./scripts/pi-deploy",
+    "pi:refresh": "./scripts/pi-refresh",
+    "pi:screenshare": "./scripts/pi-screenshare",
+    "check": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('deploy/reflectrum_server.py').read_text())\" && npm test && vite build",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisgervang/SmartMirror.git"
+    "url": "git+https://github.com/chrisgervang/reflectrum.git"
   },
-  "keywords": [
-    "Electron",
-    "raspberry pi",
-    "wireless",
-    "morning",
-    "routine"
-  ],
   "author": "Chris Gervang",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chrisgervang/SmartMirror/issues"
-  },
-  "homepage": "https://github.com/chrisgervang/SmartMirror#readme",
   "dependencies": {
-    "request-promise": "*",
-    "electron-prebuilt": "*"
-  },
-  "jspm": {
-    "dependencies": {
-      "casesandberg/reactcss": "github:casesandberg/reactcss@1.0.0",
-      "classnames": "npm:classnames@^2.2.3",
-      "css": "github:systemjs/plugin-css@^0.1.20",
-      "fbemitter": "npm:fbemitter@^2.0.2",
-      "lodash": "npm:lodash@^3.10.1",
-      "maxdow/skycons": "github:maxdow/skycons@master",
-      "merge": "npm:merge@^1.2.0",
-      "moment": "npm:moment@^2.11.2",
-      "react": "npm:react@^0.14.6",
-      "react-addons": "npm:react-addons@^0.9.1-deprecated",
-      "react-addons-create-fragment": "npm:react-addons-create-fragment@^0.14.6",
-      "react-dom": "npm:react-dom@^0.14.6",
-      "react-redux": "npm:react-redux@^4.4.0",
-      "react-router": "npm:react-router@^1.0.3",
-      "reactcss": "github:casesandberg/reactcss@1.0.0",
-      "redux": "npm:redux@^3.3.1",
-      "whatwg-fetch": "npm:whatwg-fetch@^0.10.1"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "clean-css": "npm:clean-css@^3.4.10",
-      "core-js": "npm:core-js@^1.1.4"
-    }
+    "fbemitter": "^3.0.0",
+    "ical.js": "^2.2.1",
+    "moment": "^2.30.1",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-redux": "^9.3.0",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
-    "jspm": "^0.16.23"
+    "@vitejs/plugin-react": "^6.0.5",
+    "vite": "^8.2.1"
   }
 }

@@ -65,6 +65,12 @@ window.REFLECTRUM_CONFIG = {
 See [deploy/README.md](deploy/README.md#logitech-mx-creative-dialpad) for
 Bluetooth pairing and Linux-level diagnostics.
 
+On macOS, auxiliary mouse buttons are intercepted before Chromium delivers
+them to page JavaScript. The project includes a small native compatibility
+helper that converts Dialpad buttons 3–6 to Escape, Return, Arrow Up, and Arrow
+Down. Install it with `./macos/install.sh`; macOS will require Accessibility
+and Input Monitoring permission for the `Reflectrum Dialpad` background app.
+
 ## Runtime configuration
 
 `public/reflectrum-config.js` supplies deployment-time defaults. Do not commit

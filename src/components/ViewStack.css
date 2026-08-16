@@ -11,6 +11,7 @@
 }
 
 .view-stack__page {
+  background: #000;
   contain: layout paint;
   view-transition-name: reflectrum-page;
 }
@@ -29,7 +30,9 @@
 
 ::view-transition-old(reflectrum-page),
 ::view-transition-new(reflectrum-page) {
+  background: #000;
   height: 100%;
+  mix-blend-mode: normal;
   transform-origin: center center;
   animation-duration: inherit;
   animation-timing-function: inherit;
@@ -43,7 +46,7 @@ html[data-page-transition-direction='push']::view-transition-old(reflectrum-page
 html[data-page-transition-direction='push']::view-transition-new(reflectrum-page) {
   z-index: 2;
   animation-name: reflectrum-push-new;
-  box-shadow: 24px 0 56px rgb(0 0 0 / 55%);
+  box-shadow: -24px 0 56px rgb(0 0 0 / 55%);
 }
 
 html[data-page-transition-direction='pop']::view-transition-old(reflectrum-page) {
@@ -62,13 +65,13 @@ html[data-page-transition-direction='pop']::view-transition-new(reflectrum-page)
     filter: brightness(1);
   }
   to {
-    transform: translateX(28%) scale(0.96);
+    transform: translateX(-28%) scale(0.96);
     filter: brightness(0.72);
   }
 }
 
 @keyframes reflectrum-push-new {
-  from { transform: translateX(-100%); }
+  from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
 

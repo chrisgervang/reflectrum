@@ -2,6 +2,6 @@
 Type=Application
 Name=Reflectrum Kiosk
 Comment=Rotate the mirror display and open Reflectrum fullscreen
-Exec=/usr/local/bin/reflectrum-kiosk
+Exec=/usr/bin/systemctl --user start reflectrum-kiosk.service
 Terminal=false
 X-GNOME-Autostart-enabled=true

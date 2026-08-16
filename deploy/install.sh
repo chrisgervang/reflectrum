@@ -38,6 +38,9 @@ install -o root -g root -m 0755 \
   "$repo_root/deploy/reflectrum-kiosk" \
   /usr/local/bin/reflectrum-kiosk
 install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-kiosk.service" \
+  /etc/systemd/user/reflectrum-kiosk.service
+install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-kiosk.desktop" \
   /etc/xdg/autostart/reflectrum-kiosk.desktop
 install -o root -g root -m 0755 \
@@ -58,6 +61,7 @@ udevadm control --reload-rules
 modprobe uinput
 
 systemctl daemon-reload
+systemctl --global enable reflectrum-kiosk.service
 systemctl enable --now reflectrum-web.service
 
 if command -v raspi-config >/dev/null 2>&1; then

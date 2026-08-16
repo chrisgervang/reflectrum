@@ -21,6 +21,25 @@ sudo ./deploy/install.sh
 sudo reboot
 ```
 
+After the initial installation, routine work from the development Mac is one
+command per task:
+
+```sh
+npm run pi:deploy       # check, build, copy generated assets, restart kiosk
+npm run pi:refresh      # restart Chromium without rebuilding
+npm run pi:screenshare  # restore the SSH tunnel and open tuned TigerVNC
+```
+
+These commands use the `adsb` SSH host by default. Override it with
+`REFLECTRUM_PI_HOST`. Deployment intentionally leaves
+`/opt/reflectrum/reflectrum-config.js` and `/etc/reflectrum/calendar.env`
+untouched.
+
+The screen-share launcher favors responsiveness on the Raspberry Pi 3: it
+disables remote resizing, reduces Tight/JPEG quality, lowers compression work,
+and rate-limits pointer updates. Set `REFLECTRUM_VNC_LOCAL_PORT` if port 5900 is
+already used locally.
+
 The live Motorola display identifies as `HDMI-A-1`, with a preferred mode of
 1366×768 at 60 Hz. After the 90-degree Wayland transform, applications see a
 768×1366 portrait workspace.

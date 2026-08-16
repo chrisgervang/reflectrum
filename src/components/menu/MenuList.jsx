@@ -8,7 +8,7 @@ class MenuList extends Component {
   render() {
     const props = this.props;
     return (
-        <div>
+        <div className="menu-list">
           <MenuListSelectedItem selectedItem={props.selectedItem} className="menu-list-select-item" />
           <div className="animated fadeInLeft">
           {

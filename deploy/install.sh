@@ -15,7 +15,7 @@ if [[ ! -f $source_dir/index.html ]]; then
   exit 1
 fi
 
-for command in chromium curl python3 wlr-randr; do
+for command in chromium curl python3 solaar wlr-randr; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "Required command is missing: $command" >&2
     exit 1
@@ -40,6 +40,22 @@ install -o root -g root -m 0755 \
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-kiosk.desktop" \
   /etc/xdg/autostart/reflectrum-kiosk.desktop
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum-mx-dialpad" \
+  /usr/local/bin/reflectrum-mx-dialpad
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-mx-dialpad.desktop" \
+  /etc/xdg/autostart/reflectrum-mx-dialpad.desktop
+
+install -d -o pi -g pi -m 0755 /home/pi/.config/solaar
+install -o pi -g pi -m 0644 \
+  "$repo_root/deploy/reflectrum-solaar-rules.yaml" \
+  /home/pi/.config/solaar/rules.yaml
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/42-reflectrum-logitech-permissions.rules" \
+  /etc/udev/rules.d/42-reflectrum-logitech-permissions.rules
+udevadm control --reload-rules
+modprobe uinput
 
 systemctl daemon-reload
 systemctl enable --now reflectrum-web.service

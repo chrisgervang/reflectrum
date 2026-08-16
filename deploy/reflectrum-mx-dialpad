@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+device_name='MX Creative Dialpad'
+controls=(
+  'Back Button'
+  'Forward Button'
+  'Button 6'
+  'Left Scroll As Button 7'
+)
+
+solaar_pid=''
+if ! pgrep -u "$(id -u)" -f '(^|/)solaar([[:space:]]|$)' >/dev/null 2>&1; then
+  solaar --window=hide --restart-on-wake-up &
+  solaar_pid=$!
+fi
+
+configured=0
+for _attempt in $(seq 1 30); do
+  configured=1
+  for control in "${controls[@]}"; do
+    if ! solaar config "$device_name" divert-keys "$control" Diverted >/dev/null 2>&1; then
+      configured=0
+      break
+    fi
+  done
+  ((configured)) && break
+  sleep 2
+done
+
+if (( ! configured )); then
+  echo "MX Dialpad was not available for Solaar configuration." >&2
+fi
+
+if [[ -n $solaar_pid ]]; then
+  wait "$solaar_pid"
+fi

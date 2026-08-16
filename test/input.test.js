@@ -24,8 +24,10 @@ test('maps mouse and dial controls', () => {
   assert.equal(resolveMouseAction(1), 'PRIMARY_CLICK');
   assert.equal(resolveMouseAction(3), 'SECONDARY_CLICK');
   assert.equal(resolveMouseAction(7), null);
-  assert.equal(resolveWheelAction(-100), 'UP_CLICK');
-  assert.equal(resolveWheelAction(100), 'DOWN_CLICK');
-  assert.equal(resolveWheelAction(0.5, { threshold: 1 }), null);
-  assert.equal(resolveWheelAction(100, { invert: true }), 'UP_CLICK');
+  assert.equal(resolveWheelAction({ deltaY: -100 }), 'UP_CLICK');
+  assert.equal(resolveWheelAction({ deltaY: 100 }), 'DOWN_CLICK');
+  assert.equal(resolveWheelAction({ deltaX: -100, deltaY: 0 }), 'UP_CLICK');
+  assert.equal(resolveWheelAction({ deltaX: 100, deltaY: 0 }), 'DOWN_CLICK');
+  assert.equal(resolveWheelAction({ deltaX: 0.5 }, { threshold: 1 }), null);
+  assert.equal(resolveWheelAction({ deltaX: 100 }, { invert: true }), 'UP_CLICK');
 });

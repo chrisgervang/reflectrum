@@ -69,10 +69,10 @@ const registerInputListeners = () => {
   });
 
   document.addEventListener('wheel', (event) => {
-    const action = resolveWheelAction(event.deltaY, wheelConfig);
+    const action = resolveWheelAction(event, wheelConfig);
     const now = Date.now();
     const throttled = Boolean(action && now - lastWheelActionAt < wheelCooldownMs);
-    diagnostic({ source: 'wheel', type: 'wheel', deltaY: event.deltaY, action, throttled });
+    diagnostic({ source: 'wheel', type: 'wheel', deltaX: event.deltaX, deltaY: event.deltaY, action, throttled });
     if (!action) return;
 
     event.preventDefault();

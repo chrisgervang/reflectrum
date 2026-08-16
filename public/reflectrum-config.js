@@ -3,4 +3,11 @@
 window.REFLECTRUM_CONFIG = {
   username: 'Michelle',
   // location: { lat: 0, long: 0, name: 'City, State' },
+  // inputDiagnostics: true,
+  // input: {
+  //   keyMap: { F13: 'UP_CLICK', F14: 'DOWN_CLICK' },
+  //   invertWheel: false,
+  //   wheelThreshold: 1,
+  //   wheelCooldownMs: 90,
+  // },
 };

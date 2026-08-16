@@ -29,11 +29,38 @@ scroll wheel, or programmable dial pad.
 
 | Action | Inputs |
 | --- | --- |
-| Previous item | Arrow Up, Page Up, wheel up |
-| Next item | Arrow Down, Page Down, wheel down |
-| Select/forward | Arrow Right, Enter, Space, primary mouse button |
-| Back | Arrow Left, Escape, Backspace, secondary/browser-back mouse button |
+| Previous item | Arrow Up, Page Up, media previous, wheel up |
+| Next item | Arrow Down, Page Down, media next, wheel down |
+| Select/forward | Arrow Right, Enter, Space, media play/pause, primary/middle/browser-forward button |
+| Back | Arrow Left, Escape, Backspace, browser-back/secondary button |
 | Main menu | Hold the back input |
+
+### Logitech MX Creative Dialpad
+
+The Dialpad is handled as a standard Bluetooth HID device; Reflectrum does not
+depend on Logi Options+. Roller or dial wheel events navigate, forward/select
+buttons open the highlighted item, and back buttons return to the previous
+screen. Bursty wheel events are throttled to one action every 90 ms by default.
+
+Open `http://127.0.0.1:3000/?input-debug=1` on the mirror to see each raw
+keyboard, wheel, or mouse event and the Reflectrum action it produces. Controls
+that appear as unusual function keys can be mapped without rebuilding:
+
+```js
+window.REFLECTRUM_CONFIG = {
+  input: {
+    keyMap: {
+      F13: 'UP_CLICK',
+      F14: 'DOWN_CLICK',
+      F15: 'PRIMARY_CLICK',
+      F16: 'SECONDARY_CLICK',
+    },
+  },
+};
+```
+
+See [deploy/README.md](deploy/README.md#logitech-mx-creative-dialpad) for
+Bluetooth pairing and Linux-level diagnostics.
 
 ## Runtime configuration
 

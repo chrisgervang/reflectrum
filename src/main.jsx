@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import ViewStack from './components/ViewStack.jsx';
+import InputDiagnostics from './components/InputDiagnostics.jsx';
 import { mainMenu } from './components/MainMenu.jsx';
 import moment from 'moment';
 import './base.css';
@@ -169,6 +170,7 @@ const reflectrumApp = (state = data, action) => {
 createRoot(document.getElementById('target')).render(
   <Provider store={createStore(reflectrumApp)}>
     <ViewStack/>
+    <InputDiagnostics/>
   </Provider>
 );
 

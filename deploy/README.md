@@ -64,3 +64,43 @@ sudo systemctl restart reflectrum-web
 
 Chromium requests `/api/calendar`, so the private feed URL is never stored in
 the static application.
+
+## Logitech MX Creative Dialpad
+
+Pair the Dialpad directly with BlueZ. Put it in pairing mode, then run:
+
+```sh
+bluetoothctl
+power on
+agent on
+default-agent
+scan on
+devices
+pair DEVICE_MAC
+trust DEVICE_MAC
+connect DEVICE_MAC
+quit
+```
+
+Replace `DEVICE_MAC` with the address shown by `devices`. Confirm that it is
+available after pairing and after a reboot:
+
+```sh
+bluetoothctl devices Paired
+bluetoothctl info DEVICE_MAC
+```
+
+Then load `http://127.0.0.1:3000/?input-debug=1` in Chromium and exercise every
+button, roller direction, dial direction, and dial press. The overlay shows the
+raw browser event and mapped Reflectrum command.
+
+If a control does not reach Chromium, inspect the Linux input layer:
+
+```sh
+sudo libinput debug-events
+sudo evtest
+```
+
+Record the event codes before adding a userspace input daemon. The current
+adapter deliberately uses standard HID events and deployment-local key maps;
+it does not require a vendor driver or an unattended browser permission.

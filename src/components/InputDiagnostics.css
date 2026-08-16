@@ -1,0 +1,36 @@
+.input-diagnostics {
+  position: fixed;
+  z-index: 9999;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  display: flex;
+  box-sizing: border-box;
+  max-height: 42vh;
+  padding: 18px;
+  overflow: hidden;
+  flex-direction: column;
+  gap: 7px;
+  border: 2px solid #00f5ea;
+  background: rgb(0 0 0 / 92%);
+  color: white;
+  font-size: 17px;
+  pointer-events: none;
+}
+
+.input-diagnostics strong {
+  color: #00f5ea;
+  font-size: 24px;
+}
+
+.input-diagnostics span {
+  color: #bdc3c7;
+}
+
+.input-diagnostics code {
+  overflow: hidden;
+  color: white;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

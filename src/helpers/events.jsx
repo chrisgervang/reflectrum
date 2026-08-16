@@ -1,69 +1,98 @@
 import { EventEmitter } from 'fbemitter';
+import {
+  resolveKeyAction,
+  resolveMouseAction,
+  resolveWheelAction,
+} from './inputMapping.js';
 
 export const MirrorEvents = new EventEmitter();
 
-const pressState = {
-  primary: false,
-  secondary: false,
+const inputConfig = globalThis.REFLECTRUM_CONFIG?.input || {};
+const customKeyMap = inputConfig.keyMap || {};
+const wheelConfig = {
+  threshold: inputConfig.wheelThreshold ?? 1,
+  invert: inputConfig.invertWheel ?? false,
+};
+const wheelCooldownMs = inputConfig.wheelCooldownMs ?? 90;
+const pressState = { primary: false, secondary: false };
+let lastWheelActionAt = 0;
+
+const diagnostic = (details) => MirrorEvents.emit('INPUT_DIAGNOSTIC', {
+  timestamp: new Date().toISOString(),
+  ...details,
+});
+
+const pressName = (action) => {
+  if (action === 'PRIMARY_CLICK') return 'primary';
+  if (action === 'SECONDARY_CLICK') return 'secondary';
+  return null;
 };
 
-const upKeys = new Set(['ArrowUp', 'PageUp']);
-const downKeys = new Set(['ArrowDown', 'PageDown']);
-const primaryKeys = new Set(['ArrowRight', 'Enter', ' ']);
-const secondaryKeys = new Set(['ArrowLeft', 'Escape', 'Backspace']);
-
-const beginButtonPress = (name, eventName, event) => {
+const beginButtonPress = (name, event) => {
   event.preventDefault();
   if (pressState[name] === false) {
     pressState[name] = 'click';
   } else if (event.repeat && pressState[name] === 'click') {
     pressState[name] = 'hold';
-    MirrorEvents.emit(eventName);
+    MirrorEvents.emit(name === 'primary' ? 'PRIMARY_HOLD' : 'SECONDARY_HOLD');
   }
 };
 
-const finishButtonPress = (name, eventName, event) => {
+const finishButtonPress = (name, event) => {
   event.preventDefault();
   if (pressState[name] === 'click') {
-    MirrorEvents.emit(eventName);
+    MirrorEvents.emit(name === 'primary' ? 'PRIMARY_CLICK' : 'SECONDARY_CLICK');
   }
   pressState[name] = false;
 };
 
-document.addEventListener('keydown', (event) => {
-  if (upKeys.has(event.key)) {
+const registerInputListeners = () => {
+  document.addEventListener('keydown', (event) => {
+    const action = resolveKeyAction(event, customKeyMap);
+    diagnostic({ source: 'keyboard', type: 'keydown', key: event.key, code: event.code, repeat: event.repeat, action });
+    if (!action) return;
+
+    const name = pressName(action);
+    if (name) {
+      beginButtonPress(name, event);
+    } else {
+      event.preventDefault();
+      if (!event.repeat) MirrorEvents.emit(action);
+    }
+  });
+
+  document.addEventListener('keyup', (event) => {
+    const action = resolveKeyAction(event, customKeyMap);
+    diagnostic({ source: 'keyboard', type: 'keyup', key: event.key, code: event.code, repeat: false, action });
+    const name = pressName(action);
+    if (name) finishButtonPress(name, event);
+  });
+
+  document.addEventListener('wheel', (event) => {
+    const action = resolveWheelAction(event.deltaY, wheelConfig);
+    const now = Date.now();
+    const throttled = Boolean(action && now - lastWheelActionAt < wheelCooldownMs);
+    diagnostic({ source: 'wheel', type: 'wheel', deltaY: event.deltaY, action, throttled });
+    if (!action) return;
+
     event.preventDefault();
-    if (!event.repeat) MirrorEvents.emit('UP_CLICK');
-  } else if (downKeys.has(event.key)) {
-    event.preventDefault();
-    if (!event.repeat) MirrorEvents.emit('DOWN_CLICK');
-  } else if (primaryKeys.has(event.key)) {
-    beginButtonPress('primary', 'PRIMARY_HOLD', event);
-  } else if (secondaryKeys.has(event.key)) {
-    beginButtonPress('secondary', 'SECONDARY_HOLD', event);
-  }
-});
+    if (!throttled) {
+      lastWheelActionAt = now;
+      MirrorEvents.emit(action);
+    }
+  }, { passive: false });
 
-document.addEventListener('keyup', (event) => {
-  if (primaryKeys.has(event.key)) {
-    finishButtonPress('primary', 'PRIMARY_CLICK', event);
-  } else if (secondaryKeys.has(event.key)) {
-    finishButtonPress('secondary', 'SECONDARY_CLICK', event);
-  }
-});
+  document.addEventListener('mousedown', (event) => {
+    if (resolveMouseAction(event.button)) event.preventDefault();
+  });
 
-document.addEventListener('wheel', (event) => {
-  if (Math.abs(event.deltaY) < 1) return;
-  event.preventDefault();
-  MirrorEvents.emit(event.deltaY < 0 ? 'UP_CLICK' : 'DOWN_CLICK');
-}, { passive: false });
+  document.addEventListener('mouseup', (event) => {
+    const action = resolveMouseAction(event.button);
+    diagnostic({ source: 'mouse', type: 'mouseup', button: event.button, action });
+    if (action) MirrorEvents.emit(action);
+  });
 
-document.addEventListener('mouseup', (event) => {
-  if (event.button === 0 || event.button === 4) {
-    MirrorEvents.emit('PRIMARY_CLICK');
-  } else if (event.button === 2 || event.button === 3) {
-    MirrorEvents.emit('SECONDARY_CLICK');
-  }
-});
+  document.addEventListener('contextmenu', (event) => event.preventDefault());
+};
 
-document.addEventListener('contextmenu', (event) => event.preventDefault());
+if (typeof document !== 'undefined') registerInputListeners();

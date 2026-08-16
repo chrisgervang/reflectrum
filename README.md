@@ -40,9 +40,10 @@ scroll wheel, or programmable dial pad.
 ### Logitech MX Creative Dialpad
 
 The Dialpad is handled as a standard Bluetooth HID device; Reflectrum does not
-depend on Logi Options+. Roller or dial wheel events navigate, forward/select
-buttons open the highlighted item, and back buttons return to the previous
-screen. Bursty wheel events are throttled to one action every 90 ms by default.
+depend on Logi Options+. Vertical roller and horizontal dial events navigate,
+forward/select buttons open the highlighted item, and back buttons return to
+the previous screen. Bursty wheel events are throttled to one action every 90
+ms by default.
 
 Open `http://127.0.0.1:3000/?input-debug=1` on the mirror to see each raw
 keyboard, wheel, or mouse event and the Reflectrum action it produces. Controls

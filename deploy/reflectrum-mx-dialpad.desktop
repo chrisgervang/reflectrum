@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Reflectrum MX Dialpad
+Comment=Map MX Creative Dialpad buttons to Reflectrum navigation
+Exec=/usr/local/bin/reflectrum-mx-dialpad
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

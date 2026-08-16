@@ -27,8 +27,9 @@ export const resolveMouseAction = (button) => {
   return null;
 };
 
-export const resolveWheelAction = (deltaY, { threshold = 1, invert = false } = {}) => {
-  if (Math.abs(deltaY) < threshold) return null;
-  const direction = invert ? -deltaY : deltaY;
+export const resolveWheelAction = ({ deltaX = 0, deltaY = 0 }, { threshold = 1, invert = false } = {}) => {
+  const dominantDelta = Math.abs(deltaY) >= Math.abs(deltaX) ? deltaY : deltaX;
+  if (Math.abs(dominantDelta) < threshold) return null;
+  const direction = invert ? -dominantDelta : dominantDelta;
   return direction < 0 ? 'UP_CLICK' : 'DOWN_CLICK';
 };

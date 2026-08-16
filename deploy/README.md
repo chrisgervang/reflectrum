@@ -67,6 +67,21 @@ the static application.
 
 ## Logitech MX Creative Dialpad
 
+Install Solaar 1.1.19 or newer before running the Reflectrum installer. Solaar
+translates the Dialpad's four HID++ buttons into ordinary keys that Chromium
+can receive; the wheels continue to use standard vertical and horizontal HID
+scroll events.
+
+```sh
+sudo apt install solaar
+solaar --version
+```
+
+Confirm that `solaar show` detects `MX Creative Dialpad` and lists Back Button,
+Forward Button, Button 6, and Left Scroll As Button 7. If the distribution
+package is older than 1.1.19 or does not detect the Dialpad, install the pinned
+version using Solaar's documented PyPI or pipx method before continuing.
+
 Pair the Dialpad directly with BlueZ. Put it in pairing mode, then run:
 
 ```sh
@@ -94,6 +109,20 @@ Then load `http://127.0.0.1:3000/?input-debug=1` in Chromium and exercise every
 button, roller direction, dial direction, and dial press. The overlay shows the
 raw browser event and mapped Reflectrum command.
 
+At graphical login, `reflectrum-mx-dialpad` starts Solaar, marks all four
+buttons as diverted, and applies these rules:
+
+| Dialpad control | Reflectrum action |
+| --- | --- |
+| Back Button | Back |
+| Forward Button | Select/forward |
+| Button 6 | Previous item |
+| Left Scroll As Button 7 | Next item |
+
+The installer also adds Solaar's version-pinned `uinput` udev rule so these
+synthetic key events work under the Pi's Wayland session. Reboot after the
+first installation so the graphical session receives the new device ACLs.
+
 If a control does not reach Chromium, inspect the Linux input layer:
 
 ```sh
@@ -101,6 +130,5 @@ sudo libinput debug-events
 sudo evtest
 ```
 
-Record the event codes before adding a userspace input daemon. The current
-adapter deliberately uses standard HID events and deployment-local key maps;
-it does not require a vendor driver or an unattended browser permission.
+Solaar handles the vendor HID++ buttons outside the browser, avoiding WebHID's
+interactive permission prompt. Reflectrum itself remains device-independent.

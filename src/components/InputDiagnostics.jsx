@@ -6,7 +6,7 @@ const formatEvent = (event) => {
   const raw = event.source === 'keyboard'
     ? `${event.key || 'Unidentified'} (${event.code || 'no code'})`
     : event.source === 'wheel'
-      ? `deltaY ${Math.round(event.deltaY)}`
+      ? `deltaX ${Math.round(event.deltaX ?? 0)} / deltaY ${Math.round(event.deltaY ?? 0)}`
       : `button ${event.button}`;
   const result = event.action || 'unmapped';
   return `${event.source}/${event.type}: ${raw} → ${result}${event.throttled ? ' (throttled)' : ''}`;
@@ -20,7 +20,7 @@ export default function InputDiagnostics() {
   useEffect(() => {
     if (!enabled) return undefined;
     const listener = MirrorEvents.addListener('INPUT_DIAGNOSTIC', (event) => {
-      setEvents((current) => [event, ...current].slice(0, 8));
+      setEvents((current) => [event, ...current].slice(0, 32));
     });
     return () => listener.remove();
   }, [enabled]);

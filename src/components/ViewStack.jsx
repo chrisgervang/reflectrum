@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {pages} from '../helpers/pages.js';
+import {pages} from '../helpers/pages.jsx';
 
-import { StandbyContainer } from './Standby.js';
+import { StandbyContainer } from './Standby.jsx';
 import { connect } from 'react-redux';
 class ViewStack extends Component {
 

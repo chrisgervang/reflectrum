@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Skycons from 'maxdow/skycons'
 import moment from 'moment';
-import { getWeatherData, parseWeather } from '../../helpers/weather.js'
-import { getCurrentPosition, lat_longToCity } from '../../helpers/location.js'
+import { getWeatherData, parseWeather } from '../../helpers/weather.jsx'
+import { getCurrentPosition, lat_longToCity } from '../../helpers/location.jsx'
 import { MirrorEvents } from '../../helpers/events';
 
 //components
@@ -11,7 +10,7 @@ import { WeatherStamp } from './WeatherStamp'
 import Row from '../common/Row'
 
 //css
-import './Lockscreen.css!';
+import './lockscreen.css';
 
 //TODO: scrolling weather stamp (like iOS). up/down scrolls horizontally. fit 4 & 1/2 icons in row
 
@@ -90,10 +89,11 @@ export class Lockscreen extends Component {
         console.log(reason);
       });
 
-      getWeatherData(location.lat, location.long, this.props.forecastIOapiKey, (weather) => {
-        //set weather to 'not null'
-        this.setState({weather: parseWeather(weather)});
-      });
+      if (this.props.forecastIOapiKey) {
+        getWeatherData(location.lat, location.long, this.props.forecastIOapiKey, (weather) => {
+          this.setState({weather: parseWeather(weather)});
+        });
+      }
     }
 
     // either use cached location or HTML5 current location promise.

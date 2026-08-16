@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import {pages} from '../helpers/pages.js';
+import {pages} from '../helpers/pages.jsx';
 import { MirrorEvents } from '../helpers/events';
 
 class Standby extends Component {

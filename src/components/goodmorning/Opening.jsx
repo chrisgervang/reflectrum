@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Clock from '../common/Clock.js';
+import Clock from '../common/Clock.jsx';
 import moment from 'moment';
 import { MirrorEvents } from '../../helpers/events';
 

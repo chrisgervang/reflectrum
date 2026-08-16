@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+
+output=${REFLECTRUM_OUTPUT:-HDMI-A-1}
+rotation=${REFLECTRUM_ROTATION:-90}
+url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
+
+if command -v wlr-randr >/dev/null 2>&1; then
+  if ! wlr-randr --output "$output" --transform "$rotation"; then
+    logger -t reflectrum "could not rotate $output to $rotation degrees"
+  fi
+fi
+
+attempt=0
+until curl --fail --silent --output /dev/null "$url"; do
+  attempt=$((attempt + 1))
+  if [ "$attempt" -ge 60 ]; then
+    logger -t reflectrum "web application did not become ready at $url"
+    exit 1
+  fi
+  sleep 1
+done
+
+browser=$(command -v chromium || command -v chromium-browser || true)
+if [ -z "$browser" ]; then
+  logger -t reflectrum "Chromium is not installed"
+  exit 1
+fi
+
+exec "$browser" \
+  --app="$url" \
+  --kiosk \
+  --no-first-run \
+  --disable-infobars \
+  --disable-session-crashed-bubble \
+  --disable-pinch \
+  --overscroll-history-navigation=0 \
+  --password-store=basic \
+  --user-data-dir="$HOME/.config/reflectrum-chromium"

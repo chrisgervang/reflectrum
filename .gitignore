@@ -1,4 +1,5 @@
 node_modules
+dist
 jspm_packages
 *.pyc
 ssl/
@@ -8,3 +9,4 @@ google_access
 build.js
 build.js.map
 config.js
+npm-debug.log*

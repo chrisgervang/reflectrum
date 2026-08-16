@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Tetris } from './tetris/Tetris.js';
+import { Lockscreen } from './lockscreen/Lockscreen.jsx';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -17,7 +17,14 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const TetrisScreensaver = connect(
-  (state) => {return {}},
+const mapStateToProps = (state) => {
+  return {
+    locationCache: state.locationCache,
+    forecastIOapiKey: state.forecastIOapiKey
+  }
+}
+
+export const LockscreenScreensaver = connect(
+  mapStateToProps,
   mapDispatchToProps
-)(Tetris)
+)(Lockscreen)

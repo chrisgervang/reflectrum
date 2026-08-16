@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import './Weather.css!'
+import './Weather.css';
+import { MirrorEvents } from '../../helpers/events';
 
 class Weather extends Component {
+  componentDidMount() {
+    this.handlers = [
+      MirrorEvents.addListener('SECONDARY_HOLD', this.props.secondaryHold),
+      MirrorEvents.addListener('SECONDARY_CLICK', this.props.secondaryClick),
+    ];
+  }
+
+  componentWillUnmount() {
+    this.handlers.forEach((handler) => handler.remove());
+  }
+
   render() {
     return (
       <div className="gggg">

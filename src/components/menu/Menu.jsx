@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Menu.css!';
+import './Menu.css';
 import MenuList from './MenuList'
 import { MirrorEvents } from '../../helpers/events';
 import Clock from '../common/Clock'

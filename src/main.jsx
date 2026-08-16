@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
-import Redux, { createStore, combineReducers } from 'redux';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import ViewStack from './components/ViewStack.js';
-import { mainMenu } from './components/MainMenu.js';
-import {pages} from './helpers/pages.js';
+import ViewStack from './components/ViewStack.jsx';
+import { mainMenu } from './components/MainMenu.jsx';
 import moment from 'moment';
-import {Opening} from './components/goodmorning/Opening.js';
+import './base.css';
 
 
 //A module can have many named exports but only one default export.
@@ -19,18 +17,38 @@ import {Opening} from './components/goodmorning/Opening.js';
 //VEC: Remote scheduling of "additional page"
 //VEC: Additional Pages API
 
-if(!localStorage.getItem('username')) {
-  console.log("TEST STORAGE")
-  localStorage.setItem('username', "Michelle")
+const runtimeConfig = window.REFLECTRUM_CONFIG || {};
+
+if (!localStorage.getItem('username')) {
+  localStorage.setItem('username', runtimeConfig.username || 'Mirror');
 }
 
-if(!localStorage.getItem('forecastIOapiKey')) {
-  localStorage.setItem('forecastIOapiKey', "5485362f69ad87b5aaa04281f19ce344")
+if (!localStorage.getItem('forecastIOapiKey') && runtimeConfig.forecastIOapiKey) {
+  localStorage.setItem('forecastIOapiKey', runtimeConfig.forecastIOapiKey);
 }
 
-if(!localStorage.getItem('locationCache')) {
-  localStorage.setItem('locationCache', JSON.stringify({lat: 37.76305200000001, long: -122.4163935}))
+if (!localStorage.getItem('locationCache') && runtimeConfig.location) {
+  localStorage.setItem('locationCache', JSON.stringify(runtimeConfig.location));
 }
+
+const locationCache = localStorage.getItem('locationCache');
+
+let wakeLock = null;
+const requestWakeLock = async () => {
+  if (!('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+  } catch (error) {
+    console.warn('Unable to acquire a screen wake lock:', error.message);
+  }
+};
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && (!wakeLock || wakeLock.released)) {
+    requestWakeLock();
+  }
+});
+requestWakeLock();
 
 // Bakersfield, CA
 // {
@@ -43,8 +61,8 @@ var data = {
   selectedItem: mainMenu.selectedItem,
   history: ["MAIN_MENU"],
   username: localStorage.getItem('username'),
-  locationCache: JSON.parse(localStorage.getItem('locationCache')),
-  forecastIOapiKey: localStorage.getItem('forecastIOapiKey'),
+  locationCache: locationCache ? JSON.parse(locationCache) : null,
+  forecastIOapiKey: localStorage.getItem('forecastIOapiKey') || '',
   standby: false,
   lastActive: moment().valueOf()
 }
@@ -159,11 +177,11 @@ const reflectrumApp = (state = data, action) => {
 
 
 
-ReactDOM.render(
+createRoot(document.getElementById('target')).render(
   <Provider store={createStore(reflectrumApp)}>
     <ViewStack/>
-  </Provider>,
-document.getElementById("target"));
+  </Provider>
+);
 
 // ReactDOM.render(
 //   <Opening/>,

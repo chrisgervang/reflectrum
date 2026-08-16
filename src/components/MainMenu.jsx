@@ -25,11 +25,6 @@ export const mainMenu = {
       name: "quotes",
       color: "#787AFF",
       key: "QUOTES"
-    },
-    {
-      name: "opening",
-      color: "blue",
-      key: "OPENING"
     }
   ]
 }

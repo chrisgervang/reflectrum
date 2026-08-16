@@ -1,5 +1,6 @@
 import React from 'react';
-import './clock.css!'
+import PropTypes from 'prop-types';
+import './clock.css';
 import { MirrorEvents } from '../../helpers/events';
 import { connect } from 'react-redux';
 
@@ -17,17 +18,17 @@ const timeToDeg = (date) => {
 
 class AnalogClock extends React.Component {
 
-  static propTypes: {
-    hour: React.PropTypes.number,
-    minute: React.PropTypes.number,
-    second: React.PropTypes.number,
-  }
+  static propTypes = {
+    hour: PropTypes.number,
+    minute: PropTypes.number,
+    second: PropTypes.number,
+  };
 
-  static defaultProps: {
+  static defaultProps = {
     hour: 0,
     minute: 0,
     second: 0
-  }
+  };
 
   constructor(props) {
     super(props);

@@ -1,5 +1,7 @@
 import React from 'react';
-import './calendar.css!'
+import './calendar.css';
+import { connect } from 'react-redux';
+import { MirrorEvents } from '../../helpers/events';
 
 class Time extends React.Component {
 
@@ -113,7 +115,7 @@ class AuthScreen extends React.Component {
 	}
 }
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { data: [] };
@@ -121,11 +123,19 @@ export default class Calendar extends React.Component {
 	}
 
 	componentDidMount() {
-	    this._downloadEvents().then((data) => {
-	      console.log(data);
-	      this.setState({ data: data });
-	    });
+		this.handlers = [
+			MirrorEvents.addListener('SECONDARY_HOLD', this.props.secondaryHold),
+			MirrorEvents.addListener('SECONDARY_CLICK', this.props.secondaryClick),
+		];
+		this._downloadEvents()
+			.then((response) => response.json())
+			.then((data) => this.setState({ data }))
+			.catch(() => this.setState({ data: { status: 'unavailable' } }));
 	  }
+
+	componentWillUnmount() {
+		this.handlers.forEach((handler) => handler.remove());
+	}
 
 	_downloadEvents () {
 		var myHeaders = new Headers();
@@ -137,7 +147,6 @@ export default class Calendar extends React.Component {
 	      cache: 'default'
 	    };
 
-		var myRequest = new Request("http://localhost:5000/calendar/events",myInit);
 		return fetch("http://localhost:5000/calendar/events")
 	}
 
@@ -150,8 +159,17 @@ export default class Calendar extends React.Component {
         return (
           <EventList events={this.state.data.events} />
         );
+      } else if (this.state.data.status === 'unavailable') {
+		return <div style={{padding: '80px', color: 'white', fontSize: '42px'}}>Calendar service is not configured.</div>;
       } else {
-        return <div></div>;
+		return <div></div>;
       }
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	secondaryHold: () => dispatch({ type: 'OPEN_MAIN_MENU' }),
+	secondaryClick: () => dispatch({ type: 'BACK' }),
+});
+
+export default connect(null, mapDispatchToProps)(Calendar);

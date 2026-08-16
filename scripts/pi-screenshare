@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+pi_host=${REFLECTRUM_PI_HOST:-adsb}
+local_port=${REFLECTRUM_VNC_LOCAL_PORT:-5900}
+viewer=${REFLECTRUM_VNC_VIEWER:-/Applications/TigerVNC.app/Contents/MacOS/vncviewer}
+
+if [ ! -x "$viewer" ]; then
+  printf '%s\n' 'TigerVNC is not installed in /Applications.' >&2
+  exit 1
+fi
+
+if ! nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
+  ssh -f -N -T \
+    -o BatchMode=yes \
+    -o ExitOnForwardFailure=yes \
+    -o ServerAliveInterval=30 \
+    -o ServerAliveCountMax=3 \
+    -L "$local_port:127.0.0.1:5900" \
+    "$pi_host"
+fi
+
+# Tight encoding keeps text sharp while the lower JPEG quality and compression
+# levels reduce work on the Pi 3. The SSH tunnel continues to protect traffic.
+exec "$viewer" \
+  -RemoteResize=0 \
+  -PreferredEncoding=Tight \
+  -QualityLevel=5 \
+  -CompressLevel=1 \
+  -PointerEventInterval=33 \
+  "127.0.0.1::$local_port"

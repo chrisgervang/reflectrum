@@ -8,14 +8,34 @@ const dateLabel = (date) => new Intl.DateTimeFormat(undefined, {
   weekday: 'long', month: 'short', day: 'numeric',
 }).format(date);
 
-const timeLabel = (date) => new Intl.DateTimeFormat(undefined, {
-  hour: 'numeric', minute: '2-digit',
-}).format(date);
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric', minute: '2-digit', hour12: true,
+});
+
+const timeParts = (date) => {
+  const parts = timeFormatter.formatToParts(date);
+  return {
+    time: parts
+      .filter(({ type }) => type !== 'dayPeriod')
+      .map(({ value }) => value)
+      .join('')
+      .trim(),
+    period: parts.find(({ type }) => type === 'dayPeriod').value,
+  };
+};
+
+const timeRangeLabel = (start, end) => {
+  const startTime = timeParts(start);
+  const endTime = timeParts(end);
+  return startTime.period === endTime.period
+    ? `${startTime.time}–${endTime.time} ${endTime.period}`
+    : `${startTime.time} ${startTime.period}–${endTime.time} ${endTime.period}`;
+};
 
 const Event = ({ event }) => (
   <li className="calendar-event">
     <div className="calendar-event-time">
-      {event.allDay ? 'All day' : `${timeLabel(event.start)}–${timeLabel(event.end)}`}
+      {event.allDay ? 'All day' : timeRangeLabel(event.start, event.end)}
     </div>
     <div className="calendar-event-body">
       <strong>{event.summary}</strong>

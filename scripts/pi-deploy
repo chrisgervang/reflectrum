@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+repo_root=$(dirname -- "$script_dir")
+pi_host=${REFLECTRUM_PI_HOST:-adsb}
+pi_staging=/home/pi/reflectrum-dist
+
+cd "$repo_root"
+npm run check
+
+rsync -az --delete dist/ "$pi_host:$pi_staging/"
+
+# Install only generated files. The Pi's deployment-local
+# reflectrum-config.js and private calendar environment stay untouched.
+ssh "$pi_host" "sudo install -d -o pi -g pi -m 0755 /opt/reflectrum/assets"
+ssh "$pi_host" "sudo cp -a $pi_staging/assets/. /opt/reflectrum/assets/"
+ssh "$pi_host" "sudo cp $pi_staging/index.html /opt/reflectrum/index.html"
+
+"$script_dir/pi-refresh"
+
+printf '%s\n' 'Reflectrum built, deployed, and refreshed.'

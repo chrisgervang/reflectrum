@@ -3,6 +3,7 @@ import {pages} from '../helpers/pages.jsx';
 
 import { StandbyContainer } from './Standby.jsx';
 import { connect } from 'react-redux';
+import './ViewStack.css';
 class ViewStack extends Component {
 
   render() {
@@ -11,8 +12,10 @@ class ViewStack extends Component {
     console.log("ViewStack", pages, activePageName)
 
     return (
-      <div>
-        {pages[activePageName]}
+      <div className="view-stack">
+        <div className="view-stack__page">
+          {pages[activePageName]}
+        </div>
         <StandbyContainer />
       </div>
     )

@@ -26,6 +26,11 @@ install -d -o pi -g pi -m 0755 /opt/reflectrum
 cp -a "$source_dir"/. /opt/reflectrum/
 chown -R pi:pi /opt/reflectrum
 
+install -d -o root -g root -m 0755 /usr/local/lib/reflectrum /etc/reflectrum
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum_server.py" \
+  /usr/local/lib/reflectrum/reflectrum_server.py
+
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-web.service" \
   /etc/systemd/system/reflectrum-web.service

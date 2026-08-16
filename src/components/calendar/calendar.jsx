@@ -2,174 +2,89 @@ import React from 'react';
 import './calendar.css';
 import { connect } from 'react-redux';
 import { MirrorEvents } from '../../helpers/events';
+import { fetchCalendar } from '../../providers/calendar';
 
-class Time extends React.Component {
+const dateLabel = (date) => new Intl.DateTimeFormat(undefined, {
+  weekday: 'long', month: 'short', day: 'numeric',
+}).format(date);
 
-	constructor(props) {
-		super(props);
-		this._parseTime = this._parseTime.bind(this);
-		this._getStart = this._getStart.bind(this);
-		this._getEnd = this._getEnd.bind(this);
-	}
+const timeLabel = (date) => new Intl.DateTimeFormat(undefined, {
+  hour: 'numeric', minute: '2-digit',
+}).format(date);
 
-	_parseTime(datetime) {
-		var d = new Date(datetime);
-	    var hours = d.getHours().toString();
-
-	    if (hours.length == 1) {
-	      hours = "0" + hours;
-	    }
-
-	    var minutes = d.getMinutes().toString();
-
-	    if (minutes.length == 1) {
-	      minutes = "0" + minutes;
-	    }
-
-	    return hours + ":" + minutes;
-	}
-
-	_getStart() {
-		var datetime = this.props.start.dateTime;
-      	return this.parseTime(datetime);
-	}
-
-	_getEnd() {
-		var datetime = this.props.end.dateTime;
-      	return this.parseTime(datetime);
-	}
-
-	render() {
-		if (this.props.start.date) {
-	    return (
-				<div>all-day</div>
-			);
-	  } else if (this.props.endTimeUnspecified) {
-	    return (
-				<div>
-					{this._getStart()}
-				</div>
-			);
-	  } else {
-	    return (
-				<div>
-          <div>{this._getStart()}</div>
-          <div>{this._getEnd()}</div>
-        </div>
-			);
-	  }
-	}
-}
-
-/* The calendar color can now be accessed with this.props.color,
- * though that isn't a part of the Google spec for Events. */
-
-class Event extends React.Component {
-	render() {
-		const props = this.props;
-		console.log(this.props);
-
-		var locationDisplay;
-    if (props.location) {
-      locationDisplay = <div>{props.location}</div>;
-    } else {
-      locationDisplay = <div></div>;
-    }
-
-		var style = {
-      backgroundColor: props.color
-    }
-
-		return (
-			<div style={style}>
-          <Time start={props.start} end={props.end} endTimeUnspecified={props.endTimeUnspecified} />
-          <div>{props.summary}</div>
-          {locationDisplay}
-       </div>
-		);
-	}
-}
-
-class EventList extends React.Component {
-	render() {
-		return (
-      <ol>
-        {
-          this.props.events.map(function(elem){
-            return <li><Event color={elem.color} summary={elem.summary} location={elem.location} start={elem.start} end={elem.end} endTimeUnspecified={elem.endTimeUnspecified}/></li>;
-          })
-        }
-      </ol>
-    );
-	}
-}
-
-class AuthScreen extends React.Component {
-	render() {
-		return (
-      <div>
-        <div>{this.props.code}</div>
-        <div>{this.props.url}</div>
-      </div>
-    );
-	}
-}
+const Event = ({ event }) => (
+  <li className="calendar-event">
+    <div className="calendar-event-time">
+      {event.allDay ? 'All day' : `${timeLabel(event.start)}–${timeLabel(event.end)}`}
+    </div>
+    <div className="calendar-event-body">
+      <strong>{event.summary}</strong>
+      {event.location && <span>{event.location}</span>}
+    </div>
+  </li>
+);
 
 class Calendar extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { data: [] };
-		this._downloadEvents = this._downloadEvents.bind(this);
-	}
+  state = { status: 'loading', events: [], error: '' };
 
-	componentDidMount() {
-		this.handlers = [
-			MirrorEvents.addListener('SECONDARY_HOLD', this.props.secondaryHold),
-			MirrorEvents.addListener('SECONDARY_CLICK', this.props.secondaryClick),
-		];
-		this._downloadEvents()
-			.then((response) => response.json())
-			.then((data) => this.setState({ data }))
-			.catch(() => this.setState({ data: { status: 'unavailable' } }));
-	  }
+  componentDidMount() {
+    this.handlers = [
+      MirrorEvents.addListener('SECONDARY_HOLD', this.props.secondaryHold),
+      MirrorEvents.addListener('SECONDARY_CLICK', this.props.secondaryClick),
+    ];
+    this.abortController = new AbortController();
+    this.loadEvents();
+  }
 
-	componentWillUnmount() {
-		this.handlers.forEach((handler) => handler.remove());
-	}
+  componentWillUnmount() {
+    this.handlers.forEach((handler) => handler.remove());
+    this.abortController.abort();
+  }
 
-	_downloadEvents () {
-		var myHeaders = new Headers();
-
-		var myInit = {
-			method: 'GET',
-	      headers: myHeaders,
-	      mode: 'no-cors',
-	      cache: 'default'
-	    };
-
-		return fetch("http://localhost:5000/calendar/events")
-	}
-
-	render() {
-		if (this.state.data.status == "auth") {
-        return (
-          <AuthScreen url={this.state.data.url} code={this.state.data.code} />
-        );
-      } else if (this.state.data.status == "events") {
-        return (
-          <EventList events={this.state.data.events} />
-        );
-      } else if (this.state.data.status === 'unavailable') {
-		return <div style={{padding: '80px', color: 'white', fontSize: '42px'}}>Calendar service is not configured.</div>;
-      } else {
-		return <div></div>;
+  async loadEvents() {
+    try {
+      const events = await fetchCalendar({ signal: this.abortController.signal });
+      this.setState({ status: 'ready', events, error: '' });
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        this.setState({ status: 'error', error: error.message });
       }
-	}
+    }
+  }
+
+  render() {
+    const { status, events, error } = this.state;
+    return (
+      <main className="calendar-page">
+        <header>
+          <p>Upcoming</p>
+          <h1>Calendar</h1>
+        </header>
+        {status === 'loading' && <p className="calendar-status">Loading events…</p>}
+        {status === 'error' && <p className="calendar-status">{error}</p>}
+        {status === 'ready' && events.length === 0 && (
+          <p className="calendar-status">No events in the next seven days.</p>
+        )}
+        {status === 'ready' && events.length > 0 && (
+          <ol className="calendar-events">
+            {events.map((event, index) => (
+              <React.Fragment key={event.id}>
+                {(index === 0 || dateLabel(events[index - 1].start) !== dateLabel(event.start)) && (
+                  <li className="calendar-day">{dateLabel(event.start)}</li>
+                )}
+                <Event event={event} />
+              </React.Fragment>
+            ))}
+          </ol>
+        )}
+      </main>
+    );
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	secondaryHold: () => dispatch({ type: 'OPEN_MAIN_MENU' }),
-	secondaryClick: () => dispatch({ type: 'BACK' }),
+  secondaryHold: () => dispatch({ type: 'OPEN_MAIN_MENU' }),
+  secondaryClick: () => dispatch({ type: 'BACK' }),
 });
 
 export default connect(null, mapDispatchToProps)(Calendar);

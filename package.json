@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "npm test && vite build",
+    "check": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('deploy/reflectrum_server.py').read_text())\" && npm test && vite build",
     "test": "node --test"
   },
   "repository": {
@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "fbemitter": "^3.0.0",
+    "ical.js": "^2.2.1",
     "moment": "^2.30.1",
     "prop-types": "^15.8.1",
     "react": "^19.2.8",

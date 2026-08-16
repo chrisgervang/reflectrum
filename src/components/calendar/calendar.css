@@ -1,0 +1,80 @@
+.calendar-page {
+  min-height: 1366px;
+  box-sizing: border-box;
+  padding: 70px 64px;
+  overflow: hidden;
+  background: #16161d;
+  color: white;
+}
+
+.calendar-page header p {
+  margin: 0 0 8px;
+  color: #ff6258;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.calendar-page h1 {
+  margin: 0 0 55px;
+  font-size: 84px;
+  font-weight: 300;
+}
+
+.calendar-status {
+  margin-top: 90px;
+  color: #bdc3c7;
+  font-size: 36px;
+  line-height: 1.4;
+}
+
+.calendar-events {
+  max-height: 1080px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.calendar-day {
+  margin: 34px 0 15px;
+  color: #bdc3c7;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.calendar-event {
+  display: grid;
+  grid-template-columns: 205px 1fr;
+  gap: 28px;
+  padding: 22px 0;
+  border-top: 1px solid #3d3d48;
+}
+
+.calendar-event-time {
+  color: #ff6258;
+  font-size: 25px;
+}
+
+.calendar-event-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendar-event-body strong {
+  overflow: hidden;
+  font-size: 34px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-event-body span {
+  overflow: hidden;
+  color: #bdc3c7;
+  font-size: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

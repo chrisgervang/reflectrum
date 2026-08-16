@@ -50,7 +50,8 @@ window.REFLECTRUM_CONFIG = {
 
 Weather uses the keyless Open-Meteo forecast API. When no location is
 configured, Reflectrum asks the browser for its current position. Calendar
-still requires a provider before it can show live data.
+reads a private iCalendar feed through the loopback-only Pi service; see
+[deploy/README.md](deploy/README.md#calendar-feed).
 
 ## Raspberry Pi kiosk
 

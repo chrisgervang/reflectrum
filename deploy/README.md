@@ -37,3 +37,30 @@ journalctl -u reflectrum-web --no-pager
 wlr-randr
 curl --fail http://127.0.0.1:3000/
 ```
+
+## Calendar feed
+
+Reflectrum reads a private, read-only iCalendar feed through its loopback-only
+server. Put the feed URL in a root-owned environment file; never add it to this
+repository or `reflectrum-config.js`.
+
+```sh
+sudoedit /etc/reflectrum/calendar.env
+```
+
+Add this line using the secret iCalendar address supplied by your calendar
+provider:
+
+```ini
+REFLECTRUM_CALENDAR_ICS_URL=https://calendar-provider.example/private/basic.ics
+```
+
+Then protect the file and restart the service:
+
+```sh
+sudo chmod 600 /etc/reflectrum/calendar.env
+sudo systemctl restart reflectrum-web
+```
+
+Chromium requests `/api/calendar`, so the private feed URL is never stored in
+the static application.

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './WeatherStamp.css';
 
-const weatherGlyph = (icon) => {
+export const weatherGlyph = (icon) => {
   const glyphs = {
     'clear-day': '☀',
     'clear-night': '☾',

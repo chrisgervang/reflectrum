@@ -19,8 +19,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    locationCache: state.locationCache,
-    forecastIOapiKey: state.forecastIOapiKey
+    locationCache: state.locationCache
   }
 }
 

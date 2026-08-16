@@ -11,7 +11,7 @@ import './base.css';
 //A module can have many named exports but only one default export.
 
 
-//TODO: Settings page (conatins locationCache, add additional pages, username, calendar logout, forecastIOapiKey, idle page)
+//TODO: Settings page (contains locationCache, additional pages, username, calendar logout, idle page)
 //TODO: Store additonal pages in localStorage
 
 //VEC: Remote scheduling of "additional page"
@@ -21,10 +21,6 @@ const runtimeConfig = window.REFLECTRUM_CONFIG || {};
 
 if (!localStorage.getItem('username')) {
   localStorage.setItem('username', runtimeConfig.username || 'Mirror');
-}
-
-if (!localStorage.getItem('forecastIOapiKey') && runtimeConfig.forecastIOapiKey) {
-  localStorage.setItem('forecastIOapiKey', runtimeConfig.forecastIOapiKey);
 }
 
 if (!localStorage.getItem('locationCache') && runtimeConfig.location) {
@@ -62,7 +58,6 @@ var data = {
   history: ["MAIN_MENU"],
   username: localStorage.getItem('username'),
   locationCache: locationCache ? JSON.parse(locationCache) : null,
-  forecastIOapiKey: localStorage.getItem('forecastIOapiKey') || '',
   standby: false,
   lastActive: moment().valueOf()
 }
@@ -145,12 +140,6 @@ const reflectrumApp = (state = data, action) => {
       localStorage.setItem('username', action.username);
       return Object.assign({}, state, {
         username: action.username
-      });
-      break;
-    case 'SET_FORECAST_IO_API_KEY':
-      localStorage.setItem('forecastIOapiKey', action.forecastIOapiKey);
-      return Object.assign({}, state, {
-        forecastIOapiKey: action.forecastIOapiKey
       });
       break;
     case 'STANDBY':

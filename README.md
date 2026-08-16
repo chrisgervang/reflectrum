@@ -38,12 +38,19 @@ scroll wheel, or programmable dial pad.
 ## Runtime configuration
 
 `public/reflectrum-config.js` supplies deployment-time defaults. Do not commit
-API keys or precise location data. Browser `localStorage` takes precedence over
-the tracked defaults.
+precise location data. Browser `localStorage` takes precedence over the tracked
+defaults. Configure weather with a deployment-local value such as:
 
-The old Forecast.io integration is retained only as legacy code and has no
-tracked API key. Weather and calendar services need new providers before those
-widgets can show live data.
+```js
+window.REFLECTRUM_CONFIG = {
+  username: 'Mirror',
+  location: { lat: 0, long: 0, name: 'City, State' },
+};
+```
+
+Weather uses the keyless Open-Meteo forecast API. When no location is
+configured, Reflectrum asks the browser for its current position. Calendar
+still requires a provider before it can show live data.
 
 ## Raspberry Pi kiosk
 

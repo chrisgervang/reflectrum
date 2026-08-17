@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+
+latitude=${REFLECTRUM_NIGHT_SHIFT_LATITUDE:-37.8}
+longitude=${REFLECTRUM_NIGHT_SHIFT_LONGITUDE:--122.4}
+day_temperature=${REFLECTRUM_NIGHT_SHIFT_DAY_TEMPERATURE:-6500}
+night_temperature=${REFLECTRUM_NIGHT_SHIFT_NIGHT_TEMPERATURE:-4000}
+
+if ! command -v wlsunset >/dev/null 2>&1; then
+  logger -t reflectrum 'wlsunset is not installed'
+  exit 1
+fi
+
+exec wlsunset \
+  -l "$latitude" \
+  -L "$longitude" \
+  -T "$day_temperature" \
+  -t "$night_temperature"

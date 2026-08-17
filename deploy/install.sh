@@ -15,7 +15,7 @@ if [[ ! -f $source_dir/index.html ]]; then
   exit 1
 fi
 
-for command in chromium curl python3 solaar wlr-randr; do
+for command in chromium curl python3 solaar wlr-randr wlsunset; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "Required command is missing: $command" >&2
     exit 1
@@ -40,6 +40,15 @@ install -o root -g root -m 0755 \
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-kiosk.service" \
   /etc/systemd/user/reflectrum-kiosk.service
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum-night-shift" \
+  /usr/local/bin/reflectrum-night-shift
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-night-shift.service" \
+  /etc/systemd/user/reflectrum-night-shift.service
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-night-shift.desktop" \
+  /etc/xdg/autostart/reflectrum-night-shift.desktop
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-kiosk.desktop" \
   /etc/xdg/autostart/reflectrum-kiosk.desktop
@@ -57,11 +66,15 @@ install -o pi -g pi -m 0644 \
 install -o root -g root -m 0644 \
   "$repo_root/deploy/42-reflectrum-logitech-permissions.rules" \
   /etc/udev/rules.d/42-reflectrum-logitech-permissions.rules
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/50-reflectrum-power.rules" \
+  /etc/polkit-1/rules.d/50-reflectrum-power.rules
 udevadm control --reload-rules
 modprobe uinput
 
 systemctl daemon-reload
 systemctl --global enable reflectrum-kiosk.service
+systemctl --global enable reflectrum-night-shift.service
 systemctl enable --now reflectrum-web.service
 
 if command -v raspi-config >/dev/null 2>&1; then

@@ -1,0 +1,71 @@
+#!/bin/sh
+set -eu
+
+pi_host=${REFLECTRUM_PI_HOST:-adsb.local}
+keychain_service=${REFLECTRUM_VNC_KEYCHAIN_SERVICE:-com.reflectrum.screenshare}
+vnc_username=${REFLECTRUM_VNC_USERNAME:-reflectrum}
+
+old_password=
+had_old_password=false
+if old_password=$(security find-generic-password \
+  -a "$vnc_username" \
+  -s "$keychain_service" \
+  -w 2>/dev/null); then
+  had_old_password=true
+fi
+
+new_password=$(openssl rand -hex 24)
+trap 'unset old_password new_password' EXIT HUP INT TERM
+
+security add-generic-password \
+  -a "$vnc_username" \
+  -s "$keychain_service" \
+  -l 'Reflectrum Pi screen share' \
+  -w "$new_password" \
+  -U >/dev/null
+
+if ! printf '%s\n' "$new_password" | ssh -o BatchMode=yes "$pi_host" '
+  set -eu
+  IFS= read -r new_password
+  config=/etc/wayvnc/config
+  rollback=/etc/wayvnc/config.before-keychain-setup
+
+  sudo grep -q "^enable_auth=" "$config"
+  sudo grep -q "^username=" "$config"
+  sudo grep -q "^password=" "$config"
+  sudo cp --preserve=mode,ownership "$config" "$rollback"
+  sudo sed -i \
+    -e "s/^enable_auth=.*/enable_auth=true/" \
+    -e "s/^username=.*/username=reflectrum/" \
+    -e "s/^password=.*/password=$new_password/" \
+    "$config"
+  sudo chown root:vnc "$config" "$rollback"
+  sudo chmod 640 "$config" "$rollback"
+
+  if ! sudo systemctl restart wayvnc.service || \
+     ! systemctl is-active --quiet wayvnc.service; then
+    sudo cp --preserve=mode,ownership "$rollback" "$config"
+    sudo systemctl restart wayvnc.service
+    exit 1
+  fi
+
+  test "$(sudo awk -F= '\''$1 == "address" { print $2 }'\'' "$config")" = 127.0.0.1
+'; then
+  if [ "$had_old_password" = true ]; then
+    security add-generic-password \
+      -a "$vnc_username" \
+      -s "$keychain_service" \
+      -l 'Reflectrum Pi screen share' \
+      -w "$old_password" \
+      -U >/dev/null
+  else
+    security delete-generic-password \
+      -a "$vnc_username" \
+      -s "$keychain_service" >/dev/null 2>&1 || true
+  fi
+  printf '%s\n' 'Screen-share setup failed; the local Keychain change was rolled back.' >&2
+  exit 1
+fi
+
+printf '%s\n' \
+  'Reflectrum screen-share authentication is synchronized with macOS Keychain.'

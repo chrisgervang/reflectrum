@@ -7,12 +7,16 @@ Type=simple
 User=pi
 Group=pi
 EnvironmentFile=-/etc/reflectrum/calendar.env
+EnvironmentFile=-/etc/reflectrum/linear.env
+EnvironmentFile=-/etc/reflectrum/home-assistant.env
 ExecStart=/usr/bin/python3 /usr/local/lib/reflectrum/reflectrum_server.py --bind 127.0.0.1 --port 3000 --directory /opt/reflectrum
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectHome=true
+# The Wayland socket lives under /run/user/1000. Keep home paths read-only
+# while allowing the loopback service to connect to that existing socket.
+ProtectHome=read-only
 ProtectSystem=strict
 
 [Install]

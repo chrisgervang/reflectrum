@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Reflectrum Night Shift
+Comment=Start compositor-level display color temperature control
+Exec=/usr/bin/systemctl --user start reflectrum-night-shift.service
+Terminal=false
+X-GNOME-Autostart-enabled=true

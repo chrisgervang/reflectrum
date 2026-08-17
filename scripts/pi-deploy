@@ -3,20 +3,41 @@ set -eu
 
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(dirname -- "$script_dir")
-pi_host=${REFLECTRUM_PI_HOST:-adsb}
+pi_host=${REFLECTRUM_PI_HOST:-adsb.local}
 pi_staging=/home/pi/reflectrum-dist
+runtime_staging=/home/pi/reflectrum-runtime
 
 cd "$repo_root"
 npm run check
 
 rsync -az --delete dist/ "$pi_host:$pi_staging/"
+ssh "$pi_host" "mkdir -p $runtime_staging"
+rsync -az --delete \
+  deploy/reflectrum_server.py \
+  deploy/reflectrum-web.service \
+  deploy/reflectrum-night-shift \
+  deploy/reflectrum-night-shift.service \
+  deploy/reflectrum-night-shift.desktop \
+  deploy/50-reflectrum-power.rules \
+  deploy/reflectrum-solaar-rules.yaml \
+  "$pi_host:$runtime_staging/"
 
 # Install only generated files. The Pi's deployment-local
 # reflectrum-config.js and private calendar environment stay untouched.
 ssh "$pi_host" "sudo install -d -o pi -g pi -m 0755 /opt/reflectrum/assets"
 ssh "$pi_host" "sudo cp -a $pi_staging/assets/. /opt/reflectrum/assets/"
 ssh "$pi_host" "sudo cp $pi_staging/index.html /opt/reflectrum/index.html"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum_server.py /usr/local/lib/reflectrum/reflectrum_server.py"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-web.service /etc/systemd/system/reflectrum-web.service"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-night-shift /usr/local/bin/reflectrum-night-shift"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.service /etc/systemd/user/reflectrum-night-shift.service"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.desktop /etc/xdg/autostart/reflectrum-night-shift.desktop"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/50-reflectrum-power.rules /etc/polkit-1/rules.d/50-reflectrum-power.rules"
+ssh "$pi_host" "sudo install -o pi -g pi -m 0644 $runtime_staging/reflectrum-solaar-rules.yaml /home/pi/.config/solaar/rules.yaml"
+ssh "$pi_host" "sudo systemctl daemon-reload && sudo systemctl --global enable reflectrum-night-shift.service && sudo systemctl restart reflectrum-web.service"
+ssh "$pi_host" "systemctl --user daemon-reload && systemctl --user enable --now reflectrum-night-shift.service"
 
 "$script_dir/pi-refresh"
 
 printf '%s\n' 'Reflectrum built, deployed, and refreshed.'
+printf '%s\n' 'Reboot once after changing Dialpad rules so the running Solaar session reloads them.'

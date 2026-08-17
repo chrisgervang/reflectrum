@@ -15,7 +15,7 @@ if [[ ! -f $source_dir/index.html ]]; then
   exit 1
 fi
 
-for command in chromium curl python3 solaar wlr-randr wlsunset; do
+for command in chromium curl mkswap python3 solaar swapon swapoff wlr-randr wlsunset; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "Required command is missing: $command" >&2
     exit 1
@@ -37,6 +37,15 @@ install -o root -g root -m 0644 \
 install -o root -g root -m 0755 \
   "$repo_root/deploy/reflectrum-kiosk" \
   /usr/local/bin/reflectrum-kiosk
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum-zram" \
+  /usr/local/sbin/reflectrum-zram
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-zram.service" \
+  /etc/systemd/system/reflectrum-zram.service
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/99-reflectrum-zram.conf" \
+  /etc/sysctl.d/99-reflectrum-zram.conf
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-kiosk.service" \
   /etc/systemd/user/reflectrum-kiosk.service
@@ -73,6 +82,11 @@ udevadm control --reload-rules
 modprobe uinput
 
 systemctl daemon-reload
+systemctl enable --now reflectrum-zram.service
+sysctl -p /etc/sysctl.d/99-reflectrum-zram.conf
+if systemctl list-unit-files dphys-swapfile.service >/dev/null 2>&1; then
+  systemctl disable --now dphys-swapfile.service
+fi
 systemctl --global enable reflectrum-kiosk.service
 systemctl --global enable reflectrum-night-shift.service
 systemctl enable --now reflectrum-web.service

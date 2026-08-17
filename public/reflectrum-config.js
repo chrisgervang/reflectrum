@@ -6,6 +6,8 @@ window.REFLECTRUM_CONFIG = {
   // homeAssistant: {
   //   historyEntities: ['sensor.outdoor_temperature', 'sensor.internet_download_speed'],
   // },
+  // performanceMode: 'low', // Disables snapshot-based page transitions.
+  // pageTransitions: false,
   // inputDiagnostics: true,
   // input: {
   //   keyMap: { F13: 'UP_CLICK', F14: 'DOWN_CLICK' },

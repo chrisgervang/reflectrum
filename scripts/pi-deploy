@@ -18,6 +18,10 @@ rsync -az --delete \
   deploy/reflectrum-night-shift \
   deploy/reflectrum-night-shift.service \
   deploy/reflectrum-night-shift.desktop \
+  deploy/reflectrum-kiosk \
+  deploy/reflectrum-zram \
+  deploy/reflectrum-zram.service \
+  deploy/99-reflectrum-zram.conf \
   deploy/50-reflectrum-power.rules \
   deploy/reflectrum-solaar-rules.yaml \
   "$pi_host:$runtime_staging/"
@@ -32,9 +36,13 @@ ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum
 ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-night-shift /usr/local/bin/reflectrum-night-shift"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.service /etc/systemd/user/reflectrum-night-shift.service"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.desktop /etc/xdg/autostart/reflectrum-night-shift.desktop"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-kiosk /usr/local/bin/reflectrum-kiosk"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-zram /usr/local/sbin/reflectrum-zram"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-zram.service /etc/systemd/system/reflectrum-zram.service"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/99-reflectrum-zram.conf /etc/sysctl.d/99-reflectrum-zram.conf"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/50-reflectrum-power.rules /etc/polkit-1/rules.d/50-reflectrum-power.rules"
 ssh "$pi_host" "sudo install -o pi -g pi -m 0644 $runtime_staging/reflectrum-solaar-rules.yaml /home/pi/.config/solaar/rules.yaml"
-ssh "$pi_host" "sudo systemctl daemon-reload && sudo systemctl --global enable reflectrum-night-shift.service && sudo systemctl restart reflectrum-web.service"
+ssh "$pi_host" "sudo systemctl daemon-reload && sudo systemctl enable --now reflectrum-zram.service && sudo sysctl -p /etc/sysctl.d/99-reflectrum-zram.conf && if systemctl list-unit-files dphys-swapfile.service >/dev/null 2>&1; then sudo systemctl disable --now dphys-swapfile.service; fi && sudo systemctl --global enable reflectrum-night-shift.service && sudo systemctl restart reflectrum-web.service"
 ssh "$pi_host" "systemctl --user daemon-reload && systemctl --user enable --now reflectrum-night-shift.service"
 
 "$script_dir/pi-refresh"

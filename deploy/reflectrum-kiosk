@@ -4,9 +4,64 @@ set -eu
 output=${REFLECTRUM_OUTPUT:-HDMI-A-1}
 rotation=${REFLECTRUM_ROTATION:-90}
 url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
+performance_mode=${REFLECTRUM_PERFORMANCE_MODE:-auto}
+ozone_platform=${REFLECTRUM_OZONE_PLATFORM:-auto}
+display_mode=${REFLECTRUM_DISPLAY_MODE:-auto}
+display_mode_kind=${REFLECTRUM_DISPLAY_MODE_KIND:-auto}
+device_scale_factor=${REFLECTRUM_DEVICE_SCALE_FACTOR:-auto}
+
+if [ "$performance_mode" = auto ] && [ -r /proc/device-tree/model ]; then
+  case "$(tr -d '\000' < /proc/device-tree/model)" in
+    *"Raspberry Pi 3"*) performance_mode=low ;;
+  esac
+fi
+
+if [ "$ozone_platform" = auto ]; then
+  if [ "$performance_mode" = low ]; then
+    ozone_platform=x11
+  else
+    ozone_platform=wayland
+  fi
+fi
+
+if [ "$display_mode" = auto ]; then
+  if [ "$performance_mode" = low ]; then
+    display_mode=854x480@60Hz
+    if [ "$display_mode_kind" = auto ]; then
+      display_mode_kind=custom
+    fi
+    if [ "$device_scale_factor" = auto ]; then
+      device_scale_factor=0.625
+    fi
+  else
+    display_mode=
+  fi
+fi
+if [ "$display_mode_kind" = auto ]; then
+  display_mode_kind=standard
+fi
+if [ "$device_scale_factor" = auto ]; then
+  device_scale_factor=
+fi
+
+if [ "$performance_mode" = low ]; then
+  case "$url" in
+    *performance=low*) ;;
+    *\?*) url="${url}&performance=low" ;;
+    *) url="${url}?performance=low" ;;
+  esac
+fi
 
 if command -v wlr-randr >/dev/null 2>&1; then
-  if ! wlr-randr --output "$output" --transform "$rotation"; then
+  if [ -n "$display_mode" ]; then
+    mode_option=--mode
+    if [ "$display_mode_kind" = custom ]; then
+      mode_option=--custom-mode
+    fi
+    if ! wlr-randr --output "$output" "$mode_option" "$display_mode" --transform "$rotation"; then
+      logger -t reflectrum "could not set $output to $display_mode at $rotation degrees"
+    fi
+  elif ! wlr-randr --output "$output" --transform "$rotation"; then
     logger -t reflectrum "could not rotate $output to $rotation degrees"
   fi
 fi
@@ -21,19 +76,51 @@ until curl --fail --silent --output /dev/null "$url"; do
   sleep 1
 done
 
-browser=$(command -v chromium || command -v chromium-browser || true)
+browser=${REFLECTRUM_BROWSER:-}
+if [ -z "$browser" ] && [ -x /usr/lib/chromium/chromium ]; then
+  # Raspberry Pi OS wraps Chromium with desktop-oriented accessibility and
+  # extension flags. The kiosk does not need them, so use the binary directly.
+  browser=/usr/lib/chromium/chromium
+fi
+if [ -z "$browser" ]; then
+  browser=$(command -v chromium || command -v chromium-browser || true)
+fi
 if [ -z "$browser" ]; then
   logger -t reflectrum "Chromium is not installed"
   exit 1
 fi
 
-exec "$browser" \
+set -- \
   --app="$url" \
   --kiosk \
   --no-first-run \
+  --no-default-browser-check \
+  --noerrdialogs \
   --disable-infobars \
   --disable-session-crashed-bubble \
   --disable-pinch \
+  --disable-extensions \
+  --disable-component-update \
+  --disable-background-networking \
+  --disable-sync \
+  --disable-translate \
+  --disable-renderer-accessibility \
+  --enable-gpu-rasterization \
+  --use-angle=gles \
   --overscroll-history-navigation=0 \
   --password-store=basic \
   --user-data-dir="$HOME/.config/reflectrum-chromium"
+
+if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+  set -- "$@" --ozone-platform="$ozone_platform"
+fi
+
+if [ "$performance_mode" = low ]; then
+  set -- "$@" --enable-low-end-device-mode --renderer-process-limit=2
+fi
+
+if [ -n "$device_scale_factor" ]; then
+  set -- "$@" --force-device-scale-factor="$device_scale_factor"
+fi
+
+exec "$browser" "$@"

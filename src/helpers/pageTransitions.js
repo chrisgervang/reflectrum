@@ -10,9 +10,21 @@ export const navigationDirection = (action, state) => {
   return null;
 };
 
+export const pageTransitionsAvailable = ({
+  document: currentDocument = globalThis.document,
+  location: currentLocation = globalThis.location,
+  config = globalThis.REFLECTRUM_CONFIG,
+  matchMedia = globalThis.matchMedia,
+} = {}) => {
+  if (config?.pageTransitions === false) return false;
+  if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+
+  return typeof currentDocument?.startViewTransition === 'function';
+};
+
 export const pageTransitionMiddleware = ({ getState }) => (next) => (action) => {
   const direction = navigationDirection(action, getState());
-  if (!direction || typeof document === 'undefined' || typeof document.startViewTransition !== 'function') {
+  if (!direction || !pageTransitionsAvailable()) {
     return next(action);
   }
 

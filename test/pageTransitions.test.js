@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   navigationDirection,
+  pageTransitionsAvailable,
   pageTransitionMiddleware,
 } from '../src/helpers/pageTransitions.js';
 
@@ -23,6 +24,19 @@ test('marks back navigation as pop only when history can pop', () => {
 test('does not transition unrelated or standby actions', () => {
   assert.equal(navigationDirection({ type: 'SCROLL_DOWN' }, state), null);
   assert.equal(navigationDirection({ type: 'OPEN_ITEM', page: 'WEATHER' }, { ...state, standby: true }), null);
+});
+
+test('allows deployments to explicitly disable snapshot transitions', () => {
+  const document = { startViewTransition() {} };
+
+  assert.equal(pageTransitionsAvailable({ document, config: { pageTransitions: false } }), false);
+});
+
+test('respects the operating system reduced-motion preference', () => {
+  assert.equal(pageTransitionsAvailable({
+    document: { startViewTransition() {} },
+    matchMedia: () => ({ matches: true }),
+  }), false);
 });
 
 test('dispatches normally when the View Transitions API is unavailable', () => {

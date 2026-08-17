@@ -6,6 +6,24 @@ local_port=${REFLECTRUM_VNC_LOCAL_PORT:-5900}
 viewer=${REFLECTRUM_VNC_VIEWER:-/Applications/TigerVNC.app/Contents/MacOS/vncviewer}
 keychain_service=${REFLECTRUM_VNC_KEYCHAIN_SERVICE:-com.reflectrum.screenshare}
 VNC_USERNAME=${VNC_USERNAME:-reflectrum}
+vnc_started=false
+
+if ssh -o BatchMode=yes "$pi_host" \
+  'systemctl --quiet is-active reflectrum-cog.service'; then
+  printf '%s\n' \
+    'Screen sharing is unavailable while Cog owns the display through DRM.' \
+    'Use the documented Chromium fallback before starting WayVNC.' >&2
+  exit 1
+fi
+
+stop_vnc() {
+  if [ "$vnc_started" = true ]; then
+    ssh -o BatchMode=yes "$pi_host" \
+      'sudo systemctl stop wayvnc.service wayvnc-control.service' \
+      >/dev/null 2>&1 || true
+  fi
+}
+trap stop_vnc EXIT HUP INT TERM
 
 if [ ! -x "$viewer" ]; then
   printf '%s\n' 'TigerVNC is not installed in /Applications.' >&2
@@ -25,6 +43,10 @@ if [ -z "${VNC_PASSWORD:-}" ]; then
 fi
 export VNC_USERNAME VNC_PASSWORD
 
+ssh -o BatchMode=yes "$pi_host" \
+  'sudo systemctl start wayvnc-control.service wayvnc.service'
+vnc_started=true
+
 if ! nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
   ssh -f -N -T \
     -o BatchMode=yes \
@@ -37,7 +59,7 @@ fi
 
 # Tight encoding keeps text sharp while the lower JPEG quality and compression
 # levels reduce work on the Pi 3. The SSH tunnel continues to protect traffic.
-exec "$viewer" \
+"$viewer" \
   -RemoteResize=0 \
   -PreferredEncoding=Tight \
   -QualityLevel=5 \

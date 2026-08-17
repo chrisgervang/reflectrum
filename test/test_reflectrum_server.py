@@ -25,6 +25,8 @@ class ReflectrumServerTests(unittest.TestCase):
             SimpleNamespace(stdout='HDMI-A-1 "Display"\n  Enabled: no\n'),
         ]
         with patch("reflectrum_server.shutil.which", return_value="/usr/bin/wlr-randr"), patch(
+            "reflectrum_server.os.path.exists", return_value=True
+        ), patch(
             "reflectrum_server.subprocess.run", side_effect=results
         ) as run:
             self.assertEqual(handler.display_command("off"), "off")
@@ -32,6 +34,18 @@ class ReflectrumServerTests(unittest.TestCase):
             "/usr/bin/wlr-randr", "--output", "HDMI-A-1", "--off"
         ])
         self.assertEqual(run.call_args_list[1].args[0], ["/usr/bin/wlr-randr"])
+
+    def test_display_command_uses_firmware_control_without_wayland(self):
+        handler = self.make_handler()
+        result = SimpleNamespace(stdout="display_power=0\n")
+        with patch(
+            "reflectrum_server.shutil.which",
+            side_effect=["/usr/bin/wlr-randr", "/usr/bin/vcgencmd"],
+        ), patch("reflectrum_server.os.path.exists", return_value=False), patch(
+            "reflectrum_server.subprocess.run", return_value=result
+        ) as run:
+            self.assertEqual(handler.display_command("off"), "off")
+        self.assertEqual(run.call_args.args[0], ["/usr/bin/vcgencmd", "display_power", "0"])
 
     def test_json_body_is_bounded_and_parsed(self):
         body = json.dumps({"power": "on"}).encode()

@@ -1,0 +1,38 @@
+#!/bin/sh
+set -eu
+
+url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
+video_mode=${REFLECTRUM_COG_VIDEO_MODE:-1366x768}
+rotation=${REFLECTRUM_COG_ROTATION:-3}
+device_scale=${REFLECTRUM_DEVICE_SCALE_FACTOR:-1}
+memory_limit=${REFLECTRUM_COG_MEMORY_LIMIT:-512}
+
+case "$url" in
+  *performance=low*) ;;
+  *\?*) url="${url}&performance=low" ;;
+  *) url="${url}?performance=low" ;;
+esac
+
+attempt=0
+until curl --fail --silent --output /dev/null "$url"; do
+  attempt=$((attempt + 1))
+  if [ "$attempt" -ge 60 ]; then
+    logger -t reflectrum "web application did not become ready at $url"
+    exit 1
+  fi
+  sleep 1
+done
+
+export COG_PLATFORM_DRM_VIDEO_MODE="$video_mode"
+export COG_PLATFORM_DRM_CURSOR=0
+
+exec cog \
+  --platform=drm \
+  --platform-params="renderer=gles,rotation=$rotation" \
+  --device-scale="$device_scale" \
+  --bg-color=black \
+  --webprocess-failure=restart \
+  --enable-accelerated-2d-canvas=true \
+  --enable-smooth-scrolling=false \
+  --web-mem-limit="$memory_limit" \
+  "$url"

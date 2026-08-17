@@ -3,7 +3,11 @@ set -eu
 
 pi_host=${REFLECTRUM_PI_HOST:-adsb.local}
 
-if ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk.service"; then
+if ssh "$pi_host" "systemctl --quiet is-active reflectrum-cog.service"; then
+  ssh "$pi_host" "sudo systemctl restart reflectrum-solaar-headless.service reflectrum-cog.service"
+  printf 'Restarted Reflectrum Cog and input bridge on %s.\n' "$pi_host"
+  exit 0
+elif ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk.service"; then
   kiosk_unit=reflectrum-kiosk.service
 elif ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk-sf.service"; then
   kiosk_unit=reflectrum-kiosk-sf.service

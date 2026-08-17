@@ -1,6 +1,6 @@
 # Vendored from Solaar 1.1.19 rules.d-uinput/42-logitech-unify-permissions.rules.
-# Allows the logged-in desktop user to read Logitech HID++ and emit uinput keys.
-KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
+# Allows the dedicated input service to read Logitech HID++ and emit uinput keys.
+KERNEL=="uinput", SUBSYSTEM=="misc", GROUP="input", MODE="0660", OPTIONS+="static_node=uinput"
 
 ACTION == "remove", GOTO="solaar_end"
 SUBSYSTEM != "hidraw", GOTO="solaar_end"
@@ -12,6 +12,7 @@ KERNELS == "0005:046D:*", GOTO="solaar_apply"
 GOTO="solaar_end"
 
 LABEL="solaar_apply"
+GROUP="input", MODE="0660"
 TAG+="uaccess"
 
 LABEL="solaar_end"

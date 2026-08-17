@@ -1,0 +1,65 @@
+#!/bin/sh
+set -eu
+
+device=/dev/zram0
+percent=${REFLECTRUM_ZRAM_PERCENT:-50}
+requested_algorithm=${REFLECTRUM_ZRAM_ALGORITHM:-auto}
+
+is_active() {
+  swapon --show=NAME --noheadings 2>/dev/null | grep -Fxq "$device"
+}
+
+start_zram() {
+  is_active && return 0
+
+  case "$percent" in
+    ''|*[!0-9]*) echo "Invalid REFLECTRUM_ZRAM_PERCENT: $percent" >&2; exit 1 ;;
+  esac
+  if [ "$percent" -lt 10 ] || [ "$percent" -gt 100 ]; then
+    echo 'REFLECTRUM_ZRAM_PERCENT must be between 10 and 100.' >&2
+    exit 1
+  fi
+
+  modprobe zram num_devices=1
+  if [ "$(cat /sys/block/zram0/disksize)" -ne 0 ]; then
+    echo 1 > /sys/block/zram0/reset
+  fi
+
+  available=$(tr -d '[]' < /sys/block/zram0/comp_algorithm)
+  algorithm=$requested_algorithm
+  if [ "$algorithm" = auto ]; then
+    algorithm=
+    for candidate in lz4 lzo-rle zstd lzo; do
+      case " $available " in
+        *" $candidate "*) algorithm=$candidate; break ;;
+      esac
+    done
+  fi
+  case " $available " in
+    *" $algorithm "*) ;;
+    *) echo "Unsupported zram algorithm: $algorithm (available: $available)" >&2; exit 1 ;;
+  esac
+
+  memory_kib=$(awk '/^MemTotal:/ { print $2 }' /proc/meminfo)
+  size_bytes=$((memory_kib * 1024 * percent / 100))
+  echo "$algorithm" > /sys/block/zram0/comp_algorithm
+  echo "$size_bytes" > /sys/block/zram0/disksize
+  mkswap --label reflectrum-zram "$device" >/dev/null
+  swapon --priority 100 "$device"
+  logger -t reflectrum-zram "enabled $device at ${percent}% of RAM using $algorithm"
+}
+
+stop_zram() {
+  if is_active; then
+    swapoff "$device"
+  fi
+  if [ -w /sys/block/zram0/reset ]; then
+    echo 1 > /sys/block/zram0/reset
+  fi
+}
+
+case "${1:-start}" in
+  start) start_zram ;;
+  stop) stop_zram ;;
+  *) echo "Usage: $0 {start|stop}" >&2; exit 2 ;;
+esac

@@ -1,0 +1,13 @@
+[Unit]
+Description=Reflectrum compressed RAM swap
+After=systemd-modules-load.service local-fs.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/reflectrum/zram.env
+ExecStart=/usr/local/sbin/reflectrum-zram start
+ExecStop=/usr/local/sbin/reflectrum-zram stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

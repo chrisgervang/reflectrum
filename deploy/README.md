@@ -6,8 +6,7 @@ Reflectrum coexists with the FlightAware feeder:
 - `reflectrum-web.service` serves the static build on loopback port 3000.
 - the desktop autostart entry rotates `HDMI-A-1` 90 degrees with `wlr-randr`
   and opens Chromium in kiosk mode.
-- Pi 3 hardware automatically uses a low-overhead Chromium profile and skips
-  snapshot-based page transitions.
+- Pi 3 hardware automatically uses a low-overhead Chromium profile.
 - compressed RAM swap replaces the SD-card swap file.
 - `wlsunset` adjusts display color temperature through labwc's Wayland gamma
   controls; Night Shift is not rendered inside Chromium.
@@ -46,12 +45,14 @@ DHCP address changes do not require script updates. Override it with
 `/opt/reflectrum/reflectrum-config.js` and `/etc/reflectrum/calendar.env`
 untouched.
 
-The performance setup launches Chromium's native binary directly under Wayland,
-avoiding the desktop wrapper's accessibility and extension flags. On a Pi 3 it
-also caps renderer processes and adds `performance=low` to the kiosk URL.
+The performance setup launches Chromium's native binary directly, avoiding the
+desktop wrapper's accessibility and extension flags. On a Pi 3 it also uses the
+slightly smoother X11 backend, caps renderer processes, and adds
+`performance=low` to the kiosk URL.
 Override automatic detection with `REFLECTRUM_PERFORMANCE_MODE=normal` or `low`
 in `/etc/reflectrum/kiosk.env`. Low mode also reduces the Dialpad wheel throttle
-from 90 ms to 40 ms and shortens the menu highlight motion from 180 ms to 55 ms.
+from 90 ms to 40 ms. Set `REFLECTRUM_OZONE_PLATFORM=x11` there to use Xwayland
+instead of Chromium's native Wayland backend for graphics comparison.
 
 `reflectrum-zram.service` allocates 50% of physical RAM as fast compressed swap
 and disables `dphys-swapfile`; the existing `/var/swap` file is left intact for

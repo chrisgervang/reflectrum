@@ -26,11 +26,9 @@ test('does not transition unrelated or standby actions', () => {
   assert.equal(navigationDirection({ type: 'OPEN_ITEM', page: 'WEATHER' }, { ...state, standby: true }), null);
 });
 
-test('disables snapshot transitions in low-performance deployments', () => {
+test('allows deployments to explicitly disable snapshot transitions', () => {
   const document = { startViewTransition() {} };
 
-  assert.equal(pageTransitionsAvailable({ document, location: { search: '?performance=low' } }), false);
-  assert.equal(pageTransitionsAvailable({ document, config: { performanceMode: 'low' } }), false);
   assert.equal(pageTransitionsAvailable({ document, config: { pageTransitions: false } }), false);
 });
 

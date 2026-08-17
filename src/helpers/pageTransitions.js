@@ -1,5 +1,4 @@
 import { flushSync } from 'react-dom';
-import { resolvePerformanceMode } from './performanceMode.js';
 
 let activeTransition = null;
 
@@ -18,7 +17,6 @@ export const pageTransitionsAvailable = ({
   matchMedia = globalThis.matchMedia,
 } = {}) => {
   if (config?.pageTransitions === false) return false;
-  if (resolvePerformanceMode({ config, search: currentLocation?.search }) === 'low') return false;
   if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
 
   return typeof currentDocument?.startViewTransition === 'function';

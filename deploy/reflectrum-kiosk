@@ -5,11 +5,20 @@ output=${REFLECTRUM_OUTPUT:-HDMI-A-1}
 rotation=${REFLECTRUM_ROTATION:-90}
 url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
 performance_mode=${REFLECTRUM_PERFORMANCE_MODE:-auto}
+ozone_platform=${REFLECTRUM_OZONE_PLATFORM:-auto}
 
 if [ "$performance_mode" = auto ] && [ -r /proc/device-tree/model ]; then
   case "$(tr -d '\000' < /proc/device-tree/model)" in
     *"Raspberry Pi 3"*) performance_mode=low ;;
   esac
+fi
+
+if [ "$ozone_platform" = auto ]; then
+  if [ "$performance_mode" = low ]; then
+    ozone_platform=x11
+  else
+    ozone_platform=wayland
+  fi
 fi
 
 if [ "$performance_mode" = low ]; then
@@ -72,7 +81,7 @@ set -- \
   --user-data-dir="$HOME/.config/reflectrum-chromium"
 
 if [ -n "${WAYLAND_DISPLAY:-}" ]; then
-  set -- "$@" --ozone-platform=wayland
+  set -- "$@" --ozone-platform="$ozone_platform"
 fi
 
 if [ "$performance_mode" = low ]; then

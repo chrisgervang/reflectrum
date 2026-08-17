@@ -47,11 +47,13 @@ untouched.
 
 The performance setup launches Chromium's native binary directly, avoiding the
 desktop wrapper's accessibility and extension flags. On a Pi 3 it also uses the
-slightly smoother X11 backend, renders at 720×480 at 60 Hz, caps renderer
-processes, and adds `performance=low` to the kiosk URL.
+slightly smoother X11 backend, renders at 854×480 at 60 Hz, caps renderer
+processes, and adds `performance=low` to the kiosk URL. A 0.625 Chromium device
+scale preserves the original 768×1366 logical layout at the lower resolution.
 Override automatic detection with `REFLECTRUM_PERFORMANCE_MODE=normal` or `low`
-in `/etc/reflectrum/kiosk.env`. Low mode also reduces the Dialpad wheel throttle
-from 90 ms to 40 ms. Set `REFLECTRUM_OZONE_PLATFORM=x11` there to use Xwayland
+in `/etc/reflectrum/kiosk.env`. Low mode uses a 110 ms Dialpad wheel throttle and
+a 100 ms menu-highlight animation so sensitive wheel events do not continually
+restart the animation. Set `REFLECTRUM_OZONE_PLATFORM=x11` there to use Xwayland
 instead of Chromium's native Wayland backend for graphics comparison.
 
 Override the automatic Pi 3 resolution in `/etc/reflectrum/kiosk.env` when
@@ -59,6 +61,8 @@ needed. For example, restore the display's native mode with:
 
 ```ini
 REFLECTRUM_DISPLAY_MODE=1366x768@60Hz
+REFLECTRUM_DISPLAY_MODE_KIND=standard
+REFLECTRUM_DEVICE_SCALE_FACTOR=1
 ```
 
 `reflectrum-zram.service` allocates 50% of physical RAM as fast compressed swap

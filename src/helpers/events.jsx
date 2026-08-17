@@ -15,7 +15,7 @@ const wheelConfig = {
   invert: inputConfig.invertWheel ?? false,
 };
 const wheelCooldownMs = inputConfig.wheelCooldownMs
-  ?? (resolvePerformanceMode() === 'low' ? 40 : 90);
+  ?? (resolvePerformanceMode() === 'low' ? 110 : 90);
 const pressState = { primary: false, secondary: false };
 let lastWheelActionAt = 0;
 let navigationInputBlocked = false;

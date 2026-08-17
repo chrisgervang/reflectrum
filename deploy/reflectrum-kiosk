@@ -7,6 +7,8 @@ url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
 performance_mode=${REFLECTRUM_PERFORMANCE_MODE:-auto}
 ozone_platform=${REFLECTRUM_OZONE_PLATFORM:-auto}
 display_mode=${REFLECTRUM_DISPLAY_MODE:-auto}
+display_mode_kind=${REFLECTRUM_DISPLAY_MODE_KIND:-auto}
+device_scale_factor=${REFLECTRUM_DEVICE_SCALE_FACTOR:-auto}
 
 if [ "$performance_mode" = auto ] && [ -r /proc/device-tree/model ]; then
   case "$(tr -d '\000' < /proc/device-tree/model)" in
@@ -24,10 +26,22 @@ fi
 
 if [ "$display_mode" = auto ]; then
   if [ "$performance_mode" = low ]; then
-    display_mode=720x480@60Hz
+    display_mode=854x480@60Hz
+    if [ "$display_mode_kind" = auto ]; then
+      display_mode_kind=custom
+    fi
+    if [ "$device_scale_factor" = auto ]; then
+      device_scale_factor=0.625
+    fi
   else
     display_mode=
   fi
+fi
+if [ "$display_mode_kind" = auto ]; then
+  display_mode_kind=standard
+fi
+if [ "$device_scale_factor" = auto ]; then
+  device_scale_factor=
 fi
 
 if [ "$performance_mode" = low ]; then
@@ -40,7 +54,11 @@ fi
 
 if command -v wlr-randr >/dev/null 2>&1; then
   if [ -n "$display_mode" ]; then
-    if ! wlr-randr --output "$output" --mode "$display_mode" --transform "$rotation"; then
+    mode_option=--mode
+    if [ "$display_mode_kind" = custom ]; then
+      mode_option=--custom-mode
+    fi
+    if ! wlr-randr --output "$output" "$mode_option" "$display_mode" --transform "$rotation"; then
       logger -t reflectrum "could not set $output to $display_mode at $rotation degrees"
     fi
   elif ! wlr-randr --output "$output" --transform "$rotation"; then
@@ -99,6 +117,10 @@ fi
 
 if [ "$performance_mode" = low ]; then
   set -- "$@" --enable-low-end-device-mode --renderer-process-limit=2
+fi
+
+if [ -n "$device_scale_factor" ]; then
+  set -- "$@" --force-device-scale-factor="$device_scale_factor"
 fi
 
 exec "$browser" "$@"

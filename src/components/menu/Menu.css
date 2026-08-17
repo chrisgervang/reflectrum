@@ -45,6 +45,10 @@ body > div {
   will-change: transform;
 }
 
+html[data-performance-mode='low'] .menu-list-select-item {
+  transition-duration: 100ms;
+}
+
 .menu-list-item {
   height: var(--menu-item-height);
   color: white;

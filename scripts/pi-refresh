@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-pi_host=${REFLECTRUM_PI_HOST:-adsb}
+pi_host=${REFLECTRUM_PI_HOST:-adsb.local}
 
 if ssh "$pi_host" "systemctl --user --machine=pi@ --quiet is-active reflectrum-kiosk.service"; then
   kiosk_unit=reflectrum-kiosk.service

@@ -1,0 +1,14 @@
+[Unit]
+Description=Reflectrum compositor-level Night Shift
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/reflectrum/night-shift.env
+ExecStart=/usr/local/bin/reflectrum-night-shift
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

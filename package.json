@@ -11,7 +11,8 @@
     "pi:deploy": "./scripts/pi-deploy",
     "pi:refresh": "./scripts/pi-refresh",
     "pi:screenshare": "./scripts/pi-screenshare",
-    "check": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('deploy/reflectrum_server.py').read_text())\" && npm test && vite build",
+    "pi:screenshare:setup": "./scripts/pi-screenshare-setup",
+    "check": "python3 -m unittest discover -s test -p 'test_*.py' && npm test && vite build",
     "test": "node --test"
   },
   "repository": {

@@ -1,0 +1,12 @@
+polkit.addRule(function(action, subject) {
+    var reflectrumPowerActions = [
+        "org.freedesktop.login1.reboot",
+        "org.freedesktop.login1.reboot-multiple-sessions",
+        "org.freedesktop.login1.power-off",
+        "org.freedesktop.login1.power-off-multiple-sessions"
+    ];
+
+    if (subject.user === "pi" && reflectrumPowerActions.indexOf(action.id) !== -1) {
+        return polkit.Result.YES;
+    }
+});

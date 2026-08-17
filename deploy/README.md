@@ -6,6 +6,8 @@ Reflectrum coexists with the FlightAware feeder:
 - `reflectrum-web.service` serves the static build on loopback port 3000.
 - the desktop autostart entry rotates `HDMI-A-1` 90 degrees with `wlr-randr`
   and opens Chromium in kiosk mode.
+- `wlsunset` adjusts display color temperature through labwc's Wayland gamma
+  controls; Night Shift is not rendered inside Chromium.
 
 Build on a development computer so the Pi does not need Node.js:
 
@@ -30,7 +32,13 @@ npm run pi:refresh      # restart Chromium without rebuilding
 npm run pi:screenshare  # restore the SSH tunnel and open tuned TigerVNC
 ```
 
-These commands use the `adsb` SSH host by default. Override it with
+`pi:deploy` also installs the tracked loopback server, systemd units, and Solaar
+rules while preserving all deployment-local config and secret environment files.
+Reboot once when the Dialpad rule changes so the running Solaar session reloads
+it.
+
+These commands use the Raspberry Pi's `adsb.local` mDNS name by default, so
+DHCP address changes do not require script updates. Override it with
 `REFLECTRUM_PI_HOST`. Deployment intentionally leaves
 `/opt/reflectrum/reflectrum-config.js` and `/etc/reflectrum/calendar.env`
 untouched.
@@ -44,9 +52,48 @@ The live Motorola display identifies as `HDMI-A-1`, with a preferred mode of
 1366×768 at 60 Hz. After the 90-degree Wayland transform, applications see a
 768×1366 portrait workspace.
 
+## System settings
+
+The Settings page exposes guarded reboot and shutdown actions. Each action
+requires two select presses, and Back cancels the confirmation. The browser can
+only POST `reboot` or `shutdown` to the loopback server. The tracked polkit rule
+allows the `pi` kiosk account only the matching logind power actions; it does not
+grant shell or general sudo access.
+
 Override the output, rotation, or URL by setting `REFLECTRUM_OUTPUT`,
 `REFLECTRUM_ROTATION`, or `REFLECTRUM_URL` in the graphical session before the
 autostart entry runs.
+
+## Night Shift
+
+Install the Bookworm `wlsunset` package before the initial Reflectrum install:
+
+```sh
+sudo apt install wlsunset
+```
+
+The `reflectrum-night-shift` user service talks directly to labwc's
+`wlr-gamma-control` interface. It defaults to San Francisco (`37.8`, `-122.4`),
+6500 K during the day, and 4000 K at night. Solar elevation controls the smooth
+transition, so page changes and Chromium refreshes cannot interrupt the tint.
+The desktop autostart entry starts the service whenever the kiosk session logs
+in, including after a reboot.
+
+Override the defaults in `/etc/reflectrum/night-shift.env`:
+
+```ini
+REFLECTRUM_NIGHT_SHIFT_LATITUDE=37.8
+REFLECTRUM_NIGHT_SHIFT_LONGITUDE=-122.4
+REFLECTRUM_NIGHT_SHIFT_DAY_TEMPERATURE=6500
+REFLECTRUM_NIGHT_SHIFT_NIGHT_TEMPERATURE=4000
+```
+
+Then reload it inside the graphical session:
+
+```sh
+systemctl --user restart reflectrum-night-shift.service
+systemctl --user status reflectrum-night-shift.service
+```
 
 Useful diagnostics:
 
@@ -83,6 +130,56 @@ sudo systemctl restart reflectrum-web
 
 Chromium requests `/api/calendar`, so the private feed URL is never stored in
 the static application.
+
+## Linear assigned tasks
+
+Create a personal API key in Linear and keep it in a root-owned environment
+file; the key must never be placed in the static runtime config or repository.
+
+```sh
+sudoedit /etc/reflectrum/linear.env
+```
+
+Add the secret and restart the loopback service:
+
+```ini
+REFLECTRUM_LINEAR_API_KEY=lin_api_replace_me
+```
+
+```sh
+sudo chmod 600 /etc/reflectrum/linear.env
+sudo systemctl restart reflectrum-web
+```
+
+The Linear page lists active issues assigned to the key owner. Select opens a
+confirmation card; select a second time completes the issue, while back cancels.
+The server verifies ownership again immediately before the update.
+
+## Home Assistant dashboard
+
+Reflectrum's Home page is read-only. It auto-groups locks, lights, sensors, and
+network-related entities, and requests numeric history for small trend lines.
+Create a long-lived Home Assistant access token and store the URL and token only
+on the Pi:
+
+```sh
+sudoedit /etc/reflectrum/home-assistant.env
+```
+
+```ini
+REFLECTRUM_HOME_ASSISTANT_URL=http://home-assistant-host:8123
+REFLECTRUM_HOME_ASSISTANT_TOKEN=replace_with_a_long_lived_token
+```
+
+```sh
+sudo chmod 600 /etc/reflectrum/home-assistant.env
+sudo systemctl restart reflectrum-web
+```
+
+The loopback service returns only allowlisted state fields and exposes no Home
+Assistant mutation route. To put specific numeric entities first in the history
+request, add their entity IDs to `homeAssistant.historyEntities` in the Pi's
+untracked `reflectrum-config.js`.
 
 ## Logitech MX Creative Dialpad
 
@@ -135,7 +232,7 @@ buttons as diverted, and applies these rules:
 | --- | --- |
 | Back Button | Back |
 | Forward Button | Select/forward |
-| Button 6 | Previous item |
+| Button 6 | Fade and toggle physical display power |
 | Left Scroll As Button 7 | Next item |
 
 The installer also adds Solaar's version-pinned `uinput` udev rule so these
@@ -151,3 +248,15 @@ sudo evtest
 
 Solaar handles the vendor HID++ buttons outside the browser, avoiding WebHID's
 interactive permission prompt. Reflectrum itself remains device-independent.
+
+Button 6 emits `F13`, which Reflectrum reserves for display power. The app fades
+to black before asking the loopback service to disable the live Wayland output,
+and enables HDMI with its 90-degree transform before revealing the UI. Older
+non-Wayland Pi images fall back to `vcgencmd`. Other navigation input is ignored
+while the display is off. Override the defaults with
+`REFLECTRUM_DISPLAY_OUTPUT` and `REFLECTRUM_DISPLAY_ROTATION` in a service
+environment file. Test the service directly with:
+
+```sh
+curl http://127.0.0.1:3000/api/display
+```

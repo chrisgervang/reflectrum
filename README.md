@@ -53,7 +53,7 @@ that appear as unusual function keys can be mapped without rebuilding:
 window.REFLECTRUM_CONFIG = {
   input: {
     keyMap: {
-      F13: 'UP_CLICK',
+      F13: 'DISPLAY_TOGGLE',
       F14: 'DOWN_CLICK',
       F15: 'PRIMARY_CLICK',
       F16: 'SECONDARY_CLICK',
@@ -88,6 +88,11 @@ Weather uses the keyless Open-Meteo forecast API. When no location is
 configured, Reflectrum asks the browser for its current position. Calendar
 reads a private iCalendar feed through the loopback-only Pi service; see
 [deploy/README.md](deploy/README.md#calendar-feed).
+
+Night Shift runs at the Raspberry Pi compositor level, outside Chromium, so
+navigation and browser refreshes cannot interrupt the tint. Its location and
+color temperatures are deployment settings documented in
+[deploy/README.md](deploy/README.md#night-shift).
 
 ## Raspberry Pi kiosk
 

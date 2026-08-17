@@ -1,14 +1,29 @@
 #!/bin/sh
 set -eu
 
-pi_host=${REFLECTRUM_PI_HOST:-adsb}
+pi_host=${REFLECTRUM_PI_HOST:-adsb.local}
 local_port=${REFLECTRUM_VNC_LOCAL_PORT:-5900}
 viewer=${REFLECTRUM_VNC_VIEWER:-/Applications/TigerVNC.app/Contents/MacOS/vncviewer}
+keychain_service=${REFLECTRUM_VNC_KEYCHAIN_SERVICE:-com.reflectrum.screenshare}
+VNC_USERNAME=${VNC_USERNAME:-reflectrum}
 
 if [ ! -x "$viewer" ]; then
   printf '%s\n' 'TigerVNC is not installed in /Applications.' >&2
   exit 1
 fi
+
+if [ -z "${VNC_PASSWORD:-}" ]; then
+  if ! VNC_PASSWORD=$(security find-generic-password \
+    -a "$VNC_USERNAME" \
+    -s "$keychain_service" \
+    -w 2>/dev/null); then
+    printf '%s\n' \
+      "No Reflectrum screen-share password was found in macOS Keychain." \
+      "Run the local credential setup before starting screen sharing." >&2
+    exit 1
+  fi
+fi
+export VNC_USERNAME VNC_PASSWORD
 
 if ! nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
   ssh -f -N -T \

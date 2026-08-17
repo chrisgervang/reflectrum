@@ -1,0 +1,142 @@
+.linear-page {
+  min-height: 100%;
+  padding: 48px 46px;
+  background: #08080a;
+  color: #f5f5f7;
+  letter-spacing: normal;
+}
+
+.linear-page__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 42px;
+}
+
+.linear-page h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 500;
+}
+
+.linear-page__count {
+  color: #8e8e93;
+  font-size: 22px;
+}
+
+.linear-page__list {
+  display: grid;
+  gap: 14px;
+}
+
+.linear-issue {
+  position: relative;
+  min-height: 148px;
+  padding: 24px 26px 22px 34px;
+  overflow: hidden;
+  border: 1px solid #242429;
+  border-radius: 20px;
+  background: #121216;
+}
+
+.linear-issue::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  background: var(--state-color, #5e6ad2);
+  content: '';
+}
+
+.linear-issue.is-selected {
+  border-color: #8e8eff;
+  background: #1c1c23;
+  box-shadow: 0 0 0 2px rgb(94 106 210 / 34%);
+}
+
+.linear-issue__meta {
+  display: flex;
+  gap: 16px;
+  color: #9a9aa1;
+  font-size: 18px;
+}
+
+.linear-issue__identifier {
+  color: #b6b6ff;
+  font-weight: 700;
+}
+
+.linear-issue__title {
+  margin-top: 12px;
+  font-size: 28px;
+  line-height: 1.23;
+}
+
+.linear-issue__details {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+  color: #77777f;
+  font-size: 17px;
+}
+
+.linear-page__notice {
+  margin: -22px 0 22px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #24211a;
+  color: #e2bd6b;
+  font-size: 18px;
+  text-align: center;
+}
+
+.linear-page__notice.is-error {
+  background: #2c191b;
+  color: #ff8b91;
+}
+
+.linear-page__message {
+  margin-top: 140px;
+  color: #a1a1a7;
+  text-align: center;
+  font-size: 28px;
+  line-height: 1.5;
+}
+
+.linear-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 54px;
+  background: rgb(0 0 0 / 76%);
+  backdrop-filter: blur(14px);
+}
+
+.linear-confirm__card {
+  width: 100%;
+  padding: 46px 42px;
+  border: 1px solid #414149;
+  border-radius: 28px;
+  background: #19191f;
+  text-align: center;
+}
+
+.linear-confirm__eyebrow {
+  color: #8e8eff;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.linear-confirm__title {
+  margin: 24px 0 38px;
+  font-size: 34px;
+  line-height: 1.3;
+}
+
+.linear-confirm__hint {
+  color: #a1a1a7;
+  font-size: 21px;
+  line-height: 1.5;
+}

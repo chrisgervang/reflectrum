@@ -3,6 +3,9 @@
 window.REFLECTRUM_CONFIG = {
   username: 'Michelle',
   // location: { lat: 0, long: 0, name: 'City, State' },
+  // homeAssistant: {
+  //   historyEntities: ['sensor.outdoor_temperature', 'sensor.internet_download_speed'],
+  // },
   // inputDiagnostics: true,
   // input: {
   //   keyMap: { F13: 'UP_CLICK', F14: 'DOWN_CLICK' },

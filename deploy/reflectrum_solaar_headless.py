@@ -58,6 +58,7 @@ def navigation_wheel_loop():
     can be used independently by future experiences such as games.
     """
     cooldown_seconds = 0.11
+    steering_cooldown_seconds = 0.035
     while not stopping.is_set():
         dial = None
         try:
@@ -75,6 +76,7 @@ def navigation_wheel_loop():
             logger.info("capturing Dialpad wheel from %s", dial.path)
             dial.grab()
             last_action_at = 0.0
+            last_steering_at = 0.0
             for event in dial.read_loop():
                 if stopping.is_set():
                     break
@@ -85,6 +87,10 @@ def navigation_wheel_loop():
                     continue
 
                 if event.code == diversion.evdev.ecodes.REL_HWHEEL:
+                    now = time.monotonic()
+                    if now - last_steering_at < steering_cooldown_seconds:
+                        continue
+                    last_steering_at = now
                     emit_key(
                         diversion.evdev.ecodes.KEY_F14
                         if event.value < 0

@@ -4,6 +4,7 @@ import {
   resolveMouseAction,
   resolveWheelAction,
 } from './inputMapping.js';
+import { resolvePerformanceMode } from './performanceMode.js';
 
 export const MirrorEvents = new EventEmitter();
 
@@ -13,7 +14,8 @@ const wheelConfig = {
   threshold: inputConfig.wheelThreshold ?? 1,
   invert: inputConfig.invertWheel ?? false,
 };
-const wheelCooldownMs = inputConfig.wheelCooldownMs ?? 90;
+const wheelCooldownMs = inputConfig.wheelCooldownMs
+  ?? (resolvePerformanceMode() === 'low' ? 40 : 90);
 const pressState = { primary: false, secondary: false };
 let lastWheelActionAt = 0;
 let navigationInputBlocked = false;

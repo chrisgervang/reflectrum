@@ -50,7 +50,8 @@ The performance setup launches Chromium's native binary directly under Wayland,
 avoiding the desktop wrapper's accessibility and extension flags. On a Pi 3 it
 also caps renderer processes and adds `performance=low` to the kiosk URL.
 Override automatic detection with `REFLECTRUM_PERFORMANCE_MODE=normal` or `low`
-in `/etc/reflectrum/kiosk.env`.
+in `/etc/reflectrum/kiosk.env`. Low mode also reduces the Dialpad wheel throttle
+from 90 ms to 40 ms and shortens the menu highlight motion from 180 ms to 55 ms.
 
 `reflectrum-zram.service` allocates 50% of physical RAM as fast compressed swap
 and disables `dphys-swapfile`; the existing `/var/swap` file is left intact for
@@ -71,8 +72,9 @@ pgrep -af /usr/lib/chromium/chromium
 
 The screen-share launcher favors responsiveness on the Raspberry Pi 3: it
 disables remote resizing, reduces Tight/JPEG quality, lowers compression work,
-and rate-limits pointer updates. Set `REFLECTRUM_VNC_LOCAL_PORT` if port 5900 is
-already used locally.
+and rate-limits pointer updates. WayVNC stays disabled between sessions; the
+launcher starts it before opening TigerVNC and stops it when the viewer exits.
+Set `REFLECTRUM_VNC_LOCAL_PORT` if port 5900 is already used locally.
 
 The live Motorola display identifies as `HDMI-A-1`, with a preferred mode of
 1366×768 at 60 Hz. After the 90-degree Wayland transform, applications see a

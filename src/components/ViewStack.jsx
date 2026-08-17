@@ -10,8 +10,6 @@ class ViewStack extends Component {
   render() {
     const activePageName = this.props.activePageName
 
-    console.log("ViewStack", pages, activePageName)
-
     return (
       <div className="view-stack">
         <div className="view-stack__page">

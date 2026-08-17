@@ -7,6 +7,7 @@ import InputDiagnostics from './components/InputDiagnostics.jsx';
 import { mainMenu } from './components/MainMenu.jsx';
 import moment from 'moment';
 import { pageTransitionMiddleware } from './helpers/pageTransitions.js';
+import { resolvePerformanceMode } from './helpers/performanceMode.js';
 import './base.css';
 
 
@@ -20,6 +21,7 @@ import './base.css';
 //VEC: Additional Pages API
 
 const runtimeConfig = window.REFLECTRUM_CONFIG || {};
+document.documentElement.dataset.performanceMode = resolvePerformanceMode({ config: runtimeConfig });
 
 if (!localStorage.getItem('username')) {
   localStorage.setItem('username', runtimeConfig.username || 'Mirror');
@@ -69,8 +71,6 @@ const reflectrumApp = (state = data, action) => {
     case 'OPEN_ITEM':
       if (!!action.page && state.standby === false) {
         var newHistory = [...state.history, action.page]
-        console.log("OPEN_ITEM: ", newHistory, action.page)
-
         return Object.assign({}, state, {
           activePageName: action.page,
           history: newHistory,
@@ -99,7 +99,6 @@ const reflectrumApp = (state = data, action) => {
         var newHistory = [...state.history];
         newHistory.pop();
 
-        console.log("BACK: ", newHistory);
         return Object.assign({}, state, {
           activePageName: newHistory[newHistory.length - 1],
           history: newHistory,
@@ -111,7 +110,6 @@ const reflectrumApp = (state = data, action) => {
 
       break;
     case 'SCROLL_DOWN':
-      console.log("SCROLL_DOWN", state, action);
       if (state.selectedItem !== action.MAX && state.standby === false) {
         return Object.assign({}, state, {
           selectedItem: state.selectedItem + 1,
@@ -145,7 +143,6 @@ const reflectrumApp = (state = data, action) => {
       });
       break;
     case 'STANDBY':
-      console.log("STATE", state, action);
       if (action.standby === false) {
         return Object.assign({}, state, {
           standby: action.standby,

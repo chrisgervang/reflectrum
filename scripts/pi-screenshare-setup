@@ -46,10 +46,12 @@ if ! printf '%s\n' "$new_password" | ssh -o BatchMode=yes "$pi_host" '
      ! systemctl is-active --quiet wayvnc.service; then
     sudo cp --preserve=mode,ownership "$rollback" "$config"
     sudo systemctl restart wayvnc.service
+    sudo systemctl stop wayvnc.service wayvnc-control.service
     exit 1
   fi
 
   test "$(sudo awk -F= '\''$1 == "address" { print $2 }'\'' "$config")" = 127.0.0.1
+  sudo systemctl stop wayvnc.service wayvnc-control.service
 '; then
   if [ "$had_old_password" = true ]; then
     security add-generic-password \
@@ -68,4 +70,5 @@ if ! printf '%s\n' "$new_password" | ssh -o BatchMode=yes "$pi_host" '
 fi
 
 printf '%s\n' \
-  'Reflectrum screen-share authentication is synchronized with macOS Keychain.'
+  'Reflectrum screen-share authentication is synchronized with macOS Keychain.' \
+  'WayVNC remains stopped and will start only for a screen-share session.'

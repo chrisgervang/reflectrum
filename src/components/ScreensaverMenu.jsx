@@ -26,6 +26,11 @@ export const screensaverMenu = {
       color: "#FFE620",
       key: "MAP"
     },
+    {
+      name: "aquarium",
+      color: "#58D6C7",
+      key: "AQUARIUM"
+    },
 
   ]
 }

@@ -1,0 +1,12 @@
+.aquarium {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #03141b;
+}
+
+.aquarium canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,30 @@
+.display-power-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: opacity 220ms ease-out;
+}
+
+.display-power-curtain.is-dimming,
+.display-power-curtain.is-off,
+.display-power-curtain.is-checking {
+  opacity: 1;
+}
+
+.display-power-curtain.is-checking {
+  transition: none;
+}
+
+.display-power-curtain.is-waking {
+  opacity: 0;
+  transition-duration: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display-power-curtain {
+    transition-duration: 80ms;
+  }
+}

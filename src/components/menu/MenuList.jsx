@@ -8,7 +8,7 @@ class MenuList extends Component {
   render() {
     const props = this.props;
     return (
-        <div className="menu-list">
+        <div className="menu-list" style={{ '--menu-item-count': props.items.length }}>
           <MenuListSelectedItem selectedItem={props.selectedItem} className="menu-list-select-item" />
           <div>
           {

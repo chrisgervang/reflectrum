@@ -16,6 +16,17 @@ const wheelConfig = {
 const wheelCooldownMs = inputConfig.wheelCooldownMs ?? 90;
 const pressState = { primary: false, secondary: false };
 let lastWheelActionAt = 0;
+let navigationInputBlocked = false;
+
+export const setNavigationInputBlocked = (blocked) => {
+  navigationInputBlocked = Boolean(blocked);
+};
+
+const emitAction = (action) => {
+  if (action === 'DISPLAY_TOGGLE' || !navigationInputBlocked) {
+    MirrorEvents.emit(action);
+  }
+};
 
 const diagnostic = (details) => MirrorEvents.emit('INPUT_DIAGNOSTIC', {
   timestamp: new Date().toISOString(),
@@ -34,14 +45,14 @@ const beginButtonPress = (name, event) => {
     pressState[name] = 'click';
   } else if (event.repeat && pressState[name] === 'click') {
     pressState[name] = 'hold';
-    MirrorEvents.emit(name === 'primary' ? 'PRIMARY_HOLD' : 'SECONDARY_HOLD');
+    emitAction(name === 'primary' ? 'PRIMARY_HOLD' : 'SECONDARY_HOLD');
   }
 };
 
 const finishButtonPress = (name, event) => {
   event.preventDefault();
   if (pressState[name] === 'click') {
-    MirrorEvents.emit(name === 'primary' ? 'PRIMARY_CLICK' : 'SECONDARY_CLICK');
+    emitAction(name === 'primary' ? 'PRIMARY_CLICK' : 'SECONDARY_CLICK');
   }
   pressState[name] = false;
 };
@@ -57,7 +68,7 @@ const registerInputListeners = () => {
       beginButtonPress(name, event);
     } else {
       event.preventDefault();
-      if (!event.repeat) MirrorEvents.emit(action);
+      if (!event.repeat) emitAction(action);
     }
   });
 
@@ -78,7 +89,7 @@ const registerInputListeners = () => {
     event.preventDefault();
     if (!throttled) {
       lastWheelActionAt = now;
-      MirrorEvents.emit(action);
+      emitAction(action);
     }
   }, { passive: false });
 
@@ -89,7 +100,7 @@ const registerInputListeners = () => {
   document.addEventListener('mouseup', (event) => {
     const action = resolveMouseAction(event.button);
     diagnostic({ source: 'mouse', type: 'mouseup', button: event.button, action });
-    if (action) MirrorEvents.emit(action);
+    if (action) emitAction(action);
   });
 
   document.addEventListener('contextmenu', (event) => event.preventDefault());

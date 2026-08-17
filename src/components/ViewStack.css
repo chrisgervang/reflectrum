@@ -19,7 +19,7 @@
 ::view-transition-group(reflectrum-page) {
   z-index: 1;
   overflow: hidden;
-  animation-duration: 480ms;
+  animation-duration: 320ms;
   animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
@@ -46,13 +46,13 @@ html[data-page-transition-direction='push']::view-transition-old(reflectrum-page
 html[data-page-transition-direction='push']::view-transition-new(reflectrum-page) {
   z-index: 2;
   animation-name: reflectrum-push-new;
-  box-shadow: -24px 0 56px rgb(0 0 0 / 55%);
+  box-shadow: -14px 0 34px rgb(0 0 0 / 42%);
 }
 
 html[data-page-transition-direction='pop']::view-transition-old(reflectrum-page) {
   z-index: 2;
   animation-name: reflectrum-pop-old;
-  box-shadow: -24px 0 56px rgb(0 0 0 / 55%);
+  box-shadow: -14px 0 34px rgb(0 0 0 / 42%);
 }
 
 html[data-page-transition-direction='pop']::view-transition-new(reflectrum-page) {
@@ -61,12 +61,10 @@ html[data-page-transition-direction='pop']::view-transition-new(reflectrum-page)
 
 @keyframes reflectrum-push-old {
   from {
-    transform: translateX(0) scale(1);
-    filter: brightness(1);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-28%) scale(0.96);
-    filter: brightness(0.72);
+    transform: translateX(-18%);
   }
 }
 
@@ -82,12 +80,10 @@ html[data-page-transition-direction='pop']::view-transition-new(reflectrum-page)
 
 @keyframes reflectrum-pop-new {
   from {
-    transform: translateX(-28%) scale(0.96);
-    filter: brightness(0.72);
+    transform: translateX(-18%);
   }
   to {
-    transform: translateX(0) scale(1);
-    filter: brightness(1);
+    transform: translateX(0);
   }
 }
 

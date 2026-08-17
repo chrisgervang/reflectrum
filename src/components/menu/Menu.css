@@ -30,7 +30,8 @@ body > div {
 
 .menu-list {
   position: relative;
-  --menu-item-height: min(200px, calc((100vh - 260px) / var(--menu-item-count)));
+  /* Keep the selector geometry stable as users move between menus. */
+  --menu-item-height: min(158px, calc((100vh - 260px) / 7));
 }
 
 .menu-list-select-item {

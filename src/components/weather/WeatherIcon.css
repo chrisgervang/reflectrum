@@ -1,0 +1,16 @@
+.weather-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.weather-icon-fill {
+  fill: currentColor;
+  stroke: none;
+}

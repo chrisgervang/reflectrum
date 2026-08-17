@@ -1,21 +1,6 @@
 import React, {Component} from 'react';
 import './WeatherStamp.css';
-
-export const weatherGlyph = (icon) => {
-  const glyphs = {
-    'clear-day': '☀',
-    'clear-night': '☾',
-    rain: '☂',
-    snow: '❄',
-    sleet: '◇',
-    wind: '≋',
-    fog: '≡',
-    cloudy: '☁',
-    'partly-cloudy-day': '⛅',
-    'partly-cloudy-night': '☁',
-  };
-  return glyphs[icon] || '•';
-};
+import { WeatherIcon } from '../weather/WeatherIcon';
 
 
 export class WeatherStamp extends Component {
@@ -25,9 +10,7 @@ export class WeatherStamp extends Component {
       <div className="animated flipInY weather-stamp">
         <p className="time">{this.props.time}</p>
         <div className="icon">
-          <div className="canvas-sizer" aria-hidden="true" style={{fontSize: '96px'}}>
-            {weatherGlyph(this.props.icon)}
-          </div>
+          <WeatherIcon className="canvas-sizer" icon={this.props.icon} label={this.props.summary} />
         </div>
         <p className="temp">{this.props.temperature}</p>
       </div>

@@ -5,7 +5,7 @@ import './Weather.css';
 import { MirrorEvents } from '../../helpers/events';
 import { resolveLocation } from '../../providers/location';
 import { fetchWeather } from '../../providers/weather';
-import { weatherGlyph } from '../lockscreen/WeatherStamp';
+import { WeatherIcon } from './WeatherIcon';
 
 class Weather extends Component {
   state = { status: 'loading', weather: null, error: '' };
@@ -72,7 +72,7 @@ class Weather extends Component {
           {weather.hours.map((hour) => (
             <div className="weaStamp" key={hour.time}>
               <p className="weatherAt">{hour.time}</p>
-              <div className="weather-page-glyph" aria-label={hour.summary}>{weatherGlyph(hour.icon)}</div>
+              <div className="weather-page-glyph"><WeatherIcon icon={hour.icon} label={hour.summary} /></div>
               <p className="tempAt">{hour.temperature}</p>
               <p className="rainAt">{hour.precipitationChance}</p>
             </div>

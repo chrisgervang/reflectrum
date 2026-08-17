@@ -6,6 +6,7 @@ rotation=${REFLECTRUM_ROTATION:-90}
 url=${REFLECTRUM_URL:-http://127.0.0.1:3000/}
 performance_mode=${REFLECTRUM_PERFORMANCE_MODE:-auto}
 ozone_platform=${REFLECTRUM_OZONE_PLATFORM:-auto}
+display_mode=${REFLECTRUM_DISPLAY_MODE:-auto}
 
 if [ "$performance_mode" = auto ] && [ -r /proc/device-tree/model ]; then
   case "$(tr -d '\000' < /proc/device-tree/model)" in
@@ -21,6 +22,14 @@ if [ "$ozone_platform" = auto ]; then
   fi
 fi
 
+if [ "$display_mode" = auto ]; then
+  if [ "$performance_mode" = low ]; then
+    display_mode=720x480@60Hz
+  else
+    display_mode=
+  fi
+fi
+
 if [ "$performance_mode" = low ]; then
   case "$url" in
     *performance=low*) ;;
@@ -30,7 +39,11 @@ if [ "$performance_mode" = low ]; then
 fi
 
 if command -v wlr-randr >/dev/null 2>&1; then
-  if ! wlr-randr --output "$output" --transform "$rotation"; then
+  if [ -n "$display_mode" ]; then
+    if ! wlr-randr --output "$output" --mode "$display_mode" --transform "$rotation"; then
+      logger -t reflectrum "could not set $output to $display_mode at $rotation degrees"
+    fi
+  elif ! wlr-randr --output "$output" --transform "$rotation"; then
     logger -t reflectrum "could not rotate $output to $rotation degrees"
   fi
 fi

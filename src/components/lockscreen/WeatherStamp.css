@@ -19,7 +19,8 @@
   width: 150px;
   height: 150px;
   position: absolute;
-  transform: scale(.6);
+  left: 50%;
+  transform: translateX(-50%) scale(.6);
 }
 
 .weather-stamp > .temp {

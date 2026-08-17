@@ -49,8 +49,12 @@ def emit_key(key_code):
     diversion.simulate_uinput(diversion.evdev.ecodes.EV_KEY, key_code, 0)
 
 
-def dial_wheel_loop():
-    """Translate the Dialpad's horizontal wheel around Cog 0.16's DRM bug."""
+def navigation_wheel_loop():
+    """Translate the top-right vertical wheel around Cog 0.16's DRM bug.
+
+    The large horizontal dial remains captured and intentionally unassigned so it
+    can be used independently by future experiences such as games.
+    """
     cooldown_seconds = 0.11
     while not stopping.is_set():
         dial = None
@@ -74,7 +78,7 @@ def dial_wheel_loop():
                     break
                 if (
                     event.type != diversion.evdev.ecodes.EV_REL
-                    or event.code != diversion.evdev.ecodes.REL_HWHEEL
+                    or event.code != diversion.evdev.ecodes.REL_WHEEL
                     or event.value == 0
                 ):
                     continue
@@ -85,7 +89,7 @@ def dial_wheel_loop():
                 last_action_at = now
                 key_code = (
                     diversion.evdev.ecodes.KEY_UP
-                    if event.value < 0
+                    if event.value > 0
                     else diversion.evdev.ecodes.KEY_DOWN
                 )
                 emit_key(key_code)
@@ -126,7 +130,7 @@ def main():
     if not diversion.setup_uinput():
         raise RuntimeError("Could not create the Solaar virtual keyboard")
 
-    threading.Thread(target=dial_wheel_loop, name="dial-wheel", daemon=True).start()
+    threading.Thread(target=navigation_wheel_loop, name="navigation-wheel", daemon=True).start()
     listener.setup_scanner(status_changed, setting_changed, error_callback)
     configuration.defer_saves = True
     listener.start_all()

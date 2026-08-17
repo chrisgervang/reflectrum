@@ -1,11 +1,18 @@
 .gggg {
-  height: 1366px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flow-root;
   background-color: #254D6A;
   font-family: 'Lato', sans-serif;
   color: white;
 }
 
 .gggg .clock {
+  box-sizing: border-box;
+  margin: 0;
   padding-top: 20px;
   color: white;
   font-size: 25px;
@@ -157,7 +164,7 @@
 }
 
 .weather-status {
-  min-height: 1366px;
+  min-height: 100vh;
   box-sizing: border-box;
   padding: 120px 70px;
   background: #254D6A;
@@ -167,9 +174,9 @@
 }
 
 .weather-page-glyph {
+  width: 90px;
   height: 100px;
-  font-size: 82px;
-  line-height: 100px;
+  margin: 0 auto;
 }
 
 .rainAt {

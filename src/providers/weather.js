@@ -1,13 +1,21 @@
 const FORECAST_URL = 'https://api.open-meteo.com/v1/forecast';
 
-const weatherCode = (code, isDay = true) => {
+export const weatherCode = (code, isDay = true) => {
   if (code === 0) return { summary: 'Clear', icon: isDay ? 'clear-day' : 'clear-night' };
-  if (code === 1 || code === 2) return { summary: 'Partly cloudy', icon: isDay ? 'partly-cloudy-day' : 'partly-cloudy-night' };
-  if (code === 3) return { summary: 'Cloudy', icon: 'cloudy' };
+  if (code === 1) return { summary: 'Mostly clear', icon: isDay ? 'partly-cloudy-day' : 'partly-cloudy-night' };
+  if (code === 2) return { summary: 'Partly cloudy', icon: isDay ? 'partly-cloudy-day' : 'partly-cloudy-night' };
+  if (code === 3) return { summary: 'Overcast', icon: 'cloudy' };
   if (code === 45 || code === 48) return { summary: 'Foggy', icon: 'fog' };
-  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return { summary: 'Rain', icon: 'rain' };
-  if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) return { summary: 'Snow', icon: 'snow' };
-  if (code >= 95) return { summary: 'Thunderstorms', icon: 'rain' };
+  if (code >= 51 && code <= 55) return { summary: 'Drizzle', icon: 'drizzle' };
+  if (code === 56 || code === 57) return { summary: 'Freezing drizzle', icon: 'sleet' };
+  if (code >= 61 && code <= 65) return { summary: 'Rain', icon: 'rain' };
+  if (code === 66 || code === 67) return { summary: 'Freezing rain', icon: 'sleet' };
+  if (code >= 71 && code <= 75) return { summary: 'Snow', icon: 'snow' };
+  if (code === 77) return { summary: 'Snow grains', icon: 'snow' };
+  if (code >= 80 && code <= 82) return { summary: 'Rain showers', icon: 'showers' };
+  if (code === 85 || code === 86) return { summary: 'Snow showers', icon: 'snow' };
+  if (code === 95) return { summary: 'Thunderstorm', icon: 'thunderstorm' };
+  if (code === 96 || code === 99) return { summary: 'Thunderstorm with hail', icon: 'hail' };
   return { summary: 'Conditions unavailable', icon: 'cloudy' };
 };
 
@@ -25,7 +33,7 @@ export const buildWeatherUrl = ({ lat, long }) => {
     latitude: String(lat),
     longitude: String(long),
     current: 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,is_day',
-    hourly: 'temperature_2m,precipitation_probability,weather_code',
+    hourly: 'temperature_2m,precipitation_probability,weather_code,is_day',
     daily: 'weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max',
     temperature_unit: 'fahrenheit',
     wind_speed_unit: 'mph',
@@ -50,7 +58,7 @@ export const normalizeWeather = (payload, location) => {
       time: offset === 0 ? 'Now' : timeLabel(time),
       temperature: temperature(payload.hourly.temperature_2m[index]),
       precipitationChance: percentage(payload.hourly.precipitation_probability[index]),
-      ...weatherCode(payload.hourly.weather_code[index]),
+      ...weatherCode(payload.hourly.weather_code[index], payload.hourly.is_day?.[index] !== 0),
     };
   });
 

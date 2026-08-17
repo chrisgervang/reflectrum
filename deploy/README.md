@@ -298,10 +298,12 @@ applies these rules without GTK or a graphical login:
 | Button 6 | Fade and toggle physical display power |
 | Left Scroll As Button 7 | Next item |
 
-The large wheel reports horizontal high-resolution mouse-wheel events. Cog
-0.16's DRM input back end loses one direction, so the headless bridge grabs only
-the `MX Dialpad Mouse` event device and emits debounced Up/Down keys for both
-signs. The smaller bottom-right control remains mapped to Next item.
+Cog 0.16's DRM input back end loses one direction from the top-right vertical
+roller. The headless bridge therefore grabs only the `MX Dialpad Mouse` event
+device and emits debounced Up/Down keys for both vertical-wheel signs. It keeps
+the large horizontal dial captured but unassigned so an app can use it as a
+separate control later. The smaller bottom-right control remains mapped to Next
+item.
 
 The installer also adds a version-pinned `uinput` udev rule. It grants the
 dedicated service's `input` group read/write access to Logitech `hidraw` devices

@@ -21,7 +21,9 @@ start_zram() {
   fi
 
   modprobe zram num_devices=1
-  echo 1 > /sys/block/zram0/reset
+  if [ "$(cat /sys/block/zram0/disksize)" -ne 0 ]; then
+    echo 1 > /sys/block/zram0/reset
+  fi
 
   available=$(tr -d '[]' < /sys/block/zram0/comp_algorithm)
   algorithm=$requested_algorithm

@@ -344,15 +344,18 @@ class ReflectrumHandler(SimpleHTTPRequestHandler):
 
     def display_command(self, power=None):
         wayland_command = shutil.which("wlr-randr")
-        if wayland_command:
+        runtime_dir = os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
+        wayland_display = os.environ.get("WAYLAND_DISPLAY", "wayland-0")
+        wayland_socket = os.path.join(runtime_dir, wayland_display)
+        if wayland_command and os.path.exists(wayland_socket):
             output_name = os.environ.get("REFLECTRUM_DISPLAY_OUTPUT", "HDMI-A-1")
             rotation = os.environ.get("REFLECTRUM_DISPLAY_ROTATION", "90")
             allowed_rotations = {"normal", "90", "180", "270", "flipped", "flipped-90", "flipped-180", "flipped-270"}
             if rotation not in allowed_rotations:
                 rotation = "90"
             environment = os.environ.copy()
-            environment.setdefault("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
-            environment.setdefault("WAYLAND_DISPLAY", "wayland-0")
+            environment.setdefault("XDG_RUNTIME_DIR", runtime_dir)
+            environment.setdefault("WAYLAND_DISPLAY", wayland_display)
             if power is not None:
                 command = [wayland_command, "--output", output_name, "--off"]
                 if power == "on":

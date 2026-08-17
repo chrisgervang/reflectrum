@@ -15,7 +15,7 @@ if [[ ! -f $source_dir/index.html ]]; then
   exit 1
 fi
 
-for command in chromium curl mkswap python3 solaar swapon swapoff wlr-randr wlsunset; do
+for command in chromium cog curl mkswap python3 setfacl solaar swapon swapoff wlr-randr wlsunset; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "Required command is missing: $command" >&2
     exit 1
@@ -37,6 +37,12 @@ install -o root -g root -m 0644 \
 install -o root -g root -m 0755 \
   "$repo_root/deploy/reflectrum-kiosk" \
   /usr/local/bin/reflectrum-kiosk
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum-cog" \
+  /usr/local/bin/reflectrum-cog
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-cog.service" \
+  /etc/systemd/system/reflectrum-cog.service
 install -o root -g root -m 0755 \
   "$repo_root/deploy/reflectrum-zram" \
   /usr/local/sbin/reflectrum-zram
@@ -67,6 +73,12 @@ install -o root -g root -m 0755 \
 install -o root -g root -m 0644 \
   "$repo_root/deploy/reflectrum-mx-dialpad.desktop" \
   /etc/xdg/autostart/reflectrum-mx-dialpad.desktop
+install -o root -g root -m 0755 \
+  "$repo_root/deploy/reflectrum_solaar_headless.py" \
+  /usr/local/lib/reflectrum/reflectrum_solaar_headless.py
+install -o root -g root -m 0644 \
+  "$repo_root/deploy/reflectrum-solaar-headless.service" \
+  /etc/systemd/system/reflectrum-solaar-headless.service
 
 install -d -o pi -g pi -m 0755 /home/pi/.config/solaar
 install -o pi -g pi -m 0644 \
@@ -80,9 +92,15 @@ install -o root -g root -m 0644 \
   /etc/polkit-1/rules.d/50-reflectrum-power.rules
 udevadm control --reload-rules
 modprobe uinput
+udevadm trigger --subsystem-match=misc --action=change
+udevadm trigger --subsystem-match=hidraw --action=change
+setfacl --remove-all /dev/uinput
+chgrp input /dev/uinput
+chmod 0660 /dev/uinput
 
 systemctl daemon-reload
-systemctl enable --now reflectrum-zram.service
+systemctl reenable reflectrum-zram.service
+systemctl restart reflectrum-zram.service
 sysctl -p /etc/sysctl.d/99-reflectrum-zram.conf
 if systemctl list-unit-files dphys-swapfile.service >/dev/null 2>&1; then
   systemctl disable --now dphys-swapfile.service
@@ -90,9 +108,11 @@ fi
 systemctl --global enable reflectrum-kiosk.service
 systemctl --global enable reflectrum-night-shift.service
 systemctl enable --now reflectrum-web.service
+systemctl disable lightdm.service
+systemctl enable --now reflectrum-solaar-headless.service reflectrum-cog.service
 
 if command -v raspi-config >/dev/null 2>&1; then
   raspi-config nonint do_blanking 1
 fi
 
-echo 'Reflectrum installed. Log out and back in, or reboot, to start kiosk mode.'
+echo 'Reflectrum installed with the Cog direct-DRM kiosk.'

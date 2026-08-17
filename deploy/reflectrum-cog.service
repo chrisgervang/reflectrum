@@ -1,0 +1,21 @@
+[Unit]
+Description=Reflectrum Cog direct-DRM kiosk
+After=reflectrum-web.service reflectrum-solaar-headless.service
+Wants=reflectrum-web.service reflectrum-solaar-headless.service
+Conflicts=display-manager.service
+Before=display-manager.service
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+SupplementaryGroups=video render input
+Environment=HOME=/home/pi
+EnvironmentFile=-/etc/reflectrum/cog.env
+ExecStart=/usr/local/bin/reflectrum-cog
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

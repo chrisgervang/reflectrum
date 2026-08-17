@@ -1,0 +1,19 @@
+[Unit]
+Description=Reflectrum Logitech button bridge
+After=bluetooth.target
+Wants=bluetooth.target
+PartOf=reflectrum-cog.service
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+SupplementaryGroups=input
+Environment=HOME=/home/pi
+ExecStart=/usr/local/lib/reflectrum/reflectrum_solaar_headless.py
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

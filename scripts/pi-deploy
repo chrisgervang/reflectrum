@@ -19,11 +19,16 @@ rsync -az --delete \
   deploy/reflectrum-night-shift.service \
   deploy/reflectrum-night-shift.desktop \
   deploy/reflectrum-kiosk \
+  deploy/reflectrum-cog \
+  deploy/reflectrum-cog.service \
   deploy/reflectrum-zram \
   deploy/reflectrum-zram.service \
   deploy/99-reflectrum-zram.conf \
   deploy/50-reflectrum-power.rules \
+  deploy/42-reflectrum-logitech-permissions.rules \
   deploy/reflectrum-solaar-rules.yaml \
+  deploy/reflectrum_solaar_headless.py \
+  deploy/reflectrum-solaar-headless.service \
   "$pi_host:$runtime_staging/"
 
 # Install only generated files. The Pi's deployment-local
@@ -37,15 +42,19 @@ ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.service /etc/systemd/user/reflectrum-night-shift.service"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-night-shift.desktop /etc/xdg/autostart/reflectrum-night-shift.desktop"
 ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-kiosk /usr/local/bin/reflectrum-kiosk"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-cog /usr/local/bin/reflectrum-cog"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-cog.service /etc/systemd/system/reflectrum-cog.service"
 ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum-zram /usr/local/sbin/reflectrum-zram"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-zram.service /etc/systemd/system/reflectrum-zram.service"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/99-reflectrum-zram.conf /etc/sysctl.d/99-reflectrum-zram.conf"
 ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/50-reflectrum-power.rules /etc/polkit-1/rules.d/50-reflectrum-power.rules"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/42-reflectrum-logitech-permissions.rules /etc/udev/rules.d/42-reflectrum-logitech-permissions.rules"
 ssh "$pi_host" "sudo install -o pi -g pi -m 0644 $runtime_staging/reflectrum-solaar-rules.yaml /home/pi/.config/solaar/rules.yaml"
-ssh "$pi_host" "sudo systemctl daemon-reload && sudo systemctl enable --now reflectrum-zram.service && sudo sysctl -p /etc/sysctl.d/99-reflectrum-zram.conf && if systemctl list-unit-files dphys-swapfile.service >/dev/null 2>&1; then sudo systemctl disable --now dphys-swapfile.service; fi && sudo systemctl --global enable reflectrum-night-shift.service && sudo systemctl restart reflectrum-web.service"
-ssh "$pi_host" "systemctl --user daemon-reload && systemctl --user enable --now reflectrum-night-shift.service"
+ssh "$pi_host" "sudo install -o root -g root -m 0755 $runtime_staging/reflectrum_solaar_headless.py /usr/local/lib/reflectrum/reflectrum_solaar_headless.py"
+ssh "$pi_host" "sudo install -o root -g root -m 0644 $runtime_staging/reflectrum-solaar-headless.service /etc/systemd/system/reflectrum-solaar-headless.service"
+ssh "$pi_host" "sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=misc --action=change && sudo udevadm trigger --subsystem-match=hidraw --action=change && sudo setfacl --remove-all /dev/uinput && sudo chgrp input /dev/uinput && sudo chmod 0660 /dev/uinput"
+ssh "$pi_host" "sudo systemctl daemon-reload && sudo systemctl reenable reflectrum-zram.service && sudo systemctl restart reflectrum-zram.service && sudo sysctl -p /etc/sysctl.d/99-reflectrum-zram.conf && if systemctl list-unit-files dphys-swapfile.service >/dev/null 2>&1; then sudo systemctl disable --now dphys-swapfile.service; fi && sudo systemctl --global enable reflectrum-night-shift.service && sudo systemctl restart reflectrum-web.service && sudo systemctl disable lightdm.service && sudo systemctl enable --now reflectrum-solaar-headless.service reflectrum-cog.service"
 
 "$script_dir/pi-refresh"
 
 printf '%s\n' 'Reflectrum built, deployed, and refreshed.'
-printf '%s\n' 'Reboot once after changing Dialpad rules so the running Solaar session reloads them.'

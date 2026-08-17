@@ -7,6 +7,7 @@ import {
 } from '../src/helpers/inputMapping.js';
 
 test('maps standard navigation and Logitech-friendly media/browser keys', () => {
+  assert.equal(resolveKeyAction({ key: 'F13', code: 'F13' }), 'DISPLAY_TOGGLE');
   assert.equal(resolveKeyAction({ key: 'ArrowUp', code: 'ArrowUp' }), 'UP_CLICK');
   assert.equal(resolveKeyAction({ key: 'MediaTrackNext', code: '' }), 'DOWN_CLICK');
   assert.equal(resolveKeyAction({ key: 'BrowserForward', code: '' }), 'PRIMARY_CLICK');
@@ -14,8 +15,8 @@ test('maps standard navigation and Logitech-friendly media/browser keys', () => 
 });
 
 test('allows deployment-local mappings by key or code', () => {
-  const custom = { F13: 'UP_CLICK', NumpadAdd: 'PRIMARY_CLICK' };
-  assert.equal(resolveKeyAction({ key: 'F13', code: 'F13' }, custom), 'UP_CLICK');
+  const custom = { F14: 'UP_CLICK', NumpadAdd: 'PRIMARY_CLICK' };
+  assert.equal(resolveKeyAction({ key: 'F14', code: 'F14' }, custom), 'UP_CLICK');
   assert.equal(resolveKeyAction({ key: 'Unidentified', code: 'NumpadAdd' }, custom), 'PRIMARY_CLICK');
   assert.equal(resolveKeyAction({ key: 'F20', code: 'F20' }, custom), null);
 });

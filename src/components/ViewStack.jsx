@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {pages} from '../helpers/pages.jsx';
 
 import { StandbyContainer } from './Standby.jsx';
+import DisplayPower from './DisplayPower.jsx';
 import { connect } from 'react-redux';
 import './ViewStack.css';
 class ViewStack extends Component {
@@ -17,6 +18,7 @@ class ViewStack extends Component {
           {pages[activePageName]}
         </div>
         <StandbyContainer />
+        <DisplayPower />
       </div>
     )
   }

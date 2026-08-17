@@ -1,4 +1,5 @@
 export const DEFAULT_KEY_MAP = Object.freeze({
+  F13: 'DISPLAY_TOGGLE',
   ArrowUp: 'UP_CLICK',
   PageUp: 'UP_CLICK',
   MediaTrackPrevious: 'UP_CLICK',

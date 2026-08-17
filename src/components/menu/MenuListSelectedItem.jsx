@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 class MenuListSelectedItem extends Component {
   render() {
     const props = this.props;
-    const top = props.selectedItem * 200 + 'px'
-
     return (
-      <div style={{top: top}} className="menu-list-select-item"></div>
+      <div style={{ '--selected-item': props.selectedItem }} className="menu-list-select-item"></div>
     )
   }
 }

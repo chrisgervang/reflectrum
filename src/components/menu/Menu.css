@@ -30,20 +30,23 @@ body > div {
 
 .menu-list {
   position: relative;
+  --menu-item-height: min(200px, calc((100vh - 260px) / var(--menu-item-count)));
 }
 
 .menu-list-select-item {
   background-color: white;
   opacity: 0.4;
   position: absolute;
-  height: 200px;
+  height: var(--menu-item-height);
   width: 100%;
   top: 0;
-  transition: top 0.5s ease;
+  transform: translateY(calc(var(--selected-item) * var(--menu-item-height)));
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
 }
 
 .menu-list-item {
-  height: 200px;
+  height: var(--menu-item-height);
   color: white;
   opacity: 1;
   display: flex;
@@ -53,7 +56,7 @@ body > div {
   font-size: 80px;
   color: white;
   text-decoration: none;
-  line-height: 200px;
+  line-height: var(--menu-item-height);
   margin: auto;
   flex: 75%;
 }

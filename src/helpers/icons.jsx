@@ -1,6 +1,10 @@
 'use strict';
 
 const store = {
+  'home': `<svg width="80px" height="80px" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M7 38 40 9l33 29-6 7-5-4v30H46V50H34v21H18V41l-5 4-6-7Z"/></svg>`,
+  'linear': `<svg width="80px" height="80px" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M8 46a34 34 0 0 0 26 26L8 46Zm0-12 38 38c4-1 8-2 11-4L12 23c-2 3-3 7-4 11Zm9-19 48 48c3-3 5-6 6-10L27 9c-4 1-7 3-10 6Zm22-9 35 35v-1A34 34 0 0 0 40 6h-1Z"/></svg>`,
+  'aquarium': `<svg width="80px" height="80px" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M51 24c-10-6-24-1-31 8-5-5-11-8-18-8 3 6 3 26 0 32 7 0 13-3 18-8 7 9 21 14 31 8 8-5 13-13 15-16-2-3-7-11-15-16Zm4 15a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/><path fill="currentColor" opacity=".7" d="M67 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm5 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>`,
+  'settings': `<svg width="80px" height="80px" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="m68 44 7 5-8 14-8-3-7 4-1 9H35l-2-9-7-4-8 3-8-14 7-5v-8l-7-5 8-14 8 3 7-4 2-9h16l1 9 7 4 8-3 8 14-7 5v8ZM43 54a14 14 0 1 0 0-28 14 14 0 0 0 0 28Z"/></svg>`,
   'close_quotes': `<svg width="140px" height="115px" viewBox="0 0 140 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                       <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
                       <title>Closing quotes</title>

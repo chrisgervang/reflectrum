@@ -1,0 +1,127 @@
+.settings-page {
+  min-height: 100%;
+  padding: 54px 46px 42px;
+  background: #08080a;
+  color: #f5f5f7;
+  letter-spacing: normal;
+}
+
+.settings-page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 76px;
+}
+
+.settings-page__eyebrow,
+.settings-confirm__eyebrow {
+  color: #8e8e93;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.settings-page h1 {
+  margin: 8px 0 0;
+  font-size: 58px;
+  font-weight: 500;
+}
+
+.settings-page__device {
+  padding-bottom: 8px;
+  color: #8e8e93;
+  font-size: 21px;
+}
+
+.settings-page__actions {
+  display: grid;
+  gap: 22px;
+}
+
+.settings-action {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 26px;
+  min-height: 190px;
+  padding: 36px 34px;
+  border: 1px solid #2b2b30;
+  border-radius: 24px;
+  background: #141417;
+}
+
+.settings-action.is-selected {
+  border-color: var(--settings-accent);
+  background: #1d1d21;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--settings-accent) 30%, transparent);
+}
+
+.settings-action__indicator {
+  border-radius: 999px;
+  background: var(--settings-accent);
+}
+
+.settings-action h2 {
+  margin: 2px 0 18px;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.settings-action p {
+  margin: 0;
+  color: #9b9ba1;
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.settings-page__hint {
+  margin-top: 48px;
+  color: #717178;
+  font-size: 18px;
+  text-align: center;
+}
+
+.settings-page__error {
+  margin: -46px 0 26px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #321719;
+  color: #ff8b91;
+  font-size: 19px;
+  text-align: center;
+}
+
+.settings-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 54px;
+  background: rgb(0 0 0 / 88%);
+}
+
+.settings-confirm__card {
+  width: 100%;
+  padding: 52px 44px;
+  border: 2px solid var(--settings-accent);
+  border-radius: 28px;
+  background: #19191d;
+  text-align: center;
+}
+
+.settings-confirm__eyebrow {
+  color: var(--settings-accent);
+}
+
+.settings-confirm h2 {
+  margin: 26px 0 32px;
+  font-size: 39px;
+  font-weight: 500;
+}
+
+.settings-confirm p {
+  margin: 0;
+  color: #b2b2b7;
+  font-size: 23px;
+  line-height: 1.55;
+}

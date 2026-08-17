@@ -9,6 +9,7 @@ import { QuotesPage } from '../components/quotes/Quotes.jsx'
 import { LockscreenScreensaver } from '../components/LockscreenScreensaver'
 import { WeatherContainer } from '../components/weather/Weather.jsx'
 import OpeningPage from '../components/goodmorning/Opening.jsx'
+import Settings from '../components/settings/Settings.jsx';
 
 export const pages = {
   "MAIN_MENU": <MainMenu />,
@@ -20,5 +21,6 @@ export const pages = {
   "QUOTES": <QuotesPage />,
   "LOCKSCREEN": <LockscreenScreensaver />,
   "WEATHER": <WeatherContainer />,
-  "OPENING": <OpeningPage />
+  "OPENING": <OpeningPage />,
+  "SETTINGS": <Settings />
 }

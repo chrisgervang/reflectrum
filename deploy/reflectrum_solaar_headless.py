@@ -25,6 +25,8 @@ HEADLESS_KEY_CODES = {
     "Escape": diversion.evdev.ecodes.KEY_ESC,
     "Return": diversion.evdev.ecodes.KEY_ENTER,
     "F13": diversion.evdev.ecodes.KEY_F13,
+    "F14": diversion.evdev.ecodes.KEY_F14,
+    "F15": diversion.evdev.ecodes.KEY_F15,
     "Down": diversion.evdev.ecodes.KEY_DOWN,
 }
 
@@ -78,9 +80,18 @@ def navigation_wheel_loop():
                     break
                 if (
                     event.type != diversion.evdev.ecodes.EV_REL
-                    or event.code != diversion.evdev.ecodes.REL_WHEEL
                     or event.value == 0
                 ):
+                    continue
+
+                if event.code == diversion.evdev.ecodes.REL_HWHEEL:
+                    emit_key(
+                        diversion.evdev.ecodes.KEY_F14
+                        if event.value < 0
+                        else diversion.evdev.ecodes.KEY_F15
+                    )
+                    continue
+                if event.code != diversion.evdev.ecodes.REL_WHEEL:
                     continue
 
                 now = time.monotonic()

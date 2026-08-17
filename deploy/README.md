@@ -300,10 +300,10 @@ applies these rules without GTK or a graphical login:
 
 Cog 0.16's DRM input back end loses one direction from the top-right vertical
 roller. The headless bridge therefore grabs only the `MX Dialpad Mouse` event
-device and emits debounced Up/Down keys for both vertical-wheel signs. It keeps
-the large horizontal dial captured but unassigned so an app can use it as a
-separate control later. The smaller bottom-right control remains mapped to Next
-item.
+device and emits debounced Up/Down keys for both vertical-wheel signs. The large
+horizontal dial emits F14/F15, which Reflectrum reserves as independent left and
+right steering controls for the Racing screen. The smaller bottom-right control
+remains mapped to Next item.
 
 The installer also adds a version-pinned `uinput` udev rule. It grants the
 dedicated service's `input` group read/write access to Logitech `hidraw` devices

@@ -13,6 +13,7 @@ import { FishTankScreensaver } from '../components/FishTankScreensaver.jsx';
 import LinearIssues from '../components/linear/LinearIssues.jsx';
 import HomeDashboard from '../components/home/HomeDashboard.jsx';
 import Settings from '../components/settings/Settings.jsx';
+import { RacingScreensaver } from '../components/RacingScreensaver.jsx';
 
 export const pages = {
   "MAIN_MENU": <MainMenu />,
@@ -28,5 +29,6 @@ export const pages = {
   "AQUARIUM": <FishTankScreensaver />,
   "LINEAR": <LinearIssues />,
   "HOME": <HomeDashboard />,
-  "SETTINGS": <Settings />
+  "SETTINGS": <Settings />,
+  "RACING": <RacingScreensaver />
 }

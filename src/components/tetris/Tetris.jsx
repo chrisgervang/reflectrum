@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import { MirrorEvents } from '../../helpers/events';
+import { generateTetrisStack } from '../../providers/tetrisBoard';
 
 export class Tetris extends Component {
   componentDidMount() {
@@ -151,43 +152,29 @@ TetrisGame.prototype.init = function(){
     var board       = this.board,
         boardWidth  = this.boardWidth,
         boardHeight = this.boardHeight,
-        halfHeight  = boardHeight/2,
         curPiece    = this.curPiece,
         x = 0, y = 0;
 
-     // init board
+    // Build the starting stack from legally dropped tetrominoes. The generator
+    // favors flat, hole-free placements while choosing among several good
+    // options so each screensaver run still looks different.
+    var generatedBoard = generateTetrisStack({
+        width: boardWidth,
+        height: boardHeight + 1,
+    });
     for (x = 0; x <= boardWidth; x++) {
         board[x] = [];
         for (y = 0; y <= boardHeight; y++) {
-
-             board[x][y] = {
-                data: 0,
-                colors: ['rgb(0,0,0)', 'rgb(0,0,0)', 'rgb(0,0,0)']
-            };
-
-            if(Math.random() > 0.15 && y > halfHeight){
+            var generatedCell = generatedBoard[x] && generatedBoard[x][y];
+            if (generatedCell) {
                 board[x][y] = {
                     data: 1,
-                    colors: tetrominos[Math.floor(Math.random() * tetrominos.length)].colors
-                };
-            }
-        }
-    }
-
-    // collapse the board a bit
-    for (x = 0; x <= boardWidth; x++) {
-        for (y = boardHeight-1; y > -1; y--) {
-
-            if(board[x][y].data === 0 && y > 0){
-                for(var yy = y; yy > 0; yy--){
-                    if(board[x][yy-1].data){
-
-                        board[x][yy].data = 1;
-                        board[x][yy].colors = board[x][yy-1].colors;
-
-                        board[x][yy-1].data = 0;
-                        board[x][yy-1].colors = ['rgb(0,0,0)', 'rgb(0,0,0)', 'rgb(0,0,0)'];
-                    }
+                    colors: tetrominos[generatedCell.type].colors
+                }
+            } else {
+                board[x][y] = {
+                    data: 0,
+                    colors: ['rgb(0,0,0)', 'rgb(0,0,0)', 'rgb(0,0,0)']
                 }
             }
         }

@@ -19,6 +19,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const MapScreensaver = connect(
-  (state) => {return {}},
+  (state) => ({ locationCache: state.locationCache }),
   mapDispatchToProps
 )(Map)

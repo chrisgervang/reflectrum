@@ -8,6 +8,8 @@ import {
 
 test('maps standard navigation and Logitech-friendly media/browser keys', () => {
   assert.equal(resolveKeyAction({ key: 'F13', code: 'F13' }), 'DISPLAY_TOGGLE');
+  assert.equal(resolveKeyAction({ key: 'F14', code: 'F14' }), 'STEER_LEFT');
+  assert.equal(resolveKeyAction({ key: 'F15', code: 'F15' }), 'STEER_RIGHT');
   assert.equal(resolveKeyAction({ key: 'ArrowUp', code: 'ArrowUp' }), 'UP_CLICK');
   assert.equal(resolveKeyAction({ key: 'MediaTrackNext', code: '' }), 'DOWN_CLICK');
   assert.equal(resolveKeyAction({ key: 'BrowserForward', code: '' }), 'PRIMARY_CLICK');

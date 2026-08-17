@@ -1,5 +1,7 @@
 export const DEFAULT_KEY_MAP = Object.freeze({
   F13: 'DISPLAY_TOGGLE',
+  F14: 'STEER_LEFT',
+  F15: 'STEER_RIGHT',
   ArrowUp: 'UP_CLICK',
   PageUp: 'UP_CLICK',
   MediaTrackPrevious: 'UP_CLICK',

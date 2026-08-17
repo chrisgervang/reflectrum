@@ -42,8 +42,9 @@ scroll wheel, or programmable dial pad.
 The Dialpad is handled as a standard Bluetooth HID device; Reflectrum does not
 depend on Logi Options+. The top-right vertical roller navigates, forward/select
 buttons open the highlighted item, and back buttons return to the previous
-screen. The large horizontal dial is deliberately reserved for experiences
-that need a second input axis. Bursty wheel events are throttled by default.
+screen. The large horizontal dial is an independent input axis: the Racing
+screen uses it for steering, while the forward button provides a short speed
+boost. Bursty wheel events are throttled by default.
 
 Open `http://127.0.0.1:3000/?input-debug=1` on the mirror to see each raw
 keyboard, wheel, or mouse event and the Reflectrum action it produces. Controls

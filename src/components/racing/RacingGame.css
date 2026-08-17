@@ -1,0 +1,6 @@
+.racing-game { position: fixed; inset: 0; overflow: hidden; background: #07152e; color: white; font-family: 'Lato', sans-serif; }
+.racing-game canvas { display: block; width: 100%; height: 100%; image-rendering: auto; }
+.racing-hud { position: absolute; top: 34px; left: 32px; right: 32px; display: flex; justify-content: space-between; align-items: baseline; padding: 16px 20px; background: rgba(0, 0, 0, .48); border-left: 5px solid #ff3b30; letter-spacing: .08em; }
+.racing-hud strong { font-size: 28px; }
+.racing-hud span { color: #86e7ff; font-size: 22px; }
+.racing-help { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: 15px; letter-spacing: .08em; text-shadow: 0 2px 5px #000; }

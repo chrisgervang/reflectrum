@@ -10,6 +10,7 @@ import { LockscreenScreensaver } from '../components/LockscreenScreensaver'
 import { WeatherContainer } from '../components/weather/Weather.jsx'
 import OpeningPage from '../components/goodmorning/Opening.jsx'
 import { FishTankScreensaver } from '../components/FishTankScreensaver.jsx';
+import LinearIssues from '../components/linear/LinearIssues.jsx';
 import Settings from '../components/settings/Settings.jsx';
 
 export const pages = {
@@ -24,5 +25,6 @@ export const pages = {
   "WEATHER": <WeatherContainer />,
   "OPENING": <OpeningPage />,
   "AQUARIUM": <FishTankScreensaver />,
+  "LINEAR": <LinearIssues />,
   "SETTINGS": <Settings />
 }

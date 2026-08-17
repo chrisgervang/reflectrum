@@ -27,6 +27,11 @@ export const mainMenu = {
       key: "QUOTES"
     },
     {
+      name: "linear",
+      color: "#8E8EFF",
+      key: "LINEAR"
+    },
+    {
       name: "settings",
       color: "#FF9F0A",
       key: "SETTINGS"

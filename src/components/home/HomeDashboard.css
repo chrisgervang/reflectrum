@@ -1,0 +1,126 @@
+.home-dashboard {
+  min-height: 100%;
+  padding: 42px 38px;
+  background: radial-gradient(circle at 85% 0%, #152334 0, #080b10 36%, #050607 100%);
+  color: #f3f5f7;
+  letter-spacing: normal;
+}
+
+.home-dashboard__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-dashboard h1 {
+  margin: 0;
+  font-size: 50px;
+  font-weight: 540;
+}
+
+.home-dashboard__updated {
+  color: #87909a;
+  font-size: 17px;
+}
+
+.home-dashboard__tabs {
+  display: flex;
+  gap: 8px;
+  margin: 30px 0 32px;
+}
+
+.home-dashboard__tab {
+  flex: 1;
+  padding: 11px 4px;
+  border-radius: 12px;
+  background: #141920;
+  color: #77808b;
+  text-align: center;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.home-dashboard__tab.is-active {
+  background: #e9f2ff;
+  color: #10151b;
+}
+
+.home-dashboard__notice {
+  margin-bottom: 22px;
+  color: #e3ba68;
+  text-align: center;
+  font-size: 17px;
+}
+
+.home-dashboard__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.home-card {
+  min-height: 150px;
+  padding: 21px 22px;
+  border: 1px solid #202833;
+  border-radius: 20px;
+  background: rgb(17 22 28 / 88%);
+}
+
+.home-card__name {
+  min-height: 42px;
+  overflow: hidden;
+  color: #aab2bc;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.home-card__state {
+  margin-top: 10px;
+  font-size: 31px;
+  line-height: 1.1;
+}
+
+.home-card__state.is-alert {
+  color: #ff867c;
+}
+
+.home-card__sparkline {
+  width: 100%;
+  height: 40px;
+  margin-top: 12px;
+  overflow: visible;
+}
+
+.home-card__sparkline polyline {
+  fill: none;
+  stroke: #6fb3ff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.home-summary {
+  min-height: 210px;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgb(18 25 33 / 90%);
+}
+
+.home-summary__number {
+  font-size: 70px;
+}
+
+.home-summary__label {
+  margin-top: 12px;
+  color: #9ca5af;
+  font-size: 22px;
+  text-transform: capitalize;
+}
+
+.home-dashboard__empty {
+  margin-top: 180px;
+  color: #88919b;
+  text-align: center;
+  font-size: 27px;
+  line-height: 1.5;
+}

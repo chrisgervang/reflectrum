@@ -32,6 +32,11 @@ export const mainMenu = {
       key: "LINEAR"
     },
     {
+      name: "home",
+      color: "#6FB3FF",
+      key: "HOME"
+    },
+    {
       name: "settings",
       color: "#FF9F0A",
       key: "SETTINGS"
